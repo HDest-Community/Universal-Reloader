@@ -14,7 +14,7 @@ class HDUniversalReloader : HDWeapon
 		RoundsToMake = 7;
 		// [Ace] This is absolutely fucking ATROCIOUS.
 		HDRel_Recipe r;
-		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo", "HDRel_RawSteel", 1, "HDRel_RawPowder", 1)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo", "HDRel_RawPlastic", 1, "HDRel_RawPowder", 1)) Recipes.Push(r);
 		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo", "HDRel_RawSteel", 1, "HDRel_RawPowder", 1)) Recipes.Push(r);
 		if (r = HDRel_Recipe.TryCreate("HDShellAmmo", "HDRel_RawPlastic", 2, "HDRel_RawPowder", 2)) Recipes.Push(r);
 		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo", "HDRel_RawBrass", 1, "HDRel_RawPowder", 4)) Recipes.Push(r);
@@ -24,7 +24,7 @@ class HDUniversalReloader : HDWeapon
 		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo", "HDRel_RawBrass", 2, "HDRel_RawPowder", 3)) Recipes.Push(r);
 		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo", "HDRel_RawBrass", 2, "HDRel_RawPowder", 3)) Recipes.Push(r);
 
-		if (r = HDRel_Recipe.TryCreate("HDNDMLoose", "HDRel_RawPlastic", 1, "HDRel_RawPowder", 3)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDNDMLoose", "HDRel_RawSteel", 1, "HDRel_RawPowder", 3)) Recipes.Push(r);
 
 		Super.BeginPlay();
 	}
@@ -382,7 +382,7 @@ class HDRel_RawPlastic : HDRel_CasingMaterial
 		Inventory.Icon "PLTCA0";
 		Inventory.PickupMessage "Picked up some plastic materials.";
 		HDPickup.Bulk 0.22;
-		Scale 0.5;
+		Scale 0.4;
 	}
 
 	States
