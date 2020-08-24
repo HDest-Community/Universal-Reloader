@@ -106,7 +106,7 @@ class HDUniversalReloader : HDWeapon
 			string AmmoIcon = TexMan.GetName(AmmoClass.Icon);
 			string AmmoTag = AmmoClass.GetTag();
 
-			double DrawAlpha = sb.GetAmount(CurrRecipe.Materials[0]) > CurrRecipe.Costs[0] && sb.GetAmount(CurrRecipe.Materials[1]) > CurrRecipe.Costs[1] ? 1.0 : 0.6;
+			double DrawAlpha = HasMaterials(CanAssemble ? FAction_Assemble : FAction_Disassemble, CurrRecipe) ? 1.0 : 0.6;
 			sb.DrawImage(AmmoIcon, (0, -128) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale: (2.5, 2.5));
 			sb.DrawString(sb.pSmallFont, sb.FormatNumber(CanAssemble ? CurrRecipe.GetMaxAssemblyAmount(hpl) : sb.GetAmount(AmmoClass.GetClass()), 1, 4), (0, -112) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
 			sb.DrawString(sb.pSmallFont, AmmoTag, (0, -100) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha);
@@ -126,21 +126,21 @@ class HDUniversalReloader : HDWeapon
 		}
 	}
 
-	protected bool HasMaterials(FAction fact) const
+	protected bool HasMaterials(FAction fact, HDRel_Recipe recipe) const
 	{
 		switch (fact)
 		{
 			case FAction_Assemble:
 				for (int i = 0; i < MaterialCount; ++i)
 				{
-					if (owner.CountInv(Recipes[CurrIndex].Materials[i]) < Recipes[CurrIndex].Costs[i])
+					if (owner.CountInv(recipe.Materials[i]) < recipe.Costs[i])
 					{
 						return false;
 					}
 				}
 				break;
 			case FAction_Disassemble:
-				if (owner.CountInv(Recipes[CurrIndex].AmmoClass) <= 0)
+				if (owner.CountInv(recipe.AmmoClass) <= 0)
 				{
 					return false;
 				}
@@ -166,7 +166,7 @@ class HDUniversalReloader : HDWeapon
 			return;
 		}
 
-		if (fact == FAction_Assemble && !invoker.Recipes[invoker.CurrIndex].CanBeAssembled() || !invoker.HasMaterials(fact))
+		if (fact == FAction_Assemble && !invoker.Recipes[invoker.CurrIndex].CanBeAssembled() || !invoker.HasMaterials(fact, invoker.Recipes[invoker.CurrIndex]))
 		{
 			return;
 		}
