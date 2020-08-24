@@ -15,7 +15,7 @@ class HDUniversalReloader : HDWeapon
 		// [Ace] This is absolutely fucking ATROCIOUS.
 		HDRel_Recipe r;
 		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",		"HDRel_RawPlastic",	1, 1,	"HDRel_RawPowder",	1, 1)) Recipes.Push(r);
-		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawBrass",	1, 1,	"HDRel_RawPowder",	1, 1)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawBrass",	1, 1,	"HDRel_RawPowder",	2, 2)) Recipes.Push(r);
 		if (r = HDRel_Recipe.TryCreate("HDShellAmmo",		"HDRel_RawPlastic",	2, 1,	"HDRel_RawPowder",	2, 2)) Recipes.Push(r);
 		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",		"HDRel_RawBrass",	3, 2,	"HDRel_RawPowder",	4, 4)) Recipes.Push(r);
 		if (r = HDRel_Recipe.TryCreate("SevenMilBrass",		"HDRel_RawBrass",	0, 1,	null,				0, 0)) Recipes.Push(r);
