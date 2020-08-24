@@ -389,23 +389,23 @@ class HDRel_RawBrass : HDRel_CasingMaterial
 	}
 }
 
-class HDRel_RawSteel : HDRel_CasingMaterial
-{
-	Default
-	{
-		Tag "Steel Materials";
-		Inventory.Icon "PBRSA0";
-		Inventory.PickupMessage "Picked up some steel materials.";
-		HDPickup.Bulk 0.28;
-	}
+// class HDRel_RawSteel : HDRel_CasingMaterial
+// {
+// 	Default
+// 	{
+// 		Tag "Steel Materials";
+// 		Inventory.Icon "PBRSA0";
+// 		Inventory.PickupMessage "Picked up some steel materials.";
+// 		HDPickup.Bulk 0.28;
+// 	}
 
-	States
-	{
-		Spawn:
-			PBRS A -1;
-			Stop;
-	}
-}
+// 	States
+// 	{
+// 		Spawn:
+// 			PBRS A -1;
+// 			Stop;
+// 	}
+// }
 
 class HDRel_RawPlastic : HDRel_CasingMaterial
 {
