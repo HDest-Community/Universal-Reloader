@@ -355,6 +355,11 @@ class HDUniversalReloader : HDWeapon
 // [Ace] Not too sure how to use this one yet, but I'll figure something out.
 class HDRel_CraftingMaterial : HDAmmo
 {
+	override void GetItemsThatUseThis()
+	{
+		ItemsThatUseThis.Push("HDUniversalReloader");
+	}
+
 	Default
 	{
 		+FORCEXYBILLBOARD
@@ -362,6 +367,7 @@ class HDRel_CraftingMaterial : HDAmmo
 		+HDPICKUP.MULTIPICKUP
 	}
 }
+
 class HDRel_CasingMaterial : HDRel_CraftingMaterial { }
 class HDRel_PowderMaterial : HDRel_CraftingMaterial { }
 
