@@ -15,15 +15,15 @@ class HDUniversalReloader : HDWeapon
 		// [Ace] This is absolutely fucking ATROCIOUS.
 		HDRel_Recipe r;
 		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",		"HDRel_RawLead",	2, 1,	"HDRel_RawPlastic",	1, 1,	"HDRel_RawPowder",	1, 1)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawLead",	2, 1,	"HDRel_RawBrass",	1, 1,	"HDRel_RawPowder",	2, 2)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawLead",	2, 1,	"HDRel_RawBrass",	1, 1,	"HDRel_RawPowder",	2, 1)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("HDShellAmmo",		"HDRel_RawLead",	4, 3,	"HDRel_RawPlastic",	2, 1,	"HDRel_RawPowder",	1, 1)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("FourMilAmmo",		"HDRel_RawLead",	0, 1,	null,				0, 0,	"HDRel_RawPowder",	0, 1)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",		"HDRel_RawLead",	2, 1,	"HDRel_RawBrass",	2, 2,	"HDRel_RawPowder",	4, 4)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",		"HDRel_RawLead",	2, 1,	"HDRel_RawBrass",	2, 2,	"HDRel_RawPowder",	4, 3)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("SevenMilBrass",		null,				0, 0,	"HDRel_RawBrass",	0, 2,	null,				0, 0)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo",	"HDRel_RawLead",	3, 2,	"HDRel_RawBrass",	2, 1,	"HDRel_RawPowder",	2, 2)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo",	"HDRel_RawLead",	4, 3,	"HDRel_RawBrass",	2, 1,	"HDRel_RawPowder",	2, 2)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HDNDMLoose",		"HDRel_RawLead",	4, 3,	"HDRel_RawBrass",	1, 1,	"HDRel_RawPowder",	2, 2)) Recipes.Push(r); // Guillotine, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HD50OMGAmmo",		"HDRel_RawLead",	5, 3,	"HDRel_RawBrass",	4, 3,	"HDRel_RawPowder",	6, 6)) Recipes.Push(r); // ZM69
+		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo",	"HDRel_RawLead",	3, 2,	"HDRel_RawBrass",	2, 1,	"HDRel_RawPowder",	2, 1)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo",	"HDRel_RawLead",	4, 3,	"HDRel_RawBrass",	2, 1,	"HDRel_RawPowder",	2, 1)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HDNDMLoose",		"HDRel_RawLead",	4, 3,	"HDRel_RawBrass",	1, 1,	"HDRel_RawPowder",	2, 1)) Recipes.Push(r); // Guillotine, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HD50OMGAmmo",		"HDRel_RawLead",	5, 4,	"HDRel_RawBrass",	4, 3,	"HDRel_RawPowder",	6, 4)) Recipes.Push(r); // ZM69
 
 		Super.BeginPlay();
 	}
@@ -520,7 +520,7 @@ class HDRel_Recipe
 		return null;
 	}
 
-	// [Ace] Can't assemble something that's missing a material. Recipes must always have at least two materials.
+	// [Ace] Can't assemble something that's missing a material.
 	bool CanBeAssembled() const
 	{
 		for (int i = 0; i < Materials.Size(); ++i)
