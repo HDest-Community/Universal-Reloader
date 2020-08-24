@@ -108,7 +108,7 @@ class HDUniversalReloader : HDWeapon
 
 			double DrawAlpha = HasMaterials(CanAssemble ? FAction_Assemble : FAction_Disassemble, CurrRecipe) ? 1.0 : 0.6;
 			sb.DrawImage(AmmoIcon, (0, -128) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale: (2.5, 2.5));
-			sb.DrawString(sb.pSmallFont, sb.FormatNumber(CanAssemble ? CurrRecipe.GetMaxAssemblyAmount(hpl) : sb.GetAmount(AmmoClass.GetClass()), 1, 4), (0, -112) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
+			sb.DrawString(sb.pSmallFont, CurrRecipe.GetMaxAssemblyAmount(hpl).." ("..sb.GetAmount(AmmoClass.GetClass())..")", (0, -112) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
 			sb.DrawString(sb.pSmallFont, AmmoTag, (0, -100) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha);
 
 			for (int i = 0; CanAssemble && i < MaterialCount; ++i)
@@ -116,7 +116,7 @@ class HDUniversalReloader : HDWeapon
 				let CurrMat = GetDefaultByType(CurrRecipe.Materials[i]);
 
 				sb.DrawImage(TexMan.GetName(CurrMat.Icon), (-60 + 120 * i, -64) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: DrawAlpha, scale: (2.5, 2.5));
-				sb.DrawString(sb.pSmallFont, CurrRecipe.Costs[i].." ("..sb.GetAmount(CurrMat.GetClass())..")", (-60 + 120 * i, -54) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
+				sb.DrawString(sb.pSmallFont, CurrRecipe.Costs[i].."/"..CurrRecipe.Products[i].." ("..sb.GetAmount(CurrMat.GetClass())..")", (-60 + 120 * i, -54) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
 				sb.DrawString(sb.pSmallFont, CurrMat.GetTag(), (-60 + 120 * i, -42) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha, 80, 1);
 			}
 		}
