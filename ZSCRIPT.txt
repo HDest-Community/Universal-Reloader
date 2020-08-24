@@ -378,7 +378,7 @@ class HDRel_RawBrass : HDRel_CasingMaterial
 	Default
 	{
 		Tag "Brass Materials";
-		Inventory.Icon "RBRSA3A7";
+		Inventory.Icon "BRMTA0";
 		Inventory.PickupMessage "Picked up some brass materials.";
 		HDPickup.Bulk 0.32;
 	}
@@ -386,7 +386,7 @@ class HDRel_RawBrass : HDRel_CasingMaterial
 	States
 	{
 		Spawn:
-			RBRS A -1;
+			BRMT A -1;
 			Stop;
 	}
 }
