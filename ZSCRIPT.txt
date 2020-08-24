@@ -302,7 +302,7 @@ class HDUniversalReloader : HDWeapon
 						{
 							invoker.LoadedMats[i] -= invoker.Recipes[invoker.CurrIndex].Costs[i];
 						}
-						if(random(1, 100) <= 5)
+						if(random(1, 100) <= 10)
 						{
 							A_SpawnItemEx("HDExplosion");
 							A_Explode(32, 32);
@@ -324,7 +324,7 @@ class HDUniversalReloader : HDWeapon
 
 					case FAction_Disassemble:
 						invoker.LoadedRounds--;
-						if(random(1, 100) <= 2) // [Ace] They look the same, but they're not.
+						if(random(1, 100) <= 5) // [Ace] They look the same, but they're not.
 						{
 							A_SpawnItemEx("HDExplosion");
 							A_Explode(32, 32);
