@@ -108,7 +108,9 @@ class HDUniversalReloader : HDWeapon
 
 			double DrawAlpha = HasMaterials(CanAssemble ? FAction_Assemble : FAction_Disassemble, CurrRecipe) ? 1.0 : 0.6;
 			sb.DrawImage(AmmoIcon, (0, -128) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale: (2.5, 2.5));
-			sb.DrawString(sb.pSmallFont, CurrRecipe.GetMaxAssemblyAmount(hpl).." ("..sb.GetAmount(AmmoClass.GetClass())..")", (0, -112) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
+
+			string AmmoNumbers = CanAssemble ? CurrRecipe.GetMaxAssemblyAmount(hpl).." ("..sb.GetAmount(AmmoClass.GetClass())..")" : sb.FormatNumber(sb.GetAmount(AmmoClass.GetClass()), 1, 4);
+			sb.DrawString(sb.pSmallFont, AmmoNumbers, (0, -112) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
 			sb.DrawString(sb.pSmallFont, AmmoTag, (0, -100) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha);
 
 			for (int i = 0; CanAssemble && i < MaterialCount; ++i)
