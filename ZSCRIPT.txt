@@ -14,17 +14,16 @@ class HDUniversalReloader : HDWeapon
 		RoundsToMake = 7;
 		// [Ace] This is absolutely fucking ATROCIOUS.
 		HDRel_Recipe r;
-		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo", "HDRel_RawPlastic", 1, "HDRel_RawPowder", 1)) Recipes.Push(r);
-		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo", "HDRel_RawSteel", 1, "HDRel_RawPowder", 1)) Recipes.Push(r);
-		if (r = HDRel_Recipe.TryCreate("HDShellAmmo", "HDRel_RawPlastic", 2, "HDRel_RawPowder", 2)) Recipes.Push(r);
-		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo", "HDRel_RawBrass", 1, "HDRel_RawPowder", 4)) Recipes.Push(r);
-		if (r = HDRel_Recipe.TryCreate("SevenMilBrass", "HDRel_RawBrass", 1, "HDRel_RawPowder", 0, true)) Recipes.Push(r);
-		if (r = HDRel_Recipe.TryCreate("FourMilAmmo", "HDRel_RawPlastic", 1, "HDRel_RawPowder", 1, true)) Recipes.Push(r);
-
-		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo", "HDRel_RawBrass", 2, "HDRel_RawPowder", 3)) Recipes.Push(r);
-		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo", "HDRel_RawBrass", 2, "HDRel_RawPowder", 3)) Recipes.Push(r);
-
-		if (r = HDRel_Recipe.TryCreate("HDNDMLoose", "HDRel_RawSteel", 1, "HDRel_RawPowder", 3)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo", "HDRel_RawPlastic", 1, 1, "HDRel_RawPowder", 1, 1)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo", "HDRel_RawBrass", 1, 1, "HDRel_RawPowder", 1, 1)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDShellAmmo", "HDRel_RawPlastic", 2, 1, "HDRel_RawPowder", 2, 2)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo", "HDRel_RawBrass", 3, 2, "HDRel_RawPowder", 4, 4)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("SevenMilBrass", "HDRel_RawBrass", 2, 1, "HDRel_RawPowder", 0, 0)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("FourMilAmmo", "HDRel_RawPlastic", 2, 1, "HDRel_RawPowder", 0, 1)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo", "HDRel_RawBrass", 2, 1, "HDRel_RawPowder", 3, 3)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo", "HDRel_RawBrass", 2, 1, "HDRel_RawPowder", 3, 3)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDNDMLoose", "HDRel_RawBrass", 2, 1, "HDRel_RawPowder", 3, 3)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HD50OMGAmmo", "HDRel_RawBrass", 4, 3, "HDRel_RawPowder", 5, 5)) Recipes.Push(r);
 
 		Super.BeginPlay();
 	}
@@ -45,6 +44,8 @@ class HDUniversalReloader : HDWeapon
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
 	override int GetSbarNum(int flags) { return RoundsToMake; }
 
+	// [Ace] This is where the good stuff begins.
+
 	override void ActualPickup(actor other, bool silent)
 	{
 		Super.ActualPickup(other, silent);
@@ -54,24 +55,43 @@ class HDUniversalReloader : HDWeapon
 			return;
 		}
 
-		for (int i = 0; i < MaterialCount; ++i)
+		ChugTicker = 0;
+		switch (FactoryAction)
 		{
-			while (LoadedMats[i] > 0)
-			{
-				LoadedMats[i]--;
-				if (owner.A_JumpIfInventory("FourMilAmmo", 0, "null"))
+			case FAction_Assemble:
+				for (int i = 0; i < MaterialCount; ++i)
 				{
-					owner.A_SpawnItemEx(Recipes[CurrIndex].Materials[i], 0, 0, owner.height - 16, 2, 0, 1);
+					while (LoadedMats[i] > 0)
+					{
+						LoadedMats[i]--;
+						if (owner.A_JumpIfInventory(Recipes[CurrIndex].Materials[i], 0, "null"))
+						{
+							owner.A_SpawnItemEx(Recipes[CurrIndex].Materials[i], 0, 0, owner.height - 16, 2, 0, 1);
+						}
+						else
+						{
+							HDF.Give(owner, Recipes[CurrIndex].Materials[i], 1);
+						}
+					}
 				}
-				else
+				break;
+			case FAction_Disassemble:
+				while (LoadedRounds > 0)
 				{
-					HDF.Give(owner, Recipes[CurrIndex].Materials[i], 1);
+					LoadedRounds--;
+					if (owner.A_JumpIfInventory(Recipes[CurrIndex].AmmoClass, 0, "null"))
+					{
+						owner.A_SpawnItemEx(Recipes[CurrIndex].AmmoClass, 0, 0, owner.height - 16, 2, 0, 1);
+					}
+					else
+					{
+						HDF.Give(owner, Recipes[CurrIndex].AmmoClass, 1);
+					}
 				}
-			}
+				break;
 		}
 	}
 
-	// [Ace] This is where the good stuff begins.
 	override void DrawHUDStuff(HDStatusBar sb, HDWeapon hdw, HDPlayerPawn hpl)
 	{
 		vector2 bob = hpl.hudbob * 0.3;
@@ -90,7 +110,7 @@ class HDUniversalReloader : HDWeapon
 			sb.DrawString(sb.pSmallFont, sb.FormatNumber(AmmoAmount, 1, 4), (0, -112) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
 			sb.DrawString(sb.pSmallFont, AmmoTag, (0, -100) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha);
 
-			for (int i = 0; i < MaterialCount; ++i)
+			for (int i = 0; CurrRecipe.CanBeAssembled() && i < MaterialCount; ++i)
 			{
 				let CurrMat = GetDefaultByType(CurrRecipe.Materials[i]);
 
@@ -145,7 +165,7 @@ class HDUniversalReloader : HDWeapon
 			return;
 		}
 
-		if (fact == FAction_Assemble && invoker.Recipes[invoker.CurrIndex].NoAssembly || !invoker.HasMaterials(fact))
+		if (fact == FAction_Assemble && !invoker.Recipes[invoker.CurrIndex].CanBeAssembled() || !invoker.HasMaterials(fact))
 		{
 			return;
 		}
@@ -172,11 +192,7 @@ class HDUniversalReloader : HDWeapon
 				int DisassemblyLoadAmount = min(AmmoInvAmount, invoker.RoundsToMake);
 				if (DisassemblyLoadAmount > 0)
 				{
-					for (int i = 0; i < MaterialCount; ++i)
-					{
-						int Cost = invoker.Recipes[invoker.CurrIndex].Costs[i];
-						invoker.LoadedMats[i] = DisassemblyLoadAmount * Cost;
-					}
+					invoker.LoadedRounds = DisassemblyLoadAmount;
 					A_TakeInventory(invoker.Recipes[invoker.CurrIndex].AmmoClass, DisassemblyLoadAmount);
 				}
 				break;
@@ -187,6 +203,7 @@ class HDUniversalReloader : HDWeapon
 	const MaterialCount = 2;
 
 	int LoadedMats[MaterialCount];
+	int LoadedRounds;
 	int RoundsToMake;
 	protected FAction FactoryAction;
 	protected Array<HDRel_Recipe> Recipes; // [Ace] This is never checked for Size() > 0, but it's virtually impossible to abort unless Matt changes all the class names overnight.
@@ -274,14 +291,14 @@ class HDUniversalReloader : HDWeapon
 		Blargh:
 			#### A 10
 			{
-				for (int i = 0; i < MaterialCount; ++i)
-				{
-					invoker.LoadedMats[i] -= invoker.Recipes[invoker.CurrIndex].Costs[i];
-				}
 				A_StartSound("roundmaker/pop", 10);
 				switch (invoker.FactoryAction)
 				{
 					case FAction_Assemble:
+						for (int i = 0; i < MaterialCount; ++i)
+						{
+							invoker.LoadedMats[i] -= invoker.Recipes[invoker.CurrIndex].Costs[i];
+						}
 						if(random(1, 100) <= 5)
 						{
 							A_SpawnItemEx("HDExplosion");
@@ -291,9 +308,19 @@ class HDUniversalReloader : HDWeapon
 						{
 							A_SpawnItemEx(invoker.Recipes[invoker.CurrIndex].AmmoClass, 0, 0, 0, 1, 0, 3, 0, SXF_NOCHECKPOSITION);
 						}
+
+						for (int i = 0; i < MaterialCount; ++i)
+						{
+							if (invoker.LoadedMats[i] < invoker.Recipes[invoker.CurrIndex].Costs[i])
+							{
+								invoker.FactoryAction = FAction_None;
+								return;
+							}
+						}
 						break;
 
 					case FAction_Disassemble:
+						invoker.LoadedRounds--;
 						if(random(1, 100) <= 2) // [Ace] They look the same, but they're not.
 						{
 							A_SpawnItemEx("HDExplosion");
@@ -303,22 +330,21 @@ class HDUniversalReloader : HDWeapon
 						{
 							for (int i = 0; i < MaterialCount; ++i)
 							{
-								for (int j = 0; j < invoker.Recipes[invoker.CurrIndex].Costs[i]; ++j)
+								for (int j = 0; j < invoker.Recipes[invoker.CurrIndex].Products[i]; ++j)
 								{
 									A_SpawnItemEx(invoker.Recipes[invoker.CurrIndex].Materials[i], 0, 0, 0, 1, 0, 3, random(0, 359), SXF_NOCHECKPOSITION);
 								}
 							}
+
+							if (invoker.LoadedRounds <= 0)
+							{
+								invoker.FactoryAction = FAction_None;
+								return;
+							}
 						}
 						break;
 				}
-				for (int i = 0; i < MaterialCount; ++i)
-				{
-					if (invoker.LoadedMats[i] < invoker.Recipes[invoker.CurrIndex].Costs[i])
-					{
-						invoker.FactoryAction = FAction_None;
-						return;
-					}
-				}
+				
 			}
 			#### A 0 A_Jump(256, "Spawn");
 			Stop;
@@ -326,7 +352,7 @@ class HDUniversalReloader : HDWeapon
 }
 
 // [Ace] Not too sure how to use this one yet, but I'll figure something out.
-class HDRel_CraftingMaterial : HDPickup
+class HDRel_CraftingMaterial : HDAmmo
 {
 	Default
 	{
@@ -417,9 +443,9 @@ class HDRel_Recipe
 	class<HDAmmo> AmmoClass;
 	class<HDRel_CraftingMaterial> Materials[HDUniversalReloader.MaterialCount];
 	int Costs[HDUniversalReloader.MaterialCount];
-	bool NoAssembly;
+	int Products[HDUniversalReloader.MaterialCount];
 
-	static HDRel_Recipe TryCreate(string amcls, class<HDRel_CasingMaterial> casingMat, int csg, class<HDRel_PowderMaterial> powderMat, int pwd, bool noAss = false) // [Ace] :((((((
+	static HDRel_Recipe TryCreate(string amcls, class<HDRel_CasingMaterial> casingMat, int csgCost, int csgProd, class<HDRel_PowderMaterial> powderMat, int pwdCost, int pwdProd)
 	{
 		HDRel_Recipe Ret = new("HDRel_Recipe");
 		
@@ -427,14 +453,29 @@ class HDRel_Recipe
 		if (Ret.AmmoClass)
 		{
 			Ret.Materials[0] = casingMat;
-			Ret.Costs[0] = csg;
+			Ret.Costs[0] = csgCost;
+			Ret.Products[0] = csgProd;
+
 			Ret.Materials[1] = powderMat;
-			Ret.Costs[1] = pwd;
-			Ret.NoAssembly = noAss;
+			Ret.Costs[1] = pwdCost;
+			Ret.Products[1] = pwdProd;
 
 			return Ret;
 		}
 
 		return null;
+	}
+
+	bool CanBeAssembled() const
+	{
+		for (int i = 0; i < Costs.Size(); ++i)
+		{
+			if (Costs[i] <= 0)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
