@@ -1,0 +1,438 @@
+version "4.0"
+
+class HDUniversalReloader : HDWeapon
+{
+	enum FAction
+	{
+		FAction_None,
+		FAction_Assemble,
+		FAction_Disassemble
+	}
+
+	override void BeginPlay()
+	{
+		RoundsToMake = 7;
+		// [Ace] This is absolutely fucking ATROCIOUS.
+		HDRel_Recipe r;
+		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo", "HDRel_RawSteel", 1, "HDRel_RawPowder", 1)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo", "HDRel_RawSteel", 1, "HDRel_RawPowder", 1)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDShellAmmo", "HDRel_RawPlastic", 2, "HDRel_RawPowder", 2)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo", "HDRel_RawBrass", 1, "HDRel_RawPowder", 4)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("SevenMilBrass", "HDRel_RawBrass", 1, "HDRel_RawPowder", 0, true)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("FourMilAmmo", "HDRel_RawPlastic", 1, "HDRel_RawPowder", 1, true)) Recipes.Push(r);
+
+		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo", "HDRel_RawBrass", 2, "HDRel_RawPowder", 3)) Recipes.Push(r);
+		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo", "HDRel_RawBrass", 2, "HDRel_RawPowder", 3)) Recipes.Push(r);
+
+		Super.BeginPlay();
+	}
+
+	// [Ace] Booooooooooooooring. Never gonna touch these.
+	override string, double GetPickupSprite() { return "URLDA0", 1.0; }
+	override string GetHelpText()
+	{
+		return WEPHELP_FIRE.."  Assemble rounds\n"
+		..WEPHELP_ALTFIRE.."  Disassemble rounds/casings\n"
+		..WEPHELP_FIREMODE.."+"..WEPHELP_FIRE.."  Cycle left\n"
+		..WEPHELP_FIREMODE.."+"..WEPHELP_ALTFIRE.."  Cycle right\n"
+		..WEPHELP_ZOOM.."+"..WEPHELP_UPDOWN.."  Adjust factory amount";
+	}
+	override double GunMass() { return 0; }
+	override double WeaponBulk() { return 60 * Amount; }
+	override bool AddSpareWeapon(actor newowner) { return AddSpareWeaponRegular(newowner); }
+	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
+	override int GetSbarNum(int flags) { return RoundsToMake; }
+
+	override void ActualPickup(actor other, bool silent)
+	{
+		Super.ActualPickup(other, silent);
+
+		if (!owner)
+		{
+			return;
+		}
+
+		for (int i = 0; i < MaterialCount; ++i)
+		{
+			while (LoadedMats[i] > 0)
+			{
+				LoadedMats[i]--;
+				if (owner.A_JumpIfInventory("FourMilAmmo", 0, "null"))
+				{
+					owner.A_SpawnItemEx(Recipes[CurrIndex].Materials[i], 0, 0, owner.height - 16, 2, 0, 1);
+				}
+				else
+				{
+					HDF.Give(owner, Recipes[CurrIndex].Materials[i], 1);
+				}
+			}
+		}
+	}
+
+	// [Ace] This is where the good stuff begins.
+	override void DrawHUDStuff(HDStatusBar sb, HDWeapon hdw, HDPlayerPawn hpl)
+	{
+		vector2 bob = hpl.hudbob * 0.3;
+		
+		sb.DrawImage("URLDA0", (0, -64) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale:(2, 2));
+		let CurrRecipe = Recipes[CurrIndex];
+		if (CurrRecipe)
+		{
+			let AmmoClass = GetDefaultByType(CurrRecipe.AmmoClass);
+			string AmmoIcon = TexMan.GetName(AmmoClass.Icon);
+			string AmmoTag = AmmoClass.GetTag();
+			int AmmoAmount = sb.GetAmount(CurrRecipe.AmmoClass);
+
+			double DrawAlpha = sb.GetAmount(CurrRecipe.Materials[0]) > CurrRecipe.Costs[0] && sb.GetAmount(CurrRecipe.Materials[1]) > CurrRecipe.Costs[1] ? 1.0 : 0.6;
+			sb.DrawImage(AmmoIcon, (0, -128) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale: (2.5, 2.5));
+			sb.DrawString(sb.pSmallFont, sb.FormatNumber(AmmoAmount, 1, 4), (0, -112) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
+			sb.DrawString(sb.pSmallFont, AmmoTag, (0, -100) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha);
+
+			for (int i = 0; i < MaterialCount; ++i)
+			{
+				let CurrMat = GetDefaultByType(CurrRecipe.Materials[i]);
+
+				sb.DrawImage(TexMan.GetName(CurrMat.Icon), (-60 + 120 * i, -64) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: DrawAlpha, scale: (2.5, 2.5));
+				sb.DrawString(sb.pSmallFont, CurrRecipe.Costs[i].." ("..sb.GetAmount(CurrMat.GetClass())..")", (-60 + 120 * i, -54) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
+				sb.DrawString(sb.pSmallFont, CurrMat.GetTag(), (-60 + 120 * i, -42) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha, 80, 1);
+			}
+		}
+		else
+		{
+			sb.DrawString(sb.pSmallFont, "No recipe selected.", (0, -128) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_GOLD);
+		}
+	}
+
+	private bool HasMaterials(FAction fact) const
+	{
+		switch (fact)
+		{
+			case FAction_Assemble:
+				for (int i = 0; i < MaterialCount; ++i)
+				{
+					if (owner.CountInv(Recipes[CurrIndex].Materials[i]) < Recipes[CurrIndex].Costs[i])
+					{
+						return false;
+					}
+				}
+				break;
+			case FAction_Disassemble:
+				if (owner.CountInv(Recipes[CurrIndex].AmmoClass) <= 0)
+				{
+					return false;
+				}
+				break;
+		}
+
+		return true;
+	}
+
+	protected action void A_CheckFactory(FAction fact)
+	{
+		if (player.cmd.buttons & BT_USER2)
+		{
+			switch (fact)
+			{
+				case FAction_Assemble:
+					++invoker.CurrIndex %= invoker.Recipes.Size();
+					break;
+				case FAction_Disassemble:
+					invoker.CurrIndex = invoker.CurrIndex == 0 ? invoker.Recipes.Size() - 1 : invoker.CurrIndex - 1;
+					break;
+			}
+			return;
+		}
+
+		if (fact == FAction_Assemble && invoker.Recipes[invoker.CurrIndex].NoAssembly || !invoker.HasMaterials(fact))
+		{
+			return;
+		}
+
+		invoker.FactoryAction = fact;
+		switch (fact)
+		{
+			case FAction_Assemble:
+				for (int i = 0; i < MaterialCount; ++i)
+				{
+					int Cost = invoker.Recipes[invoker.CurrIndex].Costs[i];
+					int MatInvAmount = CountInv(invoker.Recipes[invoker.CurrIndex].Materials[i]);
+					int AssemblyLoadAmount = min(MatInvAmount, Cost * invoker.RoundsToMake);
+					if (AssemblyLoadAmount > 0)
+					{
+						invoker.LoadedMats[i] = AssemblyLoadAmount;
+						A_TakeInventory(invoker.Recipes[invoker.CurrIndex].Materials[i], AssemblyLoadAmount);
+					}
+				}
+				break;
+				
+			case FAction_Disassemble:
+				int AmmoInvAmount = CountInv(invoker.Recipes[invoker.CurrIndex].AmmoClass);
+				int DisassemblyLoadAmount = min(AmmoInvAmount, invoker.RoundsToMake);
+				if (DisassemblyLoadAmount > 0)
+				{
+					for (int i = 0; i < MaterialCount; ++i)
+					{
+						int Cost = invoker.Recipes[invoker.CurrIndex].Costs[i];
+						invoker.LoadedMats[i] = DisassemblyLoadAmount * Cost;
+					}
+					A_TakeInventory(invoker.Recipes[invoker.CurrIndex].AmmoClass, DisassemblyLoadAmount);
+				}
+				break;
+		}
+		DropInventory(invoker);
+	}
+
+	const MaterialCount = 2;
+
+	int LoadedMats[MaterialCount];
+	int RoundsToMake;
+	protected FAction FactoryAction;
+	protected Array<HDRel_Recipe> Recipes; // [Ace] This is never checked for Size() > 0, but it's virtually impossible to abort unless Matt changes all the class names overnight.
+	protected int CurrIndex;
+	protected int ChugTicker;
+
+	Default
+	{
+		+WEAPON.WIMPY_WEAPON
+		+INVENTORY.INVBAR
+		+HDWEAPON.FITSINBACKPACK
+		Inventory.PickupSound "misc/w_pkup";
+		Inventory.PickupMessage "Picked up a universal reloading device.";
+		Scale 0.6;
+		HDWeapon.RefId "url";
+		Tag "Universal reloading device";
+	}
+
+	States
+	{
+		Spawn:
+			URLD A -1 NoDelay A_JumpIf(invoker.FactoryAction > FAction_None, "Chug");
+			Stop;
+		Select0:
+			TNT1 A 0 A_Raise(999);
+			Wait;
+		Deselect0:
+			TNT1 A 0 A_Lower(999);
+			Wait;
+		Ready:
+			TNT1 A 1
+			{
+				if (PressingZoom())
+				{
+					// [Ace] This code is copy-pasted from HD and I have no idea what all them bitshifts are supposed to do or why they're used in the first place.
+					int InputAmount = player.cmd.pitch;
+					if(InputAmount)
+					{
+						if(abs(InputAmount) < (1 << 7))
+						{
+							InputAmount = clamp(InputAmount, -1, 1);
+						}
+						else
+						{
+							InputAmount >>= 7;
+						}
+					}
+					InputAmount += (justpressed(BT_ATTACK) ? 1 : justpressed(BT_ALTATTACK) ? -1 : 0);
+					HijackMouse();
+					invoker.RoundsToMake = clamp(invoker.RoundsToMake + InputAmount, 1, 30);
+				}
+				else
+				{
+					A_WeaponReady(WRF_ALLOWUSER3);
+				}
+			}
+			Goto ReadyEnd;
+		Fire:
+			TNT1 A 5 A_CheckFactory(FAction_Assemble);
+			Goto Ready;
+		AltFire:
+			TNT1 A 5 A_CheckFactory(FAction_Disassemble);
+			Goto Ready;
+		User3:
+			#### A 0 A_SelectWeapon("PickupManager");
+			Goto Ready;
+		Chug:
+			#### A 0
+			{
+				A_StartSound("roundmaker/chug1", 8);
+				A_StartSound("roundmaker/chug2", 9);
+				vel.z += randompick(-1, 1);
+				vel.xy += (frandom(-0.3, 0.3),frandom(-0.3, 0.3));
+
+				if (invoker.ChugTicker++ >= (invoker.FactoryAction == FAction_Assemble ? 20 : 5))
+				{
+					invoker.ChugTicker = 0;
+					return ResolveState("Blargh");
+				}
+
+				return ResolveState(null);
+			}
+			#### A 3;
+			Loop;
+		Blargh:
+			#### A 10
+			{
+				for (int i = 0; i < MaterialCount; ++i)
+				{
+					invoker.LoadedMats[i] -= invoker.Recipes[invoker.CurrIndex].Costs[i];
+				}
+				A_StartSound("roundmaker/pop", 10);
+				switch (invoker.FactoryAction)
+				{
+					case FAction_Assemble:
+						if(random(1, 100) <= 5)
+						{
+							A_SpawnItemEx("HDExplosion");
+							A_Explode(32, 32);
+						}
+						else
+						{
+							A_SpawnItemEx(invoker.Recipes[invoker.CurrIndex].AmmoClass, 0, 0, 0, 1, 0, 3, 0, SXF_NOCHECKPOSITION);
+						}
+						break;
+
+					case FAction_Disassemble:
+						if(random(1, 100) <= 2) // [Ace] They look the same, but they're not.
+						{
+							A_SpawnItemEx("HDExplosion");
+							A_Explode(32, 32);
+						}
+						else
+						{
+							for (int i = 0; i < MaterialCount; ++i)
+							{
+								for (int j = 0; j < invoker.Recipes[invoker.CurrIndex].Costs[i]; ++j)
+								{
+									A_SpawnItemEx(invoker.Recipes[invoker.CurrIndex].Materials[i], 0, 0, 0, 1, 0, 3, random(0, 359), SXF_NOCHECKPOSITION);
+								}
+							}
+						}
+						break;
+				}
+				for (int i = 0; i < MaterialCount; ++i)
+				{
+					if (invoker.LoadedMats[i] < invoker.Recipes[invoker.CurrIndex].Costs[i])
+					{
+						invoker.FactoryAction = FAction_None;
+						return;
+					}
+				}
+			}
+			#### A 0 A_Jump(256, "Spawn");
+			Stop;
+	}
+}
+
+// [Ace] Not too sure how to use this one yet, but I'll figure something out.
+class HDRel_CraftingMaterial : HDPickup
+{
+	Default
+	{
+		+FORCEXYBILLBOARD
+		-INVENTORY.INVBAR
+		+HDPICKUP.MULTIPICKUP
+	}
+}
+class HDRel_CasingMaterial : HDRel_CraftingMaterial { }
+class HDRel_PowderMaterial : HDRel_CraftingMaterial { }
+
+class HDRel_RawBrass : HDRel_CasingMaterial
+{
+	Default
+	{
+		Tag "Brass Materials";
+		Inventory.Icon "RBRSA3A7";
+		Inventory.PickupMessage "Picked up some brass materials.";
+		HDPickup.Bulk 0.32;
+	}
+
+	States
+	{
+		Spawn:
+			RBRS A -1;
+			Stop;
+	}
+}
+
+class HDRel_RawSteel : HDRel_CasingMaterial
+{
+	Default
+	{
+		Tag "Steel Materials";
+		Inventory.Icon "PBRSA0";
+		Inventory.PickupMessage "Picked up some steel materials.";
+		HDPickup.Bulk 0.28;
+	}
+
+	States
+	{
+		Spawn:
+			PBRS A -1;
+			Stop;
+	}
+}
+
+class HDRel_RawPlastic : HDRel_CasingMaterial
+{
+	Default
+	{
+		Tag "Plastic Materials";
+		Inventory.Icon "PLTCA0";
+		Inventory.PickupMessage "Picked up some plastic materials.";
+		HDPickup.Bulk 0.22;
+		Scale 0.5;
+	}
+
+	States
+	{
+		Spawn:
+			PLTC A -1;
+			Stop;
+	}
+}
+
+class HDRel_RawPowder : HDRel_PowderMaterial
+{
+	Default
+	{
+		Tag "Powder";
+		Inventory.Icon "PWDRA0";
+		Inventory.PickupMessage "Picked up some powder.";
+		HDPickup.Bulk 0.16;
+	}
+
+	States
+	{
+		Spawn:
+			PWDR A -1;
+			Stop;
+	}
+}
+
+// [Ace] This is used for both crafting and disassembly.
+class HDRel_Recipe
+{
+	class<HDAmmo> AmmoClass;
+	class<HDRel_CraftingMaterial> Materials[HDUniversalReloader.MaterialCount];
+	int Costs[HDUniversalReloader.MaterialCount];
+	bool NoAssembly;
+
+	static HDRel_Recipe TryCreate(string amcls, class<HDRel_CasingMaterial> casingMat, int csg, class<HDRel_PowderMaterial> powderMat, int pwd, bool noAss = false) // [Ace] :((((((
+	{
+		HDRel_Recipe Ret = new("HDRel_Recipe");
+		
+		Ret.AmmoClass = amcls;
+		if (Ret.AmmoClass)
+		{
+			Ret.Materials[0] = casingMat;
+			Ret.Costs[0] = csg;
+			Ret.Materials[1] = powderMat;
+			Ret.Costs[1] = pwd;
+			Ret.NoAssembly = noAss;
+
+			return Ret;
+		}
+
+		return null;
+	}
+}
