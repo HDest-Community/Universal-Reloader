@@ -2,6 +2,13 @@ version "4.0"
 
 class HDUniversalReloader : HDWeapon
 {
+	// [Ace] Now I'm starting to understand why Matt used an array for WeaponStatus. It allows transferring data between spare weapons. Neat.
+	enum RProperty
+	{
+		RProperty_RoundsToMake,
+		RProperty_SelectedRecipe
+	}
+
 	enum FAction
 	{
 		FAction_None,
@@ -11,7 +18,8 @@ class HDUniversalReloader : HDWeapon
 
 	override void BeginPlay()
 	{
-		RoundsToMake = 7;
+		Super.BeginPlay();
+		
 		HDRel_Recipe r;
 		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",		"HDRel_RawLead",	2, 1.00,	"HDRel_RawPlastic",	1, 0.75,	"HDRel_RawPowder",	1, 0.75)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawLead",	2, 1.00,	"HDRel_RawBrass",	1, 0.70,	"HDRel_RawPowder",	2, 1.50)) Recipes.Push(r); // Vanilla HD
@@ -25,7 +33,7 @@ class HDUniversalReloader : HDWeapon
 		if (r = HDRel_Recipe.TryCreate("HD50OMGAmmo",		"HDRel_RawLead",	5, 3.80,	"HDRel_RawBrass",	4, 3.00,	"HDRel_RawPowder",	6, 4.00)) Recipes.Push(r); // ZM69
 		if (r = HDRel_Recipe.TryCreate("HD50AM_Ammo",		"HDRel_RawLead",	3, 2.25,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.25)) Recipes.Push(r); // .50 AM, potetobloke's guns
 
-		Super.BeginPlay();
+		WeaponStatus[RProperty_RoundsToMake] = 7;
 	}
 
 	// [Ace] Booooooooooooooring. Never gonna touch these.
@@ -42,7 +50,24 @@ class HDUniversalReloader : HDWeapon
 	override double WeaponBulk() { return 60 * Amount; }
 	override bool AddSpareWeapon(actor newowner) { return AddSpareWeaponRegular(newowner); }
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
-	override int GetSbarNum(int flags) { return RoundsToMake; }
+	override int GetSbarNum(int flags) { return GetRoundsToMake(); }
+
+	protected clearscope HDRel_Recipe, int GetSelectedRecipe()
+	{
+		int Size = Recipes.Size();
+		int SelIndex = WeaponStatus[RProperty_SelectedRecipe];
+		if (Size > 0 && SelIndex < Size) // [Ace] Just in case someone magically manages to set this to an out-of-bounds index.
+		{
+			return Recipes[SelIndex], SelIndex;
+		}
+
+		return null, -1;
+	}
+
+	protected clearscope int GetRoundsToMake()
+	{
+		return WeaponStatus[RProperty_RoundsToMake];
+	}
 
 	// [Ace] This is where the good stuff begins.
 
@@ -56,6 +81,7 @@ class HDUniversalReloader : HDWeapon
 		}
 
 		ChugTicker = 0;
+		HDRel_Recipe SelRecipe = GetSelectedRecipe();
 		switch (FactoryAction)
 		{
 			case FAction_Assemble:
@@ -64,13 +90,13 @@ class HDUniversalReloader : HDWeapon
 					while (LoadedMats[i] > 0)
 					{
 						LoadedMats[i]--;
-						if (owner.A_JumpIfInventory(Recipes[CurrIndex].Materials[i], 0, "null"))
+						if (owner.A_JumpIfInventory(SelRecipe.Materials[i], 0, "null"))
 						{
-							owner.A_SpawnItemEx(Recipes[CurrIndex].Materials[i], 0, 0, owner.height - 16, 2, 0, 1);
+							owner.A_SpawnItemEx(SelRecipe.Materials[i], 0, 0, owner.height - 16, 2, 0, 1);
 						}
 						else
 						{
-							HDF.Give(owner, Recipes[CurrIndex].Materials[i], 1);
+							HDF.Give(owner, SelRecipe.Materials[i], 1);
 						}
 					}
 				}
@@ -79,13 +105,13 @@ class HDUniversalReloader : HDWeapon
 				while (LoadedRounds > 0)
 				{
 					LoadedRounds--;
-					if (owner.A_JumpIfInventory(Recipes[CurrIndex].AmmoClass, 0, "null"))
+					if (owner.A_JumpIfInventory(SelRecipe.AmmoClass, 0, "null"))
 					{
-						owner.A_SpawnItemEx(Recipes[CurrIndex].AmmoClass, 0, 0, owner.height - 16, 2, 0, 1);
+						owner.A_SpawnItemEx(SelRecipe.AmmoClass, 0, 0, owner.height - 16, 2, 0, 1);
 					}
 					else
 					{
-						HDF.Give(owner, Recipes[CurrIndex].AmmoClass, 1);
+						HDF.Give(owner, SelRecipe.AmmoClass, 1);
 					}
 				}
 				break;
@@ -98,7 +124,7 @@ class HDUniversalReloader : HDWeapon
 		int BaseYOffset = -182;
 		
 		sb.DrawImage("URLDA0", (0, BaseYOffset + 68) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale:(2, 2));
-		let CurrRecipe = Recipes[CurrIndex];
+		let CurrRecipe = GetSelectedRecipe();
 		if (CurrRecipe)
 		{
 			bool CanAssemble = CurrRecipe.CanBeAssembled();
@@ -167,43 +193,48 @@ class HDUniversalReloader : HDWeapon
 		return true;
 	}
 
-	protected virtual int GetBoomChance(FAction fact)
+	protected virtual int GetBoomChance(FAction fact, int rounds) const
 	{
 		switch (fact)
 		{
 			default: return 0;
-			case FAction_Assemble: return 5 + int(round(RoundsToMake / 2.0));
+			case FAction_Assemble: return 5 + int(round(amount / 2.0));
 			case FAction_Disassemble: return 5;
 		}
 	}
 
-	protected virtual int GetChugSpeed(FAction fact)
+	protected virtual int GetChugSpeed(FAction fact, int rounds) const
 	{
 		switch (fact)
 		{
 			default: return 1;
-			case FAction_Assemble: return 35 - RoundsToMake;
+			case FAction_Assemble: return 35 - rounds;
 			case FAction_Disassemble: return 5;
 		}
 	}
 
 	protected action void A_CheckFactory(FAction fact)
 	{
+		HDRel_Recipe SelRecipe; int SelIndex;
+		[SelRecipe, SelIndex] = invoker.GetSelectedRecipe();
+
 		if (player.cmd.buttons & BT_USER2)
 		{
 			switch (fact)
 			{
 				case FAction_Assemble:
-					++invoker.CurrIndex %= invoker.Recipes.Size();
+					++SelIndex %= invoker.Recipes.Size();
 					break;
 				case FAction_Disassemble:
-					invoker.CurrIndex = invoker.CurrIndex == 0 ? invoker.Recipes.Size() - 1 : invoker.CurrIndex - 1;
+					SelIndex = SelIndex == 0 ? invoker.Recipes.Size() - 1 : SelIndex - 1;
 					break;
 			}
+			invoker.WeaponStatus[RProperty_SelectedRecipe] = SelIndex;
 			return;
 		}
 
-		if (fact == FAction_Assemble && !invoker.Recipes[invoker.CurrIndex].CanBeAssembled() || !invoker.HasMaterials(fact, invoker.Recipes[invoker.CurrIndex]))
+		
+		if (!SelRecipe || fact == FAction_Assemble && !SelRecipe.CanBeAssembled() || !invoker.HasMaterials(fact, SelRecipe))
 		{
 			return;
 		}
@@ -214,24 +245,24 @@ class HDUniversalReloader : HDWeapon
 			case FAction_Assemble:
 				for (int i = 0; i < MaterialCount; ++i)
 				{
-					int Cost = invoker.Recipes[invoker.CurrIndex].Costs[i];
-					int MatInvAmount = CountInv(invoker.Recipes[invoker.CurrIndex].Materials[i]);
-					int AssemblyLoadAmount = min(MatInvAmount, Cost * invoker.RoundsToMake);
+					int Cost = SelRecipe.Costs[i];
+					int MatInvAmount = CountInv(SelRecipe.Materials[i]);
+					int AssemblyLoadAmount = min(MatInvAmount, Cost * invoker.GetRoundsToMake());
 					if (AssemblyLoadAmount > 0)
 					{
 						invoker.LoadedMats[i] = AssemblyLoadAmount;
-						A_TakeInventory(invoker.Recipes[invoker.CurrIndex].Materials[i], AssemblyLoadAmount);
+						A_TakeInventory(SelRecipe.Materials[i], AssemblyLoadAmount);
 					}
 				}
 				break;
 				
 			case FAction_Disassemble:
-				int AmmoInvAmount = CountInv(invoker.Recipes[invoker.CurrIndex].AmmoClass);
-				int DisassemblyLoadAmount = min(AmmoInvAmount, invoker.RoundsToMake);
+				int AmmoInvAmount = CountInv(SelRecipe.AmmoClass);
+				int DisassemblyLoadAmount = min(AmmoInvAmount, invoker.GetRoundsToMake());
 				if (DisassemblyLoadAmount > 0)
 				{
 					invoker.LoadedRounds = DisassemblyLoadAmount;
-					A_TakeInventory(invoker.Recipes[invoker.CurrIndex].AmmoClass, DisassemblyLoadAmount);
+					A_TakeInventory(SelRecipe.AmmoClass, DisassemblyLoadAmount);
 				}
 				break;
 		}
@@ -242,7 +273,6 @@ class HDUniversalReloader : HDWeapon
 
 	int LoadedMats[MaterialCount];
 	int LoadedRounds;
-	int RoundsToMake;
 	protected FAction FactoryAction;
 	protected Array<HDRel_Recipe> Recipes; // [Ace] This is never checked for Size() > 0, but it's virtually impossible to abort unless Matt changes all the class names overnight.
 	protected int CurrIndex;
@@ -291,7 +321,7 @@ class HDUniversalReloader : HDWeapon
 					}
 					InputAmount += (justpressed(BT_ATTACK) ? 1 : justpressed(BT_ALTATTACK) ? -1 : 0);
 					HijackMouse();
-					invoker.RoundsToMake = clamp(invoker.RoundsToMake + InputAmount, 1, 30);
+					invoker.WeaponStatus[RProperty_RoundsToMake] = clamp(invoker.GetRoundsToMake() + InputAmount, 1, 30);
 				}
 				else
 				{
@@ -316,7 +346,7 @@ class HDUniversalReloader : HDWeapon
 				vel.z += randompick(-1, 1);
 				vel.xy += (frandom(-0.3, 0.3),frandom(-0.3, 0.3));
 
-				if (invoker.ChugTicker++ >= invoker.GetChugSpeed(invoker.FactoryAction))
+				if (invoker.ChugTicker++ >= invoker.GetChugSpeed(invoker.FactoryAction, invoker.GetRoundsToMake()))
 				{
 					invoker.ChugTicker = 0;
 					return ResolveState("Blargh");
@@ -329,27 +359,28 @@ class HDUniversalReloader : HDWeapon
 		Blargh:
 			#### A 10
 			{
+				HDRel_Recipe SelRecipe = invoker.GetSelectedRecipe();
 				A_StartSound("roundmaker/pop", 10);
 				switch (invoker.FactoryAction)
 				{
 					case FAction_Assemble:
 						for (int i = 0; i < MaterialCount; ++i)
 						{
-							invoker.LoadedMats[i] -= invoker.Recipes[invoker.CurrIndex].Costs[i];
+							invoker.LoadedMats[i] -= SelRecipe.Costs[i];
 						}
-						if(random(1, 100) <= invoker.GetBoomChance(FAction_Assemble))
+						if (random(1, 100) <= invoker.GetBoomChance(FAction_Assemble, invoker.GetRoundsToMake()))
 						{
 							A_SpawnItemEx("HDExplosion");
 							A_Explode(32, 32);
 						}
 						else
 						{
-							A_SpawnItemEx(invoker.Recipes[invoker.CurrIndex].AmmoClass, 0, 0, 0, 1, 0, 3, 0, SXF_NOCHECKPOSITION);
+							A_SpawnItemEx(SelRecipe.AmmoClass, 0, 0, 0, 1, 0, 3, 0, SXF_NOCHECKPOSITION);
 						}
 
 						for (int i = 0; i < MaterialCount; ++i)
 						{
-							if (invoker.LoadedMats[i] < invoker.Recipes[invoker.CurrIndex].Costs[i])
+							if (invoker.LoadedMats[i] < SelRecipe.Costs[i])
 							{
 								invoker.FactoryAction = FAction_None;
 								return;
@@ -359,7 +390,7 @@ class HDUniversalReloader : HDWeapon
 
 					case FAction_Disassemble:
 						invoker.LoadedRounds--;
-						if(random(1, 100) <= invoker.GetBoomChance(FAction_Disassemble))
+						if(random(1, 100) <= invoker.GetBoomChance(FAction_Disassemble, invoker.GetRoundsToMake()))
 						{
 							A_SpawnItemEx("HDExplosion");
 							A_Explode(32, 32);
@@ -369,10 +400,10 @@ class HDUniversalReloader : HDWeapon
 							for (int i = 0; i < MaterialCount; ++i)
 							{
 								double RawAmount; int ActualAmount;
-								[RawAmount, ActualAmount] = invoker.Recipes[invoker.CurrIndex].GetProductAmount(i);
+								[RawAmount, ActualAmount] = SelRecipe.GetProductAmount(i);
 								for (int j = 0; j < ActualAmount; ++j)
 								{
-									A_SpawnItemEx(invoker.Recipes[invoker.CurrIndex].Materials[i], 0, 0, 0, 1, 0, 3, random(0, 359), SXF_NOCHECKPOSITION);
+									A_SpawnItemEx(SelRecipe.Materials[i], 0, 0, 0, 1, 0, 3, random(0, 359), SXF_NOCHECKPOSITION);
 								}
 							}
 
