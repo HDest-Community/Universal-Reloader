@@ -14,16 +14,16 @@ class HDUniversalReloader : HDWeapon
 		RoundsToMake = 7;
 		// [Ace] This is absolutely fucking ATROCIOUS.
 		HDRel_Recipe r;
-		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",		"HDRel_RawLead",	2, 1,	"HDRel_RawPlastic",	1, 1,	"HDRel_RawPowder",	1, 1)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawLead",	2, 1,	"HDRel_RawBrass",	1, 1,	"HDRel_RawPowder",	2, 1)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDShellAmmo",		"HDRel_RawLead",	4, 3,	"HDRel_RawPlastic",	2, 1,	"HDRel_RawPowder",	1, 1)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("FourMilAmmo",		"HDRel_RawLead",	0, 1,	null,				0, 0,	"HDRel_RawPowder",	0, 1)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",		"HDRel_RawLead",	2, 1,	"HDRel_RawBrass",	2, 2,	"HDRel_RawPowder",	4, 3)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("SevenMilBrass",		null,				0, 0,	"HDRel_RawBrass",	0, 2,	null,				0, 0)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo",	"HDRel_RawLead",	3, 2,	"HDRel_RawBrass",	2, 1,	"HDRel_RawPowder",	2, 1)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo",	"HDRel_RawLead",	4, 3,	"HDRel_RawBrass",	2, 1,	"HDRel_RawPowder",	2, 1)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HDNDMLoose",		"HDRel_RawLead",	4, 3,	"HDRel_RawBrass",	1, 1,	"HDRel_RawPowder",	2, 1)) Recipes.Push(r); // Guillotine, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HD50OMGAmmo",		"HDRel_RawLead",	5, 4,	"HDRel_RawBrass",	4, 3,	"HDRel_RawPowder",	6, 4)) Recipes.Push(r); // ZM69
+		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",		"HDRel_RawLead",	2, 1.00,	"HDRel_RawPlastic",	1, 0.75,	"HDRel_RawPowder",	1, 0.75)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawLead",	2, 1.00,	"HDRel_RawBrass",	1, 0.70,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDShellAmmo",		"HDRel_RawLead",	4, 3.00,	"HDRel_RawPlastic",	2, 1.00,	"HDRel_RawPowder",	1, 1.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("FourMilAmmo",		"HDRel_RawLead",	0, 1.00,	null,				0, 0.00,	"HDRel_RawPowder",	0, 1.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",		"HDRel_RawLead",	2, 1.50,	"HDRel_RawBrass",	2, 2.00,	"HDRel_RawPowder",	4, 3.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("SevenMilBrass",		null,				0, 0.00,	"HDRel_RawBrass",	0, 2.00,	null,				0, 0.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo",	"HDRel_RawLead",	3, 2.00,	"HDRel_RawBrass",	2, 1.00,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo",	"HDRel_RawLead",	4, 2.60,	"HDRel_RawBrass",	2, 1.00,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HDNDMLoose",		"HDRel_RawLead",	4, 2.75,	"HDRel_RawBrass",	1, 1.00,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // Guillotine, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HD50OMGAmmo",		"HDRel_RawLead",	5, 3.80,	"HDRel_RawBrass",	4, 3.00,	"HDRel_RawPowder",	6, 4.00)) Recipes.Push(r); // ZM69
 
 		Super.BeginPlay();
 	}
@@ -95,9 +95,9 @@ class HDUniversalReloader : HDWeapon
 	override void DrawHUDStuff(HDStatusBar sb, HDWeapon hdw, HDPlayerPawn hpl)
 	{
 		vector2 bob = hpl.hudbob * 0.3;
-		int BaseYOffset = -170;
+		int BaseYOffset = -178;
 		
-		sb.DrawImage("URLDA0", (0, BaseYOffset + 64) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale:(2, 2));
+		sb.DrawImage("URLDA0", (0, BaseYOffset + 68) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale:(2, 2));
 		let CurrRecipe = Recipes[CurrIndex];
 		if (CurrRecipe)
 		{
@@ -113,14 +113,28 @@ class HDUniversalReloader : HDWeapon
 			string AmmoNumbers = CanAssemble ? CurrRecipe.GetMaxAssemblyAmount(hpl).." ("..sb.GetAmount(AmmoClass.GetClass())..")" : sb.FormatNumber(sb.GetAmount(AmmoClass.GetClass()), 1, 4);
 			sb.DrawString(sb.pSmallFont, AmmoNumbers, (0, BaseYOffset + 22) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
 			sb.DrawString(sb.pSmallFont, AmmoTag, (0, BaseYOffset + 32) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha);
-
-			for (int i = 0; CanAssemble && i < MaterialCount; ++i)
+			if (!CanAssemble)
 			{
-				let CurrMat = GetDefaultByType(CurrRecipe.Materials[i]);
+				sb.DrawString(sb.pSmallFont, "Cannot be assembled", (0, BaseYOffset + 42) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_RED, DrawAlpha);
+			}
 
+			for (int i = 0; i < MaterialCount; ++i)
+			{
+				if (!CurrRecipe.Materials[i])
+				{
+					continue;
+				}
+
+				let CurrMat = GetDefaultByType(CurrRecipe.Materials[i]);
 				sb.DrawImage(TexMan.GetName(CurrMat.Icon), (-80 + 80 * i, BaseYOffset + 96) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: DrawAlpha, scale: (2.5, 2.5));
-				sb.DrawString(sb.pSmallFont, CurrRecipe.Costs[i].."/"..CurrRecipe.Products[i].." ("..sb.GetAmount(CurrMat.GetClass())..")", (-80 + 80 * i, BaseYOffset + 106) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
-				sb.DrawString(sb.pSmallFont, CurrMat.GetTag(), (-80 + 80 * i, BaseYOffset + 116) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha, 80, 1);
+				
+				string CostString = sb.FormatNumber(CurrRecipe.Costs[i], 1, 2);
+				double ProductAmount = CurrRecipe.GetProductAmount(i);
+				string ProductString = String.Format(ProductAmount % 1.0 ~== 0 ? "%i" : "%.2F", ProductAmount);
+				sb.DrawString(sb.pSmallFont, CanAssemble ? CostString.."/"..ProductString : ProductString, (-80 + 80 * i, BaseYOffset + 106) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
+				
+				sb.DrawString(sb.pSmallFont, "("..sb.GetAmount(CurrMat.GetClass())..")", (-80 + 80 * i, BaseYOffset + 116) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
+				sb.DrawString(sb.pSmallFont, CurrMat.GetTag(), (-80 + 80 * i, BaseYOffset + 126) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha, 80, 1);
 			}
 		}
 		else
@@ -129,7 +143,7 @@ class HDUniversalReloader : HDWeapon
 		}
 	}
 
-	protected bool HasMaterials(FAction fact, HDRel_Recipe recipe) const
+	protected clearscope bool HasMaterials(FAction fact, HDRel_Recipe recipe)
 	{
 		switch (fact)
 		{
@@ -153,7 +167,7 @@ class HDUniversalReloader : HDWeapon
 		return true;
 	}
 
-	protected virtual int GetBoomChance(FAction fact) const
+	protected virtual int GetBoomChance(FAction fact)
 	{
 		switch (fact)
 		{
@@ -163,7 +177,7 @@ class HDUniversalReloader : HDWeapon
 		}
 	}
 
-	protected virtual int GetChugSpeed(FAction fact) const
+	protected virtual int GetChugSpeed(FAction fact)
 	{
 		switch (fact)
 		{
@@ -354,7 +368,9 @@ class HDUniversalReloader : HDWeapon
 						{
 							for (int i = 0; i < MaterialCount; ++i)
 							{
-								for (int j = 0; j < invoker.Recipes[invoker.CurrIndex].Products[i]; ++j)
+								double RawAmount; int ActualAmount;
+								[RawAmount, ActualAmount] = invoker.Recipes[invoker.CurrIndex].GetProductAmount(i);
+								for (int j = 0; j < ActualAmount; ++j)
 								{
 									A_SpawnItemEx(invoker.Recipes[invoker.CurrIndex].Materials[i], 0, 0, 0, 1, 0, 3, random(0, 359), SXF_NOCHECKPOSITION);
 								}
@@ -493,9 +509,9 @@ class HDRel_Recipe
 	class<HDAmmo> AmmoClass;
 	class<HDRel_CraftingMaterial> Materials[HDUniversalReloader.MaterialCount];
 	int Costs[HDUniversalReloader.MaterialCount];
-	int Products[HDUniversalReloader.MaterialCount];
+	private double Products[HDUniversalReloader.MaterialCount];
 
-	static HDRel_Recipe TryCreate(string amcls, class<HDRel_ProjectileMaterial> projMat, int projCost, int projProd, class<HDRel_CasingMaterial> casingMat, int csgCost, int csgProd, class<HDRel_PowderMaterial> powderMat, int pwdCost, int pwdProd)
+	static HDRel_Recipe TryCreate(string amcls, class<HDRel_ProjectileMaterial> projMat, int projCost, double projProd, class<HDRel_CasingMaterial> casingMat, int csgCost, double csgProd, class<HDRel_PowderMaterial> powderMat, int pwdCost, double pwdProd)
 	{
 		HDRel_Recipe Ret = new("HDRel_Recipe");
 		
@@ -521,7 +537,7 @@ class HDRel_Recipe
 	}
 
 	// [Ace] Can't assemble something that's missing a material.
-	bool CanBeAssembled() const
+	bool CanBeAssembled()
 	{
 		for (int i = 0; i < Materials.Size(); ++i)
 		{
@@ -534,7 +550,7 @@ class HDRel_Recipe
 		return true;
 	}
 
-	int GetMaxAssemblyAmount(HDPlayerPawn plr) const
+	int GetMaxAssemblyAmount(HDPlayerPawn plr)
 	{
 		int MaxAssemblyAmount = 5000;
 
@@ -548,5 +564,15 @@ class HDRel_Recipe
 		}
 
 		return MaxAssemblyAmount;
+	}
+
+	double, int GetProductAmount(int which)
+	{
+		int ExtraAmount = 0;
+		if (frandom(0.01, 1.00) < Products[which] % 1.0)
+		{
+			ExtraAmount++;
+		}
+		return Products[which], int(Products[which]) + ExtraAmount;
 	}
 }
