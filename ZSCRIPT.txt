@@ -432,7 +432,6 @@ class HDRel_CraftingMaterial : HDAmmo
 	Default
 	{
 		+FORCEXYBILLBOARD
-		-INVENTORY.INVBAR
 		+HDPICKUP.MULTIPICKUP
 	}
 }
@@ -518,6 +517,36 @@ class HDRel_RawLead : HDRel_ProjectileMaterial
 
 class HDRel_RawPowder : HDRel_PowderMaterial
 {
+	override string PickupMessage()
+	{
+		return Amount > 1 ? "Picked up a pile of powder." : default.PickupMsg; 
+	}
+
+	override void SplitPickup()
+	{
+		int SplitAmount = min(Amount, random(4, 26));
+		while (Amount > SplitAmount)
+		{
+			int SubSplit = min(Amount, random(4, 26));
+			Actor a = Spawn("HDRel_RawPowder", pos);
+			a.vel += vel + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1));
+			Inventory(a).Amount = SubSplit;
+			Amount -= SubSplit;
+		}
+
+		if (amount < 1)
+		{
+			Destroy();
+			return;
+		}
+
+		scale.y = default.scale.y * max(1.0, Amount * 0.1);
+		if (Amount > 1)
+		{
+			Frame = 1;
+		}
+	}
+
 	Default
 	{
 		Tag "Powder";
