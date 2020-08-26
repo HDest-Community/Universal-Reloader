@@ -21,17 +21,17 @@ class HDUniversalReloader : HDWeapon
 		Super.BeginPlay();
 		
 		HDRel_Recipe r;
-		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",		"HDRel_RawLead",	2, 1.00,	"HDRel_RawPlastic",	1, 0.75,	"HDRel_RawPowder",	1, 0.75)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawLead",	2, 1.00,	"HDRel_RawBrass",	1, 0.70,	"HDRel_RawPowder",	2, 1.50)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDShellAmmo",		"HDRel_RawLead",	4, 3.00,	"HDRel_RawPlastic",	2, 1.00,	"HDRel_RawPowder",	1, 0.75)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",		"HDRel_RawLead",	2, 1.00,	"HDRel_RawPlastic",	1, 0.75,	"HDRel_RawPowder",	1, 0.50)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawLead",	2, 1.00,	"HDRel_RawBrass",	1, 0.70,	"HDRel_RawPowder",	2, 1.25)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDShellAmmo",		"HDRel_RawLead",	4, 3.00,	"HDRel_RawPlastic",	2, 1.00,	"HDRel_RawPowder",	1, 0.50)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("FourMilAmmo",		"HDRel_RawLead",	0, 1.00,	null,				0, 0.00,	"HDRel_RawPowder",	0, 1.00)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",		"HDRel_RawLead",	2, 1.50,	"HDRel_RawBrass",	2, 1.75,	"HDRel_RawPowder",	4, 3.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",		"HDRel_RawLead",	2, 1.50,	"HDRel_RawBrass",	2, 1.75,	"HDRel_RawPowder",	4, 2.50)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("SevenMilBrass",		null,				0, 0.00,	"HDRel_RawBrass",	0, 1.75,	null,				0, 0.00)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo",	"HDRel_RawLead",	3, 2.25,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.25)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo",	"HDRel_RawLead",	4, 3.00,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.25)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HDNDMLoose",		"HDRel_RawLead",	4, 2.75,	"HDRel_RawBrass",	1, 0.75,	"HDRel_RawPowder",	2, 1.50)) Recipes.Push(r); // Guillotine, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo",	"HDRel_RawLead",	3, 2.25,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo",	"HDRel_RawLead",	4, 3.00,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HDNDMLoose",		"HDRel_RawLead",	4, 2.75,	"HDRel_RawBrass",	1, 0.75,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // Guillotine, peppergrinder.pk3
 		if (r = HDRel_Recipe.TryCreate("HD50OMGAmmo",		"HDRel_RawLead",	5, 3.80,	"HDRel_RawBrass",	4, 3.00,	"HDRel_RawPowder",	6, 4.00)) Recipes.Push(r); // ZM69
-		if (r = HDRel_Recipe.TryCreate("HD50AM_Ammo",		"HDRel_RawLead",	3, 2.25,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.25)) Recipes.Push(r); // .50 AM, potetobloke's guns
+		if (r = HDRel_Recipe.TryCreate("HD50AM_Ammo",		"HDRel_RawLead",	3, 2.25,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // .50 AM, potetobloke's guns
 
 		WeaponStatus[RProperty_RoundsToMake] = 7;
 	}
