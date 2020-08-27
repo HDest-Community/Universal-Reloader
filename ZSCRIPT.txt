@@ -47,7 +47,7 @@ class HDUniversalReloader : HDWeapon
 		..WEPHELP_ZOOM.."+"..WEPHELP_UPDOWN.."  Adjust factory amount";
 	}
 	override double GunMass() { return 0; }
-	override double WeaponBulk() { return 60 * Amount; }
+	override double WeaponBulk() { return 50 * Amount; }
 	override bool AddSpareWeapon(actor newowner) { return AddSpareWeaponRegular(newowner); }
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
 	override int GetSbarNum(int flags) { return GetRoundsToMake(); }
