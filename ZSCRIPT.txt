@@ -42,8 +42,7 @@ class HDUniversalReloader : HDWeapon
 	{
 		return WEPHELP_FIRE.."  Assemble rounds\n"
 		..WEPHELP_ALTFIRE.."  Disassemble rounds/casings\n"
-		..WEPHELP_FIREMODE.."+"..WEPHELP_FIRE.."  Cycle left\n"
-		..WEPHELP_FIREMODE.."+"..WEPHELP_ALTFIRE.."  Cycle right\n"
+		..WEPHELP_FIREMODE.."+"..WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  Cycle ammo\n"
 		..WEPHELP_ZOOM.."+"..WEPHELP_UPDOWN.."  Adjust factory amount";
 	}
 	override double GunMass() { return 0; }
