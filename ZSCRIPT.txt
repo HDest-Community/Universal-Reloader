@@ -72,13 +72,20 @@ class HDUniversalReloader : HDWeapon
 	{
 		if (owner)
 		{
+			static const int ThrowAngles[] = { 0, 30, -30 };
+
+			double OriginalAngle = owner.Angle;
 			let SelRecipe = GetSelectedRecipe();
+
 			for (int i = 0; i < MaterialCount; ++i)
 			{
-				owner.A_DropInventory(SelRecipe.Materials[i], random(5, 15));
-				owner.Angle += 15;
+				if (owner.CheckInventory(SelRecipe.Materials[i], 1))
+				{
+					owner.Angle = OriginalAngle + ThrowAngles[i];
+					owner.A_DropInventory(SelRecipe.Materials[i], random(5, 15));
+				}
 			}
-			owner.Angle -= 15 * MaterialCount;
+			owner.Angle = OriginalAngle;
 		}
 	}
 
