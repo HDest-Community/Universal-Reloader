@@ -68,6 +68,20 @@ class HDUniversalReloader : HDWeapon
 		return WeaponStatus[RProperty_RoundsToMake];
 	}
 
+	override void DropOneAmmo(int amt)
+	{
+		if (owner)
+		{
+			let SelRecipe = GetSelectedRecipe();
+			for (int i = 0; i < MaterialCount; ++i)
+			{
+				owner.A_DropInventory(SelRecipe.Materials[i], random(5, 15));
+				owner.Angle += 15;
+			}
+			owner.Angle -= 15 * MaterialCount;
+		}
+	}
+
 	// [Ace] This is where the good stuff begins.
 
 	override void ActualPickup(actor other, bool silent)
