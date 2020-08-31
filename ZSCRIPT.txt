@@ -51,7 +51,7 @@ class HDUniversalReloader : HDWeapon
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
 	override int GetSbarNum(int flags) { return GetRoundsToMake(); }
 
-	protected clearscope HDRel_Recipe, int GetSelectedRecipe()
+	protected HDRel_Recipe, int GetSelectedRecipe() const
 	{
 		int Size = Recipes.Size();
 		int SelIndex = WeaponStatus[RProperty_SelectedRecipe];
@@ -63,7 +63,7 @@ class HDUniversalReloader : HDWeapon
 		return null, -1;
 	}
 
-	protected clearscope int GetRoundsToMake()
+	protected int GetRoundsToMake() const
 	{
 		return WeaponStatus[RProperty_RoundsToMake];
 	}
@@ -189,7 +189,7 @@ class HDUniversalReloader : HDWeapon
 		}
 	}
 
-	protected clearscope bool HasMaterials(FAction fact, HDRel_Recipe recipe)
+	protected bool HasMaterials(FAction fact, HDRel_Recipe recipe) const
 	{
 		switch (fact)
 		{
