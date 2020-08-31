@@ -51,7 +51,7 @@ class HDUniversalReloader : HDWeapon
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
 	override int GetSbarNum(int flags) { return GetRoundsToMake(); }
 
-	protected HDRel_Recipe, int GetSelectedRecipe() const
+	protected clearscope HDRel_Recipe, int GetSelectedRecipe()
 	{
 		int Size = Recipes.Size();
 		int SelIndex = WeaponStatus[RProperty_SelectedRecipe];
@@ -63,7 +63,7 @@ class HDUniversalReloader : HDWeapon
 		return null, -1;
 	}
 
-	protected int GetRoundsToMake() const
+	protected clearscope int GetRoundsToMake()
 	{
 		return WeaponStatus[RProperty_RoundsToMake];
 	}
@@ -156,7 +156,7 @@ class HDUniversalReloader : HDWeapon
 			double DrawAlpha = HasMaterials(CanAssemble ? FAction_Assemble : FAction_Disassemble, CurrRecipe) ? 1.0 : 0.6;
 			sb.DrawImage(AmmoIcon, (0, BaseYOffset + 4) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale: (2.5, 2.5));
 
-			string AmmoNumbers = CanAssemble ? CurrRecipe.GetMaxAssemblyAmount(hpl).." ("..sb.GetAmount(AmmoClass.GetClass())..")" : sb.FormatNumber(sb.GetAmount(AmmoClass.GetClass()), 1, 4);
+			string AmmoNumbers = CanAssemble ? GetMaxAssemblyAmount(CurrRecipe).." ("..sb.GetAmount(AmmoClass.GetClass())..")" : sb.FormatNumber(sb.GetAmount(AmmoClass.GetClass()), 1, 4);
 			sb.DrawString(sb.pSmallFont, AmmoNumbers, (0, BaseYOffset + 22) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
 			sb.DrawString(sb.pSmallFont, AmmoTag, (0, BaseYOffset + 32) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, DrawAlpha);
 			if (!CanAssemble)
@@ -175,7 +175,7 @@ class HDUniversalReloader : HDWeapon
 				sb.DrawImage(TexMan.GetName(CurrMat.Icon), (-80 + 80 * i, BaseYOffset + 96) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: DrawAlpha, scale: (2.5, 2.5));
 				
 				string CostString = sb.FormatNumber(CurrRecipe.Costs[i], 1, 2);
-				double ProductAmount = CurrRecipe.GetProductAmount(i);
+				double ProductAmount = GetProductAmount(CurrRecipe, i);
 				string ProductString = String.Format(ProductAmount % 1.0 ~== 0 ? "%i" : "%.2F", ProductAmount);
 				sb.DrawString(sb.pSmallFont, CanAssemble ? CostString.."/"..ProductString : ProductString, (-80 + 80 * i, BaseYOffset + 106) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
 				
@@ -189,7 +189,33 @@ class HDUniversalReloader : HDWeapon
 		}
 	}
 
-	protected bool HasMaterials(FAction fact, HDRel_Recipe recipe) const
+	protected clearscope int GetMaxAssemblyAmount(HDRel_Recipe recipe)
+	{
+		int MaxAssemblyAmount = 5000;
+
+		for (int i = 0; i < MaterialCount; ++i)
+		{
+			int MaxAmount = owner.CountInv(Recipe.Materials[i]) / Recipe.Costs[i]; // [Ace] Possible division by zero. Should that happen, don't call the dang function if recipe can't be assembled!
+			if (MaxAmount < MaxAssemblyAmount)
+			{
+				MaxAssemblyAmount = MaxAmount;
+			}
+		}
+
+		return MaxAssemblyAmount;
+	}
+
+	protected clearscope double, int GetProductAmount(HDRel_Recipe recipe, int which)
+	{
+		int ExtraAmount = 0;
+		if (frandom[prodrand](0.01, 1.00) < recipe.Products[which] % 1.0)
+		{
+			ExtraAmount++;
+		}
+		return recipe.Products[which], int(recipe.Products[which]) + ExtraAmount;
+	}
+
+	protected clearscope bool HasMaterials(FAction fact, HDRel_Recipe recipe)
 	{
 		switch (fact)
 		{
@@ -420,7 +446,7 @@ class HDUniversalReloader : HDWeapon
 							for (int i = 0; i < MaterialCount; ++i)
 							{
 								double RawAmount; int ActualAmount;
-								[RawAmount, ActualAmount] = SelRecipe.GetProductAmount(i);
+								[RawAmount, ActualAmount] = invoker.GetProductAmount(SelRecipe, i);
 								for (int j = 0; j < ActualAmount; ++j)
 								{
 									A_SpawnItemEx(SelRecipe.Materials[i], 0, 0, 0, 1, 0, 3, random(0, 359), SXF_NOCHECKPOSITION);
@@ -589,7 +615,7 @@ class HDRel_Recipe
 	class<HDAmmo> AmmoClass;
 	class<HDRel_CraftingMaterial> Materials[HDUniversalReloader.MaterialCount];
 	int Costs[HDUniversalReloader.MaterialCount];
-	private double Products[HDUniversalReloader.MaterialCount];
+	double Products[HDUniversalReloader.MaterialCount];
 
 	static HDRel_Recipe TryCreate(string amcls, class<HDRel_ProjectileMaterial> projMat, int projCost, double projProd, class<HDRel_CasingMaterial> casingMat, int csgCost, double csgProd, class<HDRel_PowderMaterial> powderMat, int pwdCost, double pwdProd)
 	{
@@ -628,31 +654,5 @@ class HDRel_Recipe
 		}
 
 		return true;
-	}
-
-	int GetMaxAssemblyAmount(HDPlayerPawn plr)
-	{
-		int MaxAssemblyAmount = 5000;
-
-		for (int i = 0; i < Materials.Size(); ++i)
-		{
-			int MaxAmount = plr.CountInv(Materials[i]) / Costs[i]; // [Ace] Possible division by zero. Should that happen, don't call the dang function if recipe can't be assembled!
-			if (MaxAmount < MaxAssemblyAmount)
-			{
-				MaxAssemblyAmount = MaxAmount;
-			}
-		}
-
-		return MaxAssemblyAmount;
-	}
-
-	double, int GetProductAmount(int which)
-	{
-		int ExtraAmount = 0;
-		if (frandom(0.01, 1.00) < Products[which] % 1.0)
-		{
-			ExtraAmount++;
-		}
-		return Products[which], int(Products[which]) + ExtraAmount;
 	}
 }
