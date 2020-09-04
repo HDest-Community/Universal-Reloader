@@ -494,7 +494,7 @@ class HDRel_RawBrass : HDRel_CasingMaterial
 		Tag "Brass";
 		Inventory.Icon "BRMTA0";
 		Inventory.PickupMessage "Picked up some brass materials.";
-		HDPickup.Bulk 0.32;
+		HDPickup.Bulk 0.20;
 	}
 
 	States
@@ -530,7 +530,7 @@ class HDRel_RawPlastic : HDRel_CasingMaterial
 		Tag "Plastic";
 		Inventory.Icon "PLTCA0";
 		Inventory.PickupMessage "Picked up some plastic materials.";
-		HDPickup.Bulk 0.18;
+		HDPickup.Bulk 0.11;
 		Scale 0.4;
 	}
 
@@ -598,7 +598,7 @@ class HDRel_RawPowder : HDRel_PowderMaterial
 		Tag "Powder";
 		Inventory.Icon "PWDRA0";
 		Inventory.PickupMessage "Picked up some powder.";
-		HDPickup.Bulk 0.16;
+		HDPickup.Bulk 0.08;
 	}
 
 	States
