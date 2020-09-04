@@ -101,6 +101,7 @@ class HDUniversalReloader : HDWeapon
 		}
 
 		ChugTicker = 0;
+		FactoryAction = FAction_None;
 		HDRel_Recipe SelRecipe = GetSelectedRecipe();
 		switch (FactoryAction)
 		{
@@ -175,7 +176,7 @@ class HDUniversalReloader : HDWeapon
 				sb.DrawImage(TexMan.GetName(CurrMat.Icon), (-80 + 80 * i, BaseYOffset + 96) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: DrawAlpha, scale: (2.5, 2.5));
 				
 				string CostString = sb.FormatNumber(CurrRecipe.Costs[i], 1, 2);
-				double ProductAmount = GetProductAmount(CurrRecipe, i);
+				double ProductAmount = CurrRecipe.Products[i];
 				string ProductString = String.Format(ProductAmount % 1.0 ~== 0 ? "%i" : "%.2F", ProductAmount);
 				sb.DrawString(sb.pSmallFont, CanAssemble ? CostString.."/"..ProductString : ProductString, (-80 + 80 * i, BaseYOffset + 106) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE, DrawAlpha);
 				
@@ -203,16 +204,6 @@ class HDUniversalReloader : HDWeapon
 		}
 
 		return MaxAssemblyAmount;
-	}
-
-	protected clearscope double, int GetProductAmount(HDRel_Recipe recipe, int which)
-	{
-		int ExtraAmount = 0;
-		if (frandom[prodrand](0.01, 1.00) < recipe.Products[which] % 1.0)
-		{
-			ExtraAmount++;
-		}
-		return recipe.Products[which], int(recipe.Products[which]) + ExtraAmount;
 	}
 
 	protected clearscope bool HasMaterials(FAction fact, HDRel_Recipe recipe)
@@ -445,8 +436,11 @@ class HDUniversalReloader : HDWeapon
 						{
 							for (int i = 0; i < MaterialCount; ++i)
 							{
-								double RawAmount; int ActualAmount;
-								[RawAmount, ActualAmount] = invoker.GetProductAmount(SelRecipe, i);
+								int ActualAmount = int(SelRecipe.Products[i]);
+								if (frandom[prodrand](0.01, 1.00) < SelRecipe.Products[i] % 1.0)
+								{
+									ActualAmount++;
+								}
 								for (int j = 0; j < ActualAmount; ++j)
 								{
 									A_SpawnItemEx(SelRecipe.Materials[i], 0, 0, 0, 1, 0, 3, random(0, 359), SXF_NOCHECKPOSITION);
