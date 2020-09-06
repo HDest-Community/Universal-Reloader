@@ -41,7 +41,7 @@ class HDUniversalReloader : HDWeapon
 	override string GetHelpText()
 	{
 		return WEPHELP_FIRE.."  Assemble rounds\n"
-		..WEPHELP_ALTFIRE.."  Disassemble rounds/casings\n"
+		..WEPHELP_UNLOAD.."+"..WEPHELP_FIRE.." Disassemble rounds/casings\n"
 		..WEPHELP_FIREMODE.."+"..WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  Cycle ammo\n"
 		..WEPHELP_ZOOM.."+"..WEPHELP_UPDOWN.."  Adjust factory amount";
 	}
@@ -57,10 +57,10 @@ class HDUniversalReloader : HDWeapon
 		int SelIndex = WeaponStatus[RProperty_SelectedRecipe];
 		if (Size > 0 && SelIndex < Size) // [Ace] Just in case someone magically manages to set this to an out-of-bounds index.
 		{
-			return Recipes[SelIndex], SelIndex;
+			return Recipes[SelIndex];
 		}
 
-		return null, -1;
+		return null;
 	}
 
 	protected clearscope int GetRoundsToMake()
@@ -250,28 +250,25 @@ class HDUniversalReloader : HDWeapon
 		}
 	}
 
+	protected action void A_CheckCycle(int cycleDir)
+	{
+		int SelIndex = invoker.WeaponStatus[RProperty_SelectedRecipe];
+		switch (cycleDir)
+		{
+			case 1:
+				++SelIndex %= invoker.Recipes.Size();
+				break;
+			case -1:
+				SelIndex = SelIndex == 0 ? invoker.Recipes.Size() - 1 : SelIndex - 1;
+				break;
+		}
+		invoker.WeaponStatus[RProperty_SelectedRecipe] = SelIndex;
+	}
+
 	protected action void A_CheckFactory(FAction fact)
 	{
-		HDRel_Recipe SelRecipe; int SelIndex;
-		[SelRecipe, SelIndex] = invoker.GetSelectedRecipe();
-
-		if (player.cmd.buttons & BT_USER2)
-		{
-			switch (fact)
-			{
-				case FAction_Assemble:
-					++SelIndex %= invoker.Recipes.Size();
-					break;
-				case FAction_Disassemble:
-					SelIndex = SelIndex == 0 ? invoker.Recipes.Size() - 1 : SelIndex - 1;
-					break;
-			}
-			invoker.WeaponStatus[RProperty_SelectedRecipe] = SelIndex;
-			return;
-		}
-
-		
-		if (!SelRecipe || fact == FAction_Assemble && !SelRecipe.CanBeAssembled() || !invoker.HasMaterials(fact, SelRecipe))
+		HDRel_Recipe SelRecipe = invoker.GetSelectedRecipe();
+		if (!SelRecipe || fact == FAction_None || fact == FAction_Assemble && (!SelRecipe.CanBeAssembled() || !invoker.HasMaterials(fact, SelRecipe)))
 		{
 			return;
 		}
@@ -367,10 +364,26 @@ class HDUniversalReloader : HDWeapon
 			}
 			Goto ReadyEnd;
 		Fire:
-			TNT1 A 5 A_CheckFactory(FAction_Assemble);
+			TNT1 A 5
+			{
+				if (player.cmd.buttons & BT_USER2)
+				{
+					A_CheckCycle(-1);
+				}
+				else
+				{
+					A_CheckFactory(player.cmd.buttons & BT_USER4 ? FAction_Disassemble : FAction_Assemble);
+				}
+			}
 			Goto Ready;
 		AltFire:
-			TNT1 A 5 A_CheckFactory(FAction_Disassemble);
+			TNT1 A 5
+			{
+				if (player.cmd.buttons & BT_USER2)
+				{
+					A_CheckCycle(1);
+				}
+			}
 			Goto Ready;
 		User3:
 			#### A 0 A_SelectWeapon("PickupManager");
