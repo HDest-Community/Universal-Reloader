@@ -368,7 +368,7 @@ class HDUniversalReloader : HDWeapon
 			{
 				if (player.cmd.buttons & BT_USER2)
 				{
-					A_CheckCycle(-1);
+					A_CheckCycle(1);
 				}
 				else
 				{
@@ -381,7 +381,7 @@ class HDUniversalReloader : HDWeapon
 			{
 				if (player.cmd.buttons & BT_USER2)
 				{
-					A_CheckCycle(1);
+					A_CheckCycle(-1);
 				}
 			}
 			Goto Ready;
