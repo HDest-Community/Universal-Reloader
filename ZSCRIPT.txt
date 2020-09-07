@@ -477,10 +477,67 @@ class HDUniversalReloader : HDWeapon
 
 class HDRel_CraftingMaterial : HDAmmo
 {
+	enum PType
+	{
+		PType_None,
+		PType_Ball,
+		PType_Pile
+	}
+
 	override void GetItemsThatUseThis()
 	{
 		ItemsThatUseThis.Push("HDUniversalReloader");
 	}
+
+	override string PickupMessage()
+	{
+		return Amount > 1 ? PileMessage : default.PickupMsg; 
+	}
+
+	override void SplitPickup()
+	{
+		if (PileType == PType_None)
+		{
+			return;
+		}
+
+		int SplitAmount = min(Amount, random(4, 26));
+		while (Amount > SplitAmount)
+		{
+			int SubSplit = min(Amount, random(4, 26));
+			Actor a = Spawn(GetClass(), pos);
+			a.vel += vel + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1));
+			Inventory(a).Amount = SubSplit;
+			Amount -= SubSplit;
+		}
+
+		if (amount < 1)
+		{
+			Destroy();
+			return;
+		}
+
+		switch (PileType)
+		{
+			case PType_Pile:
+				scale.y = default.scale.y * max(1.0, Amount * 0.1);
+				if (Amount > 1)
+				{
+					Frame = 1;
+				}
+				break;
+			case PType_Ball:
+				scale = default.scale * max(1.0, Amount * 0.1);
+				break;
+		}
+	}
+
+
+	PType PileType;
+	property PileType: PileType;
+
+	string PileMessage;
+	property PileMessage: PileMessage;
 
 	Default
 	{
@@ -501,6 +558,8 @@ class HDRel_RawBrass : HDRel_CasingMaterial
 		Tag "Brass";
 		Inventory.Icon "BRMTA0";
 		Inventory.PickupMessage "Picked up some brass materials.";
+		HDRel_CraftingMaterial.PileMessage "Picked up a ball of brass.";
+		HDRel_CraftingMaterial.PileType PType_Ball;
 		HDPickup.Bulk 0.20;
 	}
 
@@ -512,24 +571,6 @@ class HDRel_RawBrass : HDRel_CasingMaterial
 	}
 }
 
-// class HDRel_RawSteel : HDRel_CasingMaterial
-// {
-// 	Default
-// 	{
-// 		Tag "Steel Materials";
-// 		Inventory.Icon "PBRSA0";
-// 		Inventory.PickupMessage "Picked up some steel materials.";
-// 		HDPickup.Bulk 0.28;
-// 	}
-
-// 	States
-// 	{
-// 		Spawn:
-// 			PBRS A -1;
-// 			Stop;
-// 	}
-// }
-
 class HDRel_RawPlastic : HDRel_CasingMaterial
 {
 	Default
@@ -537,6 +578,8 @@ class HDRel_RawPlastic : HDRel_CasingMaterial
 		Tag "Plastic";
 		Inventory.Icon "PLTCA0";
 		Inventory.PickupMessage "Picked up some plastic materials.";
+		HDRel_CraftingMaterial.PileMessage "Picked up a pile of plastic.";
+		HDRel_CraftingMaterial.PileType PType_None;
 		HDPickup.Bulk 0.11;
 		Scale 0.4;
 	}
@@ -556,6 +599,8 @@ class HDRel_RawLead : HDRel_ProjectileMaterial
 		Tag "Lead";
 		Inventory.Icon "LEADA0";
 		Inventory.PickupMessage "Picked up some lead materials.";
+		HDRel_CraftingMaterial.PileMessage "Picked up a ball of lead.";
+		HDRel_CraftingMaterial.PileType PType_Ball;
 		HDPickup.Bulk 0.25;
 		Scale 0.8;
 	}
@@ -570,41 +615,13 @@ class HDRel_RawLead : HDRel_ProjectileMaterial
 
 class HDRel_RawPowder : HDRel_PowderMaterial
 {
-	override string PickupMessage()
-	{
-		return Amount > 1 ? "Picked up a pile of powder." : default.PickupMsg; 
-	}
-
-	override void SplitPickup()
-	{
-		int SplitAmount = min(Amount, random(4, 26));
-		while (Amount > SplitAmount)
-		{
-			int SubSplit = min(Amount, random(4, 26));
-			Actor a = Spawn("HDRel_RawPowder", pos);
-			a.vel += vel + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1));
-			Inventory(a).Amount = SubSplit;
-			Amount -= SubSplit;
-		}
-
-		if (amount < 1)
-		{
-			Destroy();
-			return;
-		}
-
-		scale.y = default.scale.y * max(1.0, Amount * 0.1);
-		if (Amount > 1)
-		{
-			Frame = 1;
-		}
-	}
-
 	Default
 	{
 		Tag "Powder";
 		Inventory.Icon "PWDRA0";
 		Inventory.PickupMessage "Picked up some powder.";
+		HDRel_CraftingMaterial.PileMessage "Picked up a pile of powder.";
+		HDRel_CraftingMaterial.PileType PType_Pile;
 		HDPickup.Bulk 0.08;
 	}
 
