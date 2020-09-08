@@ -268,7 +268,7 @@ class HDUniversalReloader : HDWeapon
 	protected action void A_CheckFactory(FAction fact)
 	{
 		HDRel_Recipe SelRecipe = invoker.GetSelectedRecipe();
-		if (!SelRecipe || fact == FAction_None || fact == FAction_Assemble && (!SelRecipe.CanBeAssembled() || !invoker.HasMaterials(fact, SelRecipe)))
+		if (!SelRecipe || fact == FAction_None || fact == FAction_Assemble && !SelRecipe.CanBeAssembled() || !invoker.HasMaterials(fact, SelRecipe)) // [Ace] Lack of parentheses for the OR is intentional. Don't "fix" it again, you dolt.
 		{
 			return;
 		}
