@@ -101,7 +101,6 @@ class HDUniversalReloader : HDWeapon
 		}
 
 		ChugTicker = 0;
-		FactoryAction = FAction_None;
 		HDRel_Recipe SelRecipe = GetSelectedRecipe();
 		switch (FactoryAction)
 		{
@@ -137,6 +136,7 @@ class HDUniversalReloader : HDWeapon
 				}
 				break;
 		}
+		FactoryAction = FAction_None;
 	}
 
 	override void DrawHUDStuff(HDStatusBar sb, HDWeapon hdw, HDPlayerPawn hpl)
