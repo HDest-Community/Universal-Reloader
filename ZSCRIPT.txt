@@ -21,17 +21,17 @@ class HDUniversalReloader : HDWeapon
 		Super.BeginPlay();
 		
 		HDRel_Recipe r;
-		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",		"HDRel_RawLead",	2, 1.00,	"HDRel_RawPlastic",	1, 0.75,	"HDRel_RawPowder",	1, 0.50)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawLead",	2, 1.00,	"HDRel_RawBrass",	1, 0.70,	"HDRel_RawPowder",	2, 1.25)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDShellAmmo",		"HDRel_RawLead",	4, 3.00,	"HDRel_RawPlastic",	2, 1.00,	"HDRel_RawPowder",	1, 0.50)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("FourMilAmmo",		"HDRel_RawLead",	0, 1.00,	null,				0, 0.00,	"HDRel_RawPowder",	0, 1.00)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",		"HDRel_RawLead",	2, 1.50,	"HDRel_RawBrass",	2, 1.75,	"HDRel_RawPowder",	4, 2.50)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("SevenMilBrass",		null,				0, 0.00,	"HDRel_RawBrass",	0, 1.75,	null,				0, 0.00)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo",	"HDRel_RawLead",	3, 2.25,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo",	"HDRel_RawLead",	4, 3.00,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HDNDMLoose",		"HDRel_RawLead",	4, 2.75,	"HDRel_RawBrass",	1, 0.75,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // Guillotine, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HD50OMGAmmo",		"HDRel_RawLead",	5, 3.80,	"HDRel_RawBrass",	4, 3.00,	"HDRel_RawPowder",	6, 4.00)) Recipes.Push(r); // ZM69
-		if (r = HDRel_Recipe.TryCreate("HD50AM_Ammo",		"HDRel_RawLead",	3, 2.25,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.00)) Recipes.Push(r); // .50 AM, potetobloke's guns
+		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",		"HDRel_RawLead",	2, 1.00,	"HDRel_RawPlastic",	1, 0.75,	"HDRel_RawPowder",	1, 0.50, 1.50)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",	"HDRel_RawLead",	2, 1.00,	"HDRel_RawBrass",	1, 0.70,	"HDRel_RawPowder",	2, 1.25, 1.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDShellAmmo",		"HDRel_RawLead",	4, 3.00,	"HDRel_RawPlastic",	2, 1.00,	"HDRel_RawPowder",	1, 0.50, 1.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("FourMilAmmo",		"HDRel_RawLead",	0, 1.00,	null,				0, 0.00,	"HDRel_RawPowder",	0, 1.00, 5.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",		"HDRel_RawLead",	2, 1.50,	"HDRel_RawBrass",	2, 1.75,	"HDRel_RawPowder",	4, 2.50, 1.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("SevenMilBrass",		null,				0, 0.00,	"HDRel_RawBrass",	0, 1.75,	null,				0, 0.00, 1.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo",	"HDRel_RawLead",	3, 2.25,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.00, 0.75)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo",	"HDRel_RawLead",	4, 3.00,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.00, 0.75)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HDNDMLoose",		"HDRel_RawLead",	4, 2.75,	"HDRel_RawBrass",	1, 0.75,	"HDRel_RawPowder",	2, 1.00, 1.00)) Recipes.Push(r); // Guillotine, peppergrinder.pk3
+		if (r = HDRel_Recipe.TryCreate("HD50OMGAmmo",		"HDRel_RawLead",	5, 3.80,	"HDRel_RawBrass",	4, 3.00,	"HDRel_RawPowder",	6, 4.00, 0.50)) Recipes.Push(r); // ZM69
+		if (r = HDRel_Recipe.TryCreate("HD50AM_Ammo",		"HDRel_RawLead",	3, 2.25,	"HDRel_RawBrass",	2, 1.25,	"HDRel_RawPowder",	2, 1.00, 0.75)) Recipes.Push(r); // .50 AM, potetobloke's guns
 
 		WeaponStatus[RProperty_RoundsToMake] = 7;
 	}
@@ -240,14 +240,23 @@ class HDUniversalReloader : HDWeapon
 		}
 	}
 
-	protected virtual int GetChugSpeed(FAction fact, int rounds) const
+	protected virtual int GetChugSpeed(FAction fact, int rounds, double mult) const
 	{
+		int BaseSpeed;
 		switch (fact)
 		{
 			default: return 1;
-			case FAction_Assemble: return 35 - rounds;
-			case FAction_Disassemble: return 5;
+			case FAction_Assemble: BaseSpeed = 35 - rounds; break;
+			case FAction_Disassemble: BaseSpeed = 5; break;
 		}
+
+		int ActualSpeed = int(BaseSpeed / mult);
+		if (frandom[chugrand](0.01, 1.00) < mult % 1.0)
+		{
+			ActualSpeed++;
+		}
+
+		return max(1, ActualSpeed);
 	}
 
 	protected action void A_CheckCycle(int cycleDir)
@@ -305,12 +314,12 @@ class HDUniversalReloader : HDWeapon
 
 	const MaterialCount = 3;
 
-	int LoadedMats[MaterialCount];
-	int LoadedRounds;
+	private int LoadedMats[MaterialCount];
+	private int LoadedRounds;
 	protected FAction FactoryAction;
 	protected Array<HDRel_Recipe> Recipes; // [Ace] This is never checked for Size() > 0, but it's virtually impossible to abort unless Matt changes all the class names overnight.
-	protected int CurrIndex;
-	protected int ChugTicker;
+	private int CurrIndex;
+	private int ChugTicker;
 
 	Default
 	{
@@ -396,7 +405,7 @@ class HDUniversalReloader : HDWeapon
 				vel.z += randompick(-1, 1);
 				vel.xy += (frandom(-0.3, 0.3),frandom(-0.3, 0.3));
 
-				if (invoker.ChugTicker++ >= invoker.GetChugSpeed(invoker.FactoryAction, invoker.GetRoundsToMake()))
+				if (invoker.ChugTicker++ >= invoker.GetChugSpeed(invoker.FactoryAction, invoker.GetRoundsToMake(), invoker.GetSelectedRecipe().SpeedMult))
 				{
 					invoker.ChugTicker = 0;
 					return ResolveState("Blargh");
@@ -640,8 +649,9 @@ class HDRel_Recipe
 	class<HDRel_CraftingMaterial> Materials[HDUniversalReloader.MaterialCount];
 	int Costs[HDUniversalReloader.MaterialCount];
 	double Products[HDUniversalReloader.MaterialCount];
+	bool SpeedMult;
 
-	static HDRel_Recipe TryCreate(string amcls, class<HDRel_ProjectileMaterial> projMat, int projCost, double projProd, class<HDRel_CasingMaterial> casingMat, int csgCost, double csgProd, class<HDRel_PowderMaterial> powderMat, int pwdCost, double pwdProd)
+	static HDRel_Recipe TryCreate(string amcls, class<HDRel_ProjectileMaterial> projMat, int projCost, double projProd, class<HDRel_CasingMaterial> casingMat, int csgCost, double csgProd, class<HDRel_PowderMaterial> powderMat, int pwdCost, double pwdProd, double speed)
 	{
 		HDRel_Recipe Ret = new("HDRel_Recipe");
 		
@@ -659,6 +669,8 @@ class HDRel_Recipe
 			Ret.Materials[2] = powderMat;
 			Ret.Costs[2] = pwdCost;
 			Ret.Products[2] = pwdProd;
+
+			Ret.SpeedMult = speed;
 
 			return Ret;
 		}
