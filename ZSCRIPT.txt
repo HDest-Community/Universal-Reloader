@@ -49,7 +49,6 @@ class HDUniversalReloader : HDWeapon
 	override double WeaponBulk() { return 50 * Amount; }
 	override bool AddSpareWeapon(actor newowner) { return AddSpareWeaponRegular(newowner); }
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
-	override int GetSbarNum(int flags) { return GetRoundsToMake(); }
 
 	protected clearscope HDRel_Recipe, int GetSelectedRecipe()
 	{
@@ -145,6 +144,7 @@ class HDUniversalReloader : HDWeapon
 		int BaseYOffset = -182;
 		
 		sb.DrawImage("URLDA0", (0, BaseYOffset + 68) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale:(2, 2));
+		sb.DrawString(sb.pSmallFont, sb.FormatNumber(GetRoundsToMake(), 1, 2), (20, BaseYOffset + 66) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_LEFT, Font.CR_SAPPHIRE);
 		let CurrRecipe = GetSelectedRecipe();
 		if (CurrRecipe)
 		{
