@@ -41,7 +41,7 @@ class HDUniversalReloader : HDWeapon
 	override string GetHelpText()
 	{
 		return WEPHELP_FIRE.."  Assemble rounds\n"
-		..WEPHELP_UNLOAD.."+"..WEPHELP_FIRE.." Disassemble rounds/casings\n"
+		..WEPHELP_UNLOAD.."+"..WEPHELP_FIRE.."  Disassemble rounds/casings\n"
 		..WEPHELP_FIREMODE.."+"..WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  Cycle ammo\n"
 		..WEPHELP_ZOOM.."+"..WEPHELP_UPDOWN.."  Adjust factory amount";
 	}
