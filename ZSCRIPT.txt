@@ -649,7 +649,7 @@ class HDRel_Recipe
 	class<HDRel_CraftingMaterial> Materials[HDUniversalReloader.MaterialCount];
 	int Costs[HDUniversalReloader.MaterialCount];
 	double Products[HDUniversalReloader.MaterialCount];
-	bool SpeedMult;
+	double SpeedMult;
 
 	static HDRel_Recipe TryCreate(string amcls, class<HDRel_ProjectileMaterial> projMat, int projCost, double projProd, class<HDRel_CasingMaterial> casingMat, int csgCost, double csgProd, class<HDRel_PowderMaterial> powderMat, int pwdCost, double pwdProd, double speed)
 	{
