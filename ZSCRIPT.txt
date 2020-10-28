@@ -363,7 +363,7 @@ class HDUniversalReloader : HDWeapon
 							InputAmount >>= 7;
 						}
 					}
-					InputAmount += (justpressed(BT_ATTACK) ? 1 : justpressed(BT_ALTATTACK) ? -1 : 0);
+					InputAmount += (JustPressed(BT_ATTACK) ? 1 : JustPressed(BT_ALTATTACK) ? -1 : 0);
 					HijackMouse();
 					invoker.WeaponStatus[RProperty_RoundsToMake] = clamp(invoker.GetRoundsToMake() + InputAmount, 1, 30);
 				}
@@ -376,20 +376,20 @@ class HDUniversalReloader : HDWeapon
 		Fire:
 			TNT1 A 5
 			{
-				if (player.cmd.buttons & BT_USER2)
+				if (PressingFiremode())
 				{
 					A_CheckCycle(1);
 				}
 				else
 				{
-					A_CheckFactory(player.cmd.buttons & BT_USER4 ? FAction_Disassemble : FAction_Assemble);
+					A_CheckFactory(PressingUnload() ? FAction_Disassemble : FAction_Assemble);
 				}
 			}
 			Goto Ready;
 		AltFire:
 			TNT1 A 5
 			{
-				if (player.cmd.buttons & BT_USER2)
+				if (PressingFiremode())
 				{
 					A_CheckCycle(-1);
 				}
