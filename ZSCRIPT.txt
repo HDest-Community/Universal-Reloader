@@ -50,7 +50,7 @@ class HDUniversalReloader : HDWeapon
 	override bool AddSpareWeapon(actor newowner) { return AddSpareWeaponRegular(newowner); }
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
 
-	protected clearscope HDRel_Recipe, int GetSelectedRecipe()
+	protected clearscope HDRel_Recipe GetSelectedRecipe()
 	{
 		int Size = Recipes.Size();
 		int SelIndex = WeaponStatus[RProperty_SelectedRecipe];
