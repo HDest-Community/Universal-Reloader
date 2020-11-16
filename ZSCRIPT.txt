@@ -236,8 +236,8 @@ class HDUniversalReloader : HDWeapon
 		switch (fact)
 		{
 			default: return 0;
-			case FAction_Assemble: return 5 + int(round(rounds / 3.0));
-			case FAction_Disassemble: return 5;
+			case FAction_Assemble: return 3 + int(round(rounds / 4.0));
+			case FAction_Disassemble: return 3;
 		}
 	}
 
