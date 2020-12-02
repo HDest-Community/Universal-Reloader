@@ -326,6 +326,7 @@ class HDUniversalReloader : HDWeapon
 
 	Default
 	{
+		MaxStepHeight 4;
 		+WEAPON.WIMPY_WEAPON
 		+INVENTORY.INVBAR
 		+HDWEAPON.FITSINBACKPACK
