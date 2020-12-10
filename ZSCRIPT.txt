@@ -27,6 +27,7 @@ class HDUniversalReloader : HDWeapon
 		if (r = HDRel_Recipe.TryCreate("FourMilAmmo",         "HDRel_RawLead", 0, 1.00,   null,               0, 0.00,   "HDRel_RawPowder", 0, 1.00,    5.00)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",        "HDRel_RawLead", 2, 1.50,   "HDRel_RawBrass",   2, 1.75,   "HDRel_RawPowder", 4, 2.50,    1.00)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("SevenMilBrass",       null,            0, 0.00,   "HDRel_RawBrass",   0, 1.75,   null,              0, 0.00,    1.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDErisAmmo",          "HDRel_RawLead", 3, 2.25,   "HDRel_RawBrass",   2, 1.25,   "HDRel_RawPowder", 2, 1.00,    0.75)) Recipes.Push(r); // .50 AE, Eris
 		if (r = HDRel_Recipe.TryCreate("HDOtisLightAmmo",     "HDRel_RawLead", 3, 2.25,   "HDRel_RawBrass",   2, 1.25,   "HDRel_RawPowder", 2, 1.00,    0.75)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
 		if (r = HDRel_Recipe.TryCreate("HDOtisHeavyAmmo",     "HDRel_RawLead", 4, 3.00,   "HDRel_RawBrass",   2, 1.25,   "HDRel_RawPowder", 2, 1.00,    0.75)) Recipes.Push(r); // Otis-5, peppergrinder.pk3
 		if (r = HDRel_Recipe.TryCreate("HDNDMLoose",          "HDRel_RawLead", 4, 2.75,   "HDRel_RawBrass",   1, 0.75,   "HDRel_RawPowder", 2, 1.00,    1.00)) Recipes.Push(r); // Guillotine, peppergrinder.pk3
