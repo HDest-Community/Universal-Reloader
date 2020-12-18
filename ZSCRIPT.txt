@@ -22,7 +22,7 @@ class HDUniversalReloader : HDWeapon
 		
 		HDRel_Recipe r;
 		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",        "HDRel_RawLead", 2, 1.00,   "HDRel_RawPlastic", 1, 0.75,   "HDRel_RawPowder", 1, 0.50,    1.50)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",      "HDRel_RawLead", 2, 1.00,   "HDRel_RawBrass",   1, 0.70,   "HDRel_RawPowder", 2, 1.25,    1.00)) Recipes.Push(r); // Vanilla HD
+		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",      "HDRel_RawLead", 2, 1.00,   "HDRel_RawPlastic", 1, 0.70,   "HDRel_RawPowder", 2, 1.25,    1.00)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("HDShellAmmo",         "HDRel_RawLead", 4, 3.00,   "HDRel_RawPlastic", 2, 1.00,   "HDRel_RawPowder", 1, 0.50,    1.00)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("FourMilAmmo",         "HDRel_RawLead", 0, 1.00,   null,               0, 0.00,   "HDRel_RawPowder", 0, 1.00,    5.00)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",        "HDRel_RawLead", 2, 1.50,   "HDRel_RawBrass",   2, 1.75,   "HDRel_RawPowder", 4, 2.50,    1.00)) Recipes.Push(r); // Vanilla HD
