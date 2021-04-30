@@ -455,7 +455,7 @@ class HDUniversalReloader : HDWeapon
 
 					case FAction_Disassemble:
 						invoker.LoadedRounds--;
-						if(random(1, 100) <= invoker.GetBoomChance(FAction_Disassemble, invoker.GetRoundsToMake()))
+						if(SelRecipe.Materials[2] != null && random(1, 100) <= invoker.GetBoomChance(FAction_Disassemble, invoker.GetRoundsToMake()))
 						{
 							A_SpawnItemEx("HDExplosion");
 							A_Explode(32, 32);
