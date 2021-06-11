@@ -2,4 +2,4 @@ Code:
 - Accensus
 
 Sprites:
-- Reloader taken from HD, originally by BloodyAcid. Edited and recolored by Accensus.
+- Reloader sprite by Mor'ladim.
