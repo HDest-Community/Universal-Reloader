@@ -343,7 +343,7 @@ class HDUniversalReloader : HDWeapon
 									continue;
 								}
 								let mat = HDRel_CraftingMaterial(it.thing);
-								if (invoker.LoadedMats[i] == selRecipe.Costs[i] || invoker.Distance3D(mat) > SearchRange || mat.vel.length() > 0.4)
+								if (invoker.LoadedMats[i] == selRecipe.Costs[i] || invoker.Distance3D(mat) > SearchRange || mat.vel.length() > 0.4 || abs(invoker.pos.z - mat.pos.z) > 0.5)
 								{
 									continue;
 								}
