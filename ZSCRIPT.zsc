@@ -374,6 +374,40 @@ class HDUniversalReloader : HDWeapon
 					}
 					case FAction_Disassemble:
 					{
+						BlockThingsIterator it = BlockThingsIterator.Create(invoker, SearchRange);
+						while (it.Next())
+						{
+							let pkp = HDRoundAmmo(it.thing);
+							let upkp = HDUPK(it.thing);
+							if (invoker.Distance3D(it.thing) > SearchRange || it.thing.vel.length() > 0.4 || pkp && pkp.GetClass() != selRecipe.AmmoClass || upkp && upkp.pickuptype != selRecipe.AmmoClass || !pkp && !upkp)
+							{
+								continue;
+							}
+
+							int req = 5 - invoker.LoadedRounds;
+							int toTake = min(req, upkp ? upkp.Amount : pkp.Amount);
+							if (upkp)
+							{
+								upkp.Amount -= toTake;
+								if (upkp.Amount == 0)
+								{
+									upkp.Destroy();
+								}
+							}
+							else
+							{
+								pkp.Amount -= toTake;
+								if (pkp.Amount == 0)
+								{
+									pkp.Destroy();
+								}
+							}
+							invoker.LoadedRounds += toTake;
+							invoker.Active = true;
+							break;
+						}
+						break;
+
 						if (invoker.CheckProximity(selRecipe.AmmoClass, SearchRange, 1, CPXF_CLOSEST | CPXF_SETTRACER))
 						{
 							Inventory am = Inventory(invoker.tracer);
@@ -464,7 +498,10 @@ class HDUniversalReloader : HDWeapon
 								mat.Amount = ActualAmount;
 							}
 						}
-						invoker.Active = false;
+						if (invoker.LoadedRounds == 0)
+						{
+							invoker.Active = false;
+						}
 						break;
 					}
 				}
