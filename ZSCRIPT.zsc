@@ -384,8 +384,7 @@ class HDUniversalReloader : HDWeapon
 								continue;
 							}
 
-							int req = 5 - invoker.LoadedRounds;
-							int toTake = min(req, upkp ? upkp.Amount : pkp.Amount);
+							int toTake = min(5, upkp ? upkp.Amount : pkp.Amount);
 							if (upkp)
 							{
 								upkp.Amount -= toTake;
@@ -405,22 +404,6 @@ class HDUniversalReloader : HDWeapon
 							invoker.LoadedRounds += toTake;
 							invoker.Active = true;
 							break;
-						}
-						break;
-
-						if (invoker.CheckProximity(selRecipe.AmmoClass, SearchRange, 1, CPXF_CLOSEST | CPXF_SETTRACER))
-						{
-							Inventory am = Inventory(invoker.tracer);
-							if (Distance3D(am) <= SearchRange && am.vel.length() <= 0.4)
-							{
-								invoker.LoadedRounds++;
-								am.Amount--;
-								if (am.Amount == 0)
-								{
-									am.Destroy();
-								}
-							}
-							invoker.Active = true;
 						}
 						break;
 					}
