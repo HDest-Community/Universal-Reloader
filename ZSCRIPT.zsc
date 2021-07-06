@@ -377,7 +377,7 @@ class HDUniversalReloader : HDWeapon
 						BlockThingsIterator it = BlockThingsIterator.Create(invoker, SearchRange);
 						while (it.Next())
 						{
-							let pkp = HDRoundAmmo(it.thing);
+							let pkp = HDAmmo(it.thing);
 							let upkp = HDUPK(it.thing);
 							if (invoker.Distance3D(it.thing) > SearchRange || it.thing.vel.length() > 0.4 || pkp && pkp.GetClass() != selRecipe.AmmoClass || upkp && upkp.pickuptype != selRecipe.AmmoClass || !pkp && !upkp)
 							{
