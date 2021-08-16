@@ -247,6 +247,42 @@ class HDUniversalReloader : HDWeapon
 		invoker.WeaponStatus[RProperty_SelectedRecipe] = SelIndex;
 	}
 
+	protected action void A_Tether(Actor other)
+	{
+		other.A_Face(invoker, 0, 0);
+		other.A_ChangeVelocity(1, 0, 1 * sin(other.pitch), CVF_RELATIVE | CVF_REPLACE);
+		vector3 dir = invoker.Vec3To(other);
+		dir.z -= invoker.height / 4;
+		vector3 unit = dir.unit();
+		for (double i = 0; i < invoker.Distance3D(other); i += 0.75)
+		{
+			invoker.A_SpawnParticle(0x00CCCC, SPF_FULLBRIGHT, 1, 1.5, 0, unit.x * i, unit.y * i, invoker.height / 2 + unit.z * i);
+		}
+	}
+
+	protected action bool A_IsBeingTethered(Actor other)
+	{
+		if (invoker.TractoredBox == other)
+		{
+			return true;
+		}
+		for (int i = 0; i < invoker.TractoredRounds.Size(); ++i)
+		{
+			if (invoker.TractoredRounds[i] && invoker.TractoredRounds[i] == other)
+			{
+				return true;
+			}
+		}
+		for (int i = 0; i < invoker.TractoredMaterials.Size(); ++i)
+		{
+			if (invoker.TractoredMaterials[i] && invoker.TractoredMaterials[i] == other)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	const MaterialCount = 3;
 
 	const SearchRange = 42;
@@ -258,6 +294,9 @@ class HDUniversalReloader : HDWeapon
 	private int ChugTicker;
 	private int ChargeUp;
 	private bool IsBeingPickedUp;
+	private HDRel_CraftingMaterial TractoredMaterials[MaterialCount];
+	private HDAmmo TractoredRounds[3];
+	private HDUPK TractoredBox;
 
 	Default
 	{
@@ -336,31 +375,60 @@ class HDUniversalReloader : HDWeapon
 							{
 								continue;
 							}
+							
 							for (int i = 0; i < MaterialCount; ++i)
 							{
 								if (it.thing.GetClass() != selRecipe.Materials[i])
 								{
 									continue;
 								}
+								
 								let mat = HDRel_CraftingMaterial(it.thing);
 								if (invoker.LoadedMats[i] == selRecipe.Costs[i] || invoker.Distance3D(mat) > SearchRange || mat.vel.length() > 0.4 || abs(invoker.pos.z - mat.pos.z) > 0.5)
 								{
 									continue;
 								}
-								int toTake = min(selRecipe.Costs[i] - invoker.LoadedMats[i], mat.Amount);
-								invoker.LoadedMats[i] += toTake;
-								mat.Amount -= toTake;
-								if (mat.Amount == 0)
+
+								if (!A_IsBeingTethered(mat) && !invoker.TractoredMaterials[i])
 								{
-									mat.Destroy();
+									invoker.TractoredMaterials[i] = mat;
 								}
-								break;
+							}
+						}
+						for (int i = 0; i < invoker.TractoredMaterials.Size(); ++i)
+						{
+							if (!invoker.TractoredMaterials[i])
+							{
+								continue;
+							}
+
+							double dist = invoker.Distance3D(invoker.TractoredMaterials[i]);
+							if (dist <= SearchRange)
+							{
+								if (dist > 8)
+								{
+									A_Tether(invoker.TractoredMaterials[i]);
+								}
+								else
+								{
+									int toTake = min(selRecipe.Costs[i] * 3 - invoker.LoadedMats[i], invoker.TractoredMaterials[i].Amount);
+									invoker.LoadedMats[i] += toTake;
+									invoker.TractoredMaterials[i].Amount -= toTake;
+									if (invoker.TractoredMaterials[i].Amount == 0)
+									{
+										invoker.TractoredMaterials[i].Destroy();
+									}
+								}
+							}
+							else
+							{
+								invoker.TractoredMaterials[i] = null;
 							}
 						}
 						int fullMats = 0;
 						for (int i = 0; i < MaterialCount; ++i)
 						{
-							if (invoker.LoadedMats[i] == selRecipe.Costs[i])
+							if (invoker.LoadedMats[i] >= selRecipe.Costs[i])
 							{
 								fullMats++;
 							}
@@ -377,33 +445,87 @@ class HDUniversalReloader : HDWeapon
 						BlockThingsIterator it = BlockThingsIterator.Create(invoker, SearchRange);
 						while (it.Next())
 						{
-							let pkp = HDAmmo(it.thing);
+							let am = HDAmmo(it.thing);
 							let upkp = HDUPK(it.thing);
-							if (invoker.Distance3D(it.thing) > SearchRange || it.thing.vel.length() > 0.4 || pkp && pkp.GetClass() != selRecipe.AmmoClass || upkp && upkp.pickuptype != selRecipe.AmmoClass || !pkp && !upkp)
+							if (invoker.Distance3D(it.thing) > SearchRange || it.thing.vel.length() > 0.4 || am && am.GetClass() != selRecipe.AmmoClass || upkp && upkp.pickuptype != selRecipe.AmmoClass || !am && !upkp)
 							{
 								continue;
 							}
 
-							int toTake = min(5, upkp ? upkp.Amount : pkp.Amount);
-							if (upkp)
+							if (upkp && !invoker.TractoredBox)
 							{
-								upkp.Amount -= toTake;
-								if (upkp.Amount == 0)
+								invoker.TractoredBox = upkp;
+							}
+							else if (am && !A_IsBeingTethered(am))
+							{
+								for (int i = 0; i < invoker.TractoredRounds.Size(); ++i)
 								{
-									upkp.Destroy();
+									if (!invoker.TractoredRounds[i])
+									{
+										invoker.TractoredRounds[i] = am;
+										break;
+									}
+								}
+							}
+						}
+
+						// [Ace] Prioritize boxes.
+						if (invoker.TractoredBox)
+						{
+							double dist = invoker.Distance3D(invoker.TractoredBox);
+							if (dist <= SearchRange)
+							{
+								if (dist > 8)
+								{
+									A_Tether(invoker.TractoredBox);
+								}
+								else
+								{
+									int toTake = min(5, invoker.TractoredBox.Amount);
+									invoker.TractoredBox.Amount -= toTake;
+									invoker.LoadedRounds += toTake;
+									if (invoker.TractoredBox.Amount == 0)
+									{
+										invoker.TractoredBox.Destroy();
+									}
+									invoker.Active = true;
 								}
 							}
 							else
 							{
-								pkp.Amount -= toTake;
-								if (pkp.Amount == 0)
+								invoker.TractoredBox = null;
+							}
+						}
+						else for (int i = 0; i < invoker.TractoredRounds.Size(); ++i)
+						{
+							if (!invoker.TractoredRounds[i])
+							{
+								continue;
+							}
+
+							double dist = invoker.Distance3D(invoker.TractoredRounds[i]);
+							if (dist <= SearchRange)
+							{
+								if (dist > 8)
 								{
-									pkp.Destroy();
+									A_Tether(invoker.TractoredRounds[i]);
+								}
+								else
+								{
+									int toTake = min(5, invoker.TractoredRounds[i].Amount);
+									invoker.TractoredRounds[i].Amount -= toTake;
+									invoker.LoadedRounds += toTake;
+									if (invoker.TractoredRounds[i].Amount == 0)
+									{
+										invoker.TractoredRounds[i].Destroy();
+									}
+									invoker.Active = true;
 								}
 							}
-							invoker.LoadedRounds += toTake;
-							invoker.Active = true;
-							break;
+							else
+							{
+								invoker.TractoredRounds[i] = null;
+							}
 						}
 						break;
 					}
