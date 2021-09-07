@@ -285,7 +285,7 @@ class HDUniversalReloader : HDWeapon
 
 	const MaterialCount = 3;
 
-	const SearchRange = 42;
+	const SearchRange = HDCONST_ONEMETRE;
 	private bool Active;
 	private int LoadedMats[MaterialCount];
 	private int LoadedRounds;
