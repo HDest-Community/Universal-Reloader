@@ -247,19 +247,6 @@ class HDUniversalReloader : HDWeapon
 		invoker.WeaponStatus[RProperty_SelectedRecipe] = SelIndex;
 	}
 
-	protected action void A_Tether(Actor other)
-	{
-		other.A_Face(invoker, 0, 0);
-		other.A_ChangeVelocity(1, 0, 1 * sin(other.pitch), CVF_RELATIVE | CVF_REPLACE);
-		vector3 dir = invoker.Vec3To(other);
-		dir.z -= invoker.height / 4;
-		vector3 unit = dir.unit();
-		for (double i = 0; i < invoker.Distance3D(other); i += 0.75)
-		{
-			invoker.A_SpawnParticle(0x00CCCC, SPF_FULLBRIGHT, 1, 1.5, 0, unit.x * i, unit.y * i, invoker.height / 2 + unit.z * i);
-		}
-	}
-
 	protected action bool A_IsBeingTethered(Actor other)
 	{
 		if (invoker.TractoredBox == other)
@@ -407,7 +394,7 @@ class HDUniversalReloader : HDWeapon
 							{
 								if (dist > 8)
 								{
-									A_Tether(invoker.TractoredMaterials[i]);
+									AceCore.Tether(invoker, invoker.TractoredMaterials[i]);
 								}
 								else
 								{
@@ -477,7 +464,7 @@ class HDUniversalReloader : HDWeapon
 							{
 								if (dist > 8)
 								{
-									A_Tether(invoker.TractoredBox);
+									AceCore.Tether(invoker, invoker.TractoredBox);
 								}
 								else
 								{
@@ -508,7 +495,7 @@ class HDUniversalReloader : HDWeapon
 							{
 								if (dist > 8)
 								{
-									A_Tether(invoker.TractoredRounds[i]);
+									AceCore.Tether(invoker, invoker.TractoredRounds[i]);
 								}
 								else
 								{
