@@ -21,6 +21,14 @@ class HDUniversalReloader : HDWeapon
 	{
 		Super.BeginPlay();
 		
+		// [Ace] Note to self: never, for any reason, and no matter the torture, do this atrocity ever again. It may be cleaner, but it's absolutely fucking TRASH.
+		// I have to rereate the objects every time I change a number. Do NOT, I repeat, DO NOT FUCKING DO THIS AGAIN. Words cannot describe how mad I am for doing it this way.
+		// It also unnecessarily creates a problem when it comes to mod support.
+		// I didn't know better at the time.
+		// But I wish I did.
+		// I really do.
+		// Fuck.
+
 		HDRel_Recipe r;
 		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",        "HDRel_RawLead", 2, 1.00,   "HDRel_RawPlastic", 1, 0.75,   "HDRel_RawPowder", 1, 0.50,    1.50)) Recipes.Push(r); // Vanilla HD
 		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",      "HDRel_RawLead", 2, 1.00,   "HDRel_RawPlastic", 1, 0.70,   "HDRel_RawPowder", 2, 1.25,    1.00)) Recipes.Push(r); // Vanilla HD
