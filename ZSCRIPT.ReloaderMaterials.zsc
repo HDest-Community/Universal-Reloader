@@ -50,6 +50,14 @@ class HDRel_CraftingMaterial : HDAmmo abstract
 		}
 	}
 
+	override void DoEffect()
+	{
+		if (Amount < 1)
+		{
+			Destroy();
+			return;
+		}
+	}
 
 	PType PileType;
 	property PileType: PileType;
