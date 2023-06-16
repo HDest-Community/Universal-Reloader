@@ -13,37 +13,6 @@ class HDUniversalReloader : HDWeapon
 		FAction_Disassemble
 	}
 
-	override void BeginPlay()
-	{
-		Super.BeginPlay();
-		
-		// [Ace] Note to self: never, for any reason, and no matter the torture, do this atrocity ever again. It may be cleaner, but it's absolutely fucking TRASH.
-		// I have to rereate the objects every time I change a number. Do NOT, I repeat, DO NOT FUCKING DO THIS AGAIN. Words cannot describe how mad I am for doing it this way.
-		// It also unnecessarily creates a problem when it comes to mod support.
-		// I didn't know better at the time.
-		// But I wish I did.
-		// I really do.
-		// Fuck.
-
-		HDRel_Recipe r;
-		if (r = HDRel_Recipe.TryCreate("HDPistolAmmo",        "HDRel_RawLead", 2, 1.00,   "HDRel_RawPlastic", 1, 0.75,   "HDRel_RawPowder", 1, 0.50,    1.50)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDRevolverAmmo",      "HDRel_RawLead", 2, 1.00,   "HDRel_RawPlastic", 1, 0.70,   "HDRel_RawPowder", 2, 1.25,    1.00)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HDShellAmmo",         "HDRel_RawLead", 4, 3.00,   "HDRel_RawPlastic", 2, 1.00,   "HDRel_RawPowder", 1, 0.50,    1.00)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("FourMilAmmo",         "HDRel_RawLead", 0, 1.00,   null,               0, 0.00,   "HDRel_RawPowder", 0, 1.00,    5.00)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("SevenMilAmmo",        "HDRel_RawLead", 2, 1.50,   "HDRel_RawBrass",   2, 1.75,   "HDRel_RawPowder", 4, 2.50,    1.00)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("SevenMilBrass",       null,            0, 0.00,   "HDRel_RawBrass",   0, 1.75,   null,              0, 0.00,    1.00)) Recipes.Push(r); // Vanilla HD
-		if (r = HDRel_Recipe.TryCreate("HD50AEAmmo",          "HDRel_RawLead", 3, 2.25,   "HDRel_RawBrass",   2, 1.25,   "HDRel_RawPowder", 2, 1.25,    0.75)) Recipes.Push(r); // BulletLib
-		if (r = HDRel_Recipe.TryCreate("HD45ACPAmmo",         "HDRel_RawLead", 2, 1.50,   "HDRel_RawBrass",   2, 1.00,   "HDRel_RawPowder", 2, 1.00,    0.75)) Recipes.Push(r); // BulletLib
-		if (r = HDRel_Recipe.TryCreate("HD500SWLightAmmo",    "HDRel_RawLead", 3, 2.25,   "HDRel_RawBrass",   2, 1.25,   "HDRel_RawPowder", 2, 1.00,    0.75)) Recipes.Push(r); // BulletLib
-		if (r = HDRel_Recipe.TryCreate("HD500SWHeavyAmmo",    "HDRel_RawLead", 4, 3.00,   "HDRel_RawBrass",   2, 1.25,   "HDRel_RawPowder", 2, 1.00,    0.75)) Recipes.Push(r); // BulletLib
-		if (r = HDRel_Recipe.TryCreate("HDNDMLoose",          "HDRel_RawLead", 4, 2.75,   "HDRel_RawBrass",   1, 0.75,   "HDRel_RawPowder", 2, 1.00,    1.00)) Recipes.Push(r); // Guillotine, peppergrinder.pk3
-		if (r = HDRel_Recipe.TryCreate("HDSlugAmmo",          "HDRel_RawLead", 5, 3.00,   "HDRel_RawPlastic", 1, 0.75,   "HDRel_RawPowder", 2, 1.00,    1.00)) Recipes.Push(r); // Greely, BulletLib
-		if (r = HDRel_Recipe.TryCreate("HD50OMGAmmo",         "HDRel_RawLead", 5, 3.80,   "HDRel_RawBrass",   4, 3.00,   "HDRel_RawPowder", 6, 4.00,    0.50)) Recipes.Push(r); // BulletLib
-		if (r = HDRel_Recipe.TryCreate("HD50AM_Ammo",         "HDRel_RawLead", 3, 2.25,   "HDRel_RawBrass",   2, 1.25,   "HDRel_RawPowder", 2, 1.00,    0.75)) Recipes.Push(r); // PB's weapon pack
-		if (r = HDRel_Recipe.TryCreate("ThirtyAughtSixAmmo",  "HDRel_RawLead", 3, 2.25,   "HDRel_RawBrass",   2, 1.75,   "HDRel_RawPowder", 4, 2.50,    0.90)) Recipes.Push(r); // .30-06, HexaDoken's Garand
-		if (r = HDRel_Recipe.TryCreate("ThirtyAughtSixBrass", null,            0, 0.00,   "HDRel_RawBrass",   0, 1.75,   null,              0, 0.00,    0.90)) Recipes.Push(r); // .30-06, HexaDoken's Garand
-	}
-
 	override string, double GetPickupSprite() { return "URLDA0", 1.0; }
 	override string GetHelpText()
 	{
@@ -302,6 +271,10 @@ class HDUniversalReloader : HDWeapon
 		HDWeapon.RefId "url";
 		Tag "Universal reloading device";
 	}
+
+    void addRecipes(Array<HDRel_Recipe> newRecipes) {
+        recipes.copy(newRecipes);
+    }
 
 	States
 	{

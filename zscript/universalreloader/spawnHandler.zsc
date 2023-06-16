@@ -1,0 +1,285 @@
+// Struct for itemspawn information.
+class URLSpawnItem play {
+    // ID by string for spawner
+    string spawnName;
+    
+    // ID by string for spawnees
+    Array<URLSpawnItemEntry> spawnReplaces;
+    
+    // Whether or not to persistently spawn.
+    bool isPersistent;
+    
+    bool replaceItem;
+
+    string toString() {
+
+        let replacements = "[";
+        if (spawnReplaces.size()) {
+            replacements = replacements..spawnReplaces[0].toString();
+
+            for (let i = 1; i < spawnReplaces.size(); i++) {
+                replacements = replacements..", "..spawnReplaces[i].toString();
+            }
+        }
+        replacements = replacements.."]";
+
+
+        return String.format("{ spawnName=%s, spawnReplaces=%s, isPersistent=%b, replaceItem=%b }", spawnName, replacements, isPersistent, replaceItem);
+    }
+}
+
+class URLSpawnItemEntry play {
+    string name;
+    int    chance;
+
+    string toString() {
+        return String.format("{ name=%s, chance=%s }", name, chance >= 0 ? "1/"..(chance + 1) : "never");
+    }
+}
+
+// Struct for passing useinformation to ammunition.
+class URLSpawnAmmo play {
+    // ID by string for the header ammo.
+    string ammoName;
+    
+    // ID by string for weapons using that ammo.
+    Array<string> weaponNames;
+    
+    string toString() {
+
+        let weapons = "[";
+        if (weaponNames.size()) {
+            weapons = weapons..weaponNames[0];
+
+            for (let i = 1; i < weaponNames.size(); i++) {
+                weapons = weapons..", "..weaponNames[i];
+            }
+        }
+        weapons = weapons.."]";
+
+        return String.format("{ ammoName=%s, weaponNames=%s }", ammoName, weapons);
+    }
+}
+
+
+
+// One handler to rule them all.
+class URLSpawnHandler : EventHandler {
+
+    // List of persistent classes to completely ignore.
+    // This -should- mean this mod has no performance impact.
+    static const class<actor> blacklist[] = {
+        "HDSmoke",
+        "BloodTrail",
+        "CheckPuff",
+        "WallChunk",
+        "HDBulletPuff",
+        "HDFireballTail",
+        "ReverseImpBallTail",
+        "HDSmokeChunk",
+        "ShieldSpark",
+        "HDFlameRed",
+        "HDMasterBlood",
+        "PlantBit",
+        "HDBulletActor",
+        "HDLadderSection"
+    };
+
+    // List of weapon-ammo associations.
+    // Used for ammo-use association on ammo spawn (happens very often).
+    array<URLSpawnAmmo> ammoSpawnList;
+
+    // List of item-spawn associations.
+    // used for item-replacement on mapload.
+    array<URLSpawnItem> itemSpawnList;
+
+    Array<HDRel_Recipe> recipes;
+
+    bool cvarsAvailable;
+
+    // appends an entry to itemSpawnList;
+    void addItem(string name, Array<URLSpawnItemEntry> replacees, bool persists, bool rep=true) {
+
+        if (hd_debug) {
+            let msg = "Adding "..(persists ? "Persistent" : "Non-Persistent").." Replacement Entry for "..name..": ["..replacees[0].toString();
+
+            if (replacees.size() > 1) {
+                for (let i = 1; i < replacees.size(); i++) msg = msg..", "..replacees[i].toString();
+            }
+
+            console.printf(msg.."]");
+        }
+
+        // Creates a new struct;
+        URLSpawnItem spawnee = URLSpawnItem(new('URLSpawnItem'));
+
+        // Populates the struct with relevant information,
+        spawnee.spawnName = name;
+        spawnee.isPersistent = persists;
+        spawnee.replaceItem = rep;
+
+        for (int i = 0; i < replacees.size(); i++) {
+            spawnee.spawnReplaces.push(replacees[i]);
+        }
+
+        // Pushes the finished struct to the array.
+        itemSpawnList.push(spawnee);
+    }
+
+    URLSpawnItemEntry addItemEntry(string name, int chance) {
+        // Creates a new struct;
+        URLSpawnItemEntry spawnee = URLSpawnItemEntry(new('URLSpawnItemEntry'));
+        spawnee.name = name.makelower();
+        spawnee.chance = chance;
+        return spawnee;
+    }
+
+    // appends an entry to ammoSpawnList;
+    void addAmmo(string name, Array<string> weapons) {
+
+        // Creates a new struct;
+        URLSpawnAmmo spawnee = URLSpawnAmmo(new('URLSpawnAmmo'));
+        spawnee.ammoName = name.makelower();
+
+        // Populates the struct with relevant information,
+        for (int i = 0; i < weapons.size(); i++) {
+            spawnee.weaponNames.push(weapons[i].makelower());
+        }
+
+        // Pushes the finished struct to the array.
+        ammoSpawnList.push(spawnee);
+    }
+
+    void addRecipe(string amcls,
+        class<HDRel_ProjectileMaterial> projMat, int projCost, double projProd,
+        class<HDRel_CasingMaterial> casingMat,   int csgCost,  double csgProd,
+        class<HDRel_PowderMaterial> powderMat,   int pwdCost,  double pwdProd,
+        double speed
+    ) {
+        HDRel_Recipe r;
+
+        if (r = HDRel_Recipe.TryCreate(amcls,
+            projMat, projCost, projProd,
+            casingMat, csgCost, csgProd,
+            powderMat, pwdCost, pwdProd,
+            speed)
+        ) {
+            if (hd_debug) console.printf("Adding Universal Reloader Crafting Recipe for "..amcls);
+
+            recipes.push(r);
+        }
+    }
+
+
+    // Populates the replacement and association arrays.
+    void init() {
+        
+        cvarsAvailable = true;
+
+        //---------------------
+        // Crafting Materials
+        //---------------------
+
+        Array<String> mat_brass;
+        mat_brass.push("HDUniversalReloader");
+        addAmmo("HDRel_RawBrass", mat_brass);
+
+        Array<String> mat_lead;
+        mat_lead.push("HDUniversalReloader");
+        addAmmo("HDRel_RawLead", mat_lead);
+
+        Array<String> mat_plastic;
+        mat_plastic.push("HDUniversalReloader");
+        addAmmo("HDRel_RawPlastic", mat_plastic);
+
+        Array<String> mat_powder;
+        mat_powder.push("HDUniversalReloader");
+        addAmmo("HDRel_RawPowder", mat_powder);
+
+        //---------------------
+        // Crafting Recipes
+        //---------------------
+
+        addRecipe("HDPistolAmmo",        "HDRel_RawLead", 2, 1.00, "HDRel_RawPlastic", 1, 0.75, "HDRel_RawPowder", 1, 0.50, 1.50); // Vanilla HD
+        addRecipe("HDRevolverAmmo",      "HDRel_RawLead", 2, 1.00, "HDRel_RawPlastic", 1, 0.70, "HDRel_RawPowder", 2, 1.25, 1.00); // Vanilla HD
+        addRecipe("HDShellAmmo",         "HDRel_RawLead", 4, 3.00, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.50, 1.00); // Vanilla HD
+        addRecipe("FourMilAmmo",         "HDRel_RawLead", 0, 1.00, null,               0, 0.00, "HDRel_RawPowder", 0, 1.00, 5.00); // Vanilla HD
+        addRecipe("SevenMilAmmo",        "HDRel_RawLead", 2, 1.50, "HDRel_RawBrass",   2, 1.75, "HDRel_RawPowder", 4, 2.50, 1.00); // Vanilla HD
+        addRecipe("SevenMilBrass",       null,            0, 0.00, "HDRel_RawBrass",   0, 1.75, null,              0, 0.00, 1.00); // Vanilla HD
+        addRecipe("HD50AEAmmo",          "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.25, 0.75); // BulletLib
+        addRecipe("HD45ACPAmmo",         "HDRel_RawLead", 2, 1.50, "HDRel_RawBrass",   2, 1.00, "HDRel_RawPowder", 2, 1.00, 0.75); // BulletLib
+        addRecipe("HD500SWLightAmmo",    "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75); // BulletLib
+        addRecipe("HD500SWHeavyAmmo",    "HDRel_RawLead", 4, 3.00, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75); // BulletLib
+        addRecipe("HDNDMLoose",          "HDRel_RawLead", 4, 2.75, "HDRel_RawBrass",   1, 0.75, "HDRel_RawPowder", 2, 1.00, 1.00); // Guillotine, peppergrinder.pk3
+        addRecipe("HDSlugAmmo",          "HDRel_RawLead", 5, 3.00, "HDRel_RawPlastic", 1, 0.75, "HDRel_RawPowder", 2, 1.00, 1.00); // Greely, BulletLib
+        addRecipe("HD50OMGAmmo",         "HDRel_RawLead", 5, 3.80, "HDRel_RawBrass",   4, 3.00, "HDRel_RawPowder", 6, 4.00, 0.50); // BulletLib
+        addRecipe("HD50AM_Ammo",         "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75); // PB's weapon pack
+        addRecipe("ThirtyAughtSixAmmo",  "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.75, "HDRel_RawPowder", 4, 2.50, 0.90); // .30-06, HexaDoken's Garand
+        addRecipe("ThirtyAughtSixBrass", null,            0, 0.00, "HDRel_RawBrass",   0, 1.75, null,              0, 0.00, 0.90); // .30-06, HexaDoken's Garand
+    }
+
+    // Random stuff, stores it and forces negative values just to be 0.
+    bool giveRandom(int chance) {
+        if (chance > -1) {
+            let result = random(0, chance);
+
+            if (hd_debug) console.printf("Rolled a "..result.." out of "..(chance + 1));
+
+            return result == 0;
+        }
+
+        return false;
+    }
+
+    // Tries to create the item via random spawning.
+    bool tryCreateItem(Inventory item, URLSpawnItem f, int g, bool rep) {
+        if (giveRandom(f.spawnReplaces[g].chance)) {
+            if (Actor.Spawn(f.spawnName, item.pos) && rep) {
+                if (hd_debug) console.printf(item.GetClassName().." -> "..f.spawnName);
+
+                item.destroy();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    override void worldthingspawned(worldevent e) {
+        // Populates the main arrays if they haven't been already. 
+        if (!cvarsAvailable) init();
+
+        // If thing spawned doesn't exist, quit
+        if (!e.Thing) return;
+
+        // If thing spawned is blacklisted, quit
+        for (let i = 0; i < blacklist.size(); i++) if (e.thing is blacklist[i]) return;
+
+        string candidateName = e.Thing.GetClassName();
+        candidateName = candidateName.makelower();
+
+        // Pointers for specific classes.
+        let material = HDRel_CraftingMaterial(e.Thing);
+        let reloader = HDUniversalReloader(e.Thing);
+
+        // If the thing spawned is a crafting material, add any and all items that can use this.
+        if (material) handleMaterialUses(material, candidateName);
+
+        // If the thing spawned is a Universal Reloader, copy all the registered recipes.
+        if (reloader) reloader.addRecipes(recipes);
+    }
+
+    private void handleMaterialUses(HDRel_CraftingMaterial material, string candidateName) {
+        // Goes through the entire ammospawn array.
+        for (let i = 0; i < ammoSpawnList.size(); i++) {
+            if (candidateName == ammoSpawnList[i].ammoName) {
+                // Appends each entry in that material's subarray.
+                for (let j = 0; j < ammoSpawnList[i].weaponNames.size(); j++) {
+                    // Actual pushing to itemsthatusethis().
+                    material.ItemsThatUseThis.Push(ammoSpawnList[i].weaponNames[j]);
+                }
+            }
+        }
+    }
+}
