@@ -1,0 +1,19 @@
+class HDRel_RawPowder : HDRel_PowderMaterial
+{
+	Default
+	{
+		Tag "Powder";
+		Inventory.Icon "PWDRA0";
+		Inventory.PickupMessage "Picked up some powder.";
+		HDRel_CraftingMaterial.PileMessage "Picked up a pile of powder.";
+		HDRel_CraftingMaterial.PileType PType_Pile;
+		HDPickup.Bulk 0.08;
+	}
+
+	States
+	{
+		Spawn:
+			PWDR A -1;
+			Stop;
+	}
+}

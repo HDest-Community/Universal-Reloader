@@ -1,0 +1,20 @@
+class HDRel_RawLead : HDRel_ProjectileMaterial 
+{
+	Default
+	{
+		Tag "Lead";
+		Inventory.Icon "LEADA0";
+		Inventory.PickupMessage "Picked up some lead materials.";
+		HDRel_CraftingMaterial.PileMessage "Picked up a ball of lead.";
+		HDRel_CraftingMaterial.PileType PType_Ball;
+		HDPickup.Bulk 0.25;
+		Scale 0.8;
+	}
+
+	States
+	{
+		Spawn:
+			LEAD A -1;
+			Stop;
+	}
+}

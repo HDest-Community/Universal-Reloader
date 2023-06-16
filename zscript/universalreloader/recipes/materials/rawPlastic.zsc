@@ -1,0 +1,20 @@
+class HDRel_RawPlastic : HDRel_CasingMaterial
+{
+	Default
+	{
+		Tag "Plastic";
+		Inventory.Icon "PLTCA0";
+		Inventory.PickupMessage "Picked up some plastic materials.";
+		HDRel_CraftingMaterial.PileMessage "Picked up a pile of plastic.";
+		HDRel_CraftingMaterial.PileType PType_None;
+		HDPickup.Bulk 0.11;
+		Scale 0.4;
+	}
+
+	States
+	{
+		Spawn:
+			PLTC A -1;
+			Stop;
+	}
+}

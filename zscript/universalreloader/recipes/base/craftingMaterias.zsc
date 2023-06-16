@@ -1,0 +1,78 @@
+class HDRel_CraftingMaterial : HDAmmo abstract
+{
+	enum PType
+	{
+		PType_None,
+		PType_Ball,
+		PType_Pile
+	}
+
+	override void GetItemsThatUseThis()
+	{
+		ItemsThatUseThis.Push("HDUniversalReloader");
+	}
+
+	override string PickupMessage()
+	{
+		return Amount > 1 ? PileMessage : default.PickupMsg; 
+	}
+
+	override void SplitPickup()
+	{
+		int SplitAmount = min(Amount, random(4, 26));
+		while (Amount > SplitAmount)
+		{
+			int SubSplit = min(Amount, random(4, 26));
+			Actor a = Spawn(GetClass(), pos);
+			a.vel += vel + (frandom(-1, 1), frandom(-1, 1), frandom(-1, 1));
+			Inventory(a).Amount = SubSplit;
+			Amount -= SubSplit;
+		}
+
+		if (amount < 1)
+		{
+			Destroy();
+			return;
+		}
+
+		switch (PileType)
+		{
+			case PType_Pile:
+				scale.y = default.scale.y * max(1.0, Amount * 0.1);
+				if (Amount > 1)
+				{
+					Frame = 1;
+				}
+				break;
+			case PType_Ball:
+				scale = default.scale * max(1.0, Amount * 0.1);
+				break;
+		}
+	}
+
+	override void DoEffect()
+	{
+		if (Amount < 1)
+		{
+			Destroy();
+			return;
+		}
+	}
+
+	PType PileType;
+	property PileType: PileType;
+
+	string PileMessage;
+	property PileMessage: PileMessage;
+
+	Default
+	{
+		+FORCEXYBILLBOARD
+		+HDPICKUP.MULTIPICKUP
+	}
+}
+
+// [Ace] Just in case I want to change things individually later down the line.
+class HDRel_CasingMaterial : HDRel_CraftingMaterial abstract { }
+class HDRel_PowderMaterial : HDRel_CraftingMaterial abstract { }
+class HDRel_ProjectileMaterial : HDRel_CraftingMaterial abstract { }

@@ -1,0 +1,19 @@
+class HDRel_RawBrass : HDRel_CasingMaterial
+{
+	Default
+	{
+		Tag "Brass";
+		Inventory.Icon "BRMTA0";
+		Inventory.PickupMessage "Picked up some brass materials.";
+		HDRel_CraftingMaterial.PileMessage "Picked up a ball of brass.";
+		HDRel_CraftingMaterial.PileType PType_Ball;
+		HDPickup.Bulk 0.20;
+	}
+
+	States
+	{
+		Spawn:
+			BRMT A -1;
+			Stop;
+	}
+}

@@ -1,4 +1,14 @@
 version "4.0"
 
-#include "zscript/universalreloader/reloaderMaterials.zsc"
+#include "zscript/universalreloader/spawnHandler.zsc"
+
 #include "zscript/universalreloader/items/universalReloader.zsc"
+
+#include "zscript/universalreloader/recipes/reloaderRecipe.zsc"
+
+#include "zscript/universalreloader/recipes/base/craftingMaterials.zsc"
+
+#include "zscript/universalreloader/recipes/materials/rawBrass.zsc"
+#include "zscript/universalreloader/recipes/materials/rawLead.zsc"
+#include "zscript/universalreloader/recipes/materials/rawPlastic.zsc"
+#include "zscript/universalreloader/recipes/materials/rawPowder.zsc"
