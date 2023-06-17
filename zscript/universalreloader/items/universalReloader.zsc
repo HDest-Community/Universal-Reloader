@@ -250,7 +250,7 @@ class HDUniversalReloader : HDWeapon
 	private int LoadedMats[MaterialCount];
 	private int LoadedRounds;
 	protected FAction FactoryAction;
-	protected Array<HDRel_Recipe> Recipes; // [Ace] This is never checked for Size() > 0, but it's virtually impossible to abort unless Matt changes all the class names overnight.
+	protected Array<HDRel_Recipe> Recipes;
 	private int ChugTicker;
 	private int ChargeUp;
 	private bool IsBeingPickedUp;
