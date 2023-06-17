@@ -197,25 +197,131 @@ class URLSpawnHandler : EventHandler {
         addAmmo("HDRel_RawPowder", mat_powder);
 
         //---------------------
-        // Crafting Recipes
+        // Crafting Recipes               Projectile mat, cost, produced; CasingmMat, cost, produced; Powder mat, cost, produced; Speed.
         //---------------------
 
-        addRecipe("HDPistolAmmo",        "HDRel_RawLead", 2, 1.00, "HDRel_RawPlastic", 1, 0.75, "HDRel_RawPowder", 1, 0.50, 1.50); // Vanilla HD
-        addRecipe("HDRevolverAmmo",      "HDRel_RawLead", 2, 1.00, "HDRel_RawPlastic", 1, 0.70, "HDRel_RawPowder", 2, 1.25, 1.00); // Vanilla HD
-        addRecipe("HDShellAmmo",         "HDRel_RawLead", 4, 3.00, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.50, 1.00); // Vanilla HD
-        addRecipe("FourMilAmmo",         "HDRel_RawLead", 0, 1.00, null,               0, 0.00, "HDRel_RawPowder", 0, 1.00, 5.00); // Vanilla HD
-        addRecipe("SevenMilAmmo",        "HDRel_RawLead", 2, 1.50, "HDRel_RawBrass",   2, 1.75, "HDRel_RawPowder", 4, 2.50, 1.00); // Vanilla HD
-        addRecipe("SevenMilBrass",       null,            0, 0.00, "HDRel_RawBrass",   0, 1.75, null,              0, 0.00, 1.00); // Vanilla HD
-        addRecipe("HD50AEAmmo",          "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.25, 0.75); // BulletLib
-        addRecipe("HD45ACPAmmo",         "HDRel_RawLead", 2, 1.50, "HDRel_RawBrass",   2, 1.00, "HDRel_RawPowder", 2, 1.00, 0.75); // BulletLib
-        addRecipe("HD500SWLightAmmo",    "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75); // BulletLib
-        addRecipe("HD500SWHeavyAmmo",    "HDRel_RawLead", 4, 3.00, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75); // BulletLib
-        addRecipe("HDNDMLoose",          "HDRel_RawLead", 4, 2.75, "HDRel_RawBrass",   1, 0.75, "HDRel_RawPowder", 2, 1.00, 1.00); // Guillotine, peppergrinder.pk3
-        addRecipe("HDSlugAmmo",          "HDRel_RawLead", 5, 3.00, "HDRel_RawPlastic", 1, 0.75, "HDRel_RawPowder", 2, 1.00, 1.00); // Greely, BulletLib
-        addRecipe("HD50OMGAmmo",         "HDRel_RawLead", 5, 3.80, "HDRel_RawBrass",   4, 3.00, "HDRel_RawPowder", 6, 4.00, 0.50); // BulletLib
-        addRecipe("HD50AM_Ammo",         "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75); // PB's weapon pack
-        addRecipe("ThirtyAughtSixAmmo",  "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.75, "HDRel_RawPowder", 4, 2.50, 0.90); // .30-06, HexaDoken's Garand
-        addRecipe("ThirtyAughtSixBrass", null,            0, 0.00, "HDRel_RawBrass",   0, 1.75, null,              0, 0.00, 0.90); // .30-06, HexaDoken's Garand
+        // VANILLA HDEST
+
+        // 9mm
+        addRecipe("HDPistolAmmo",         "HDRel_RawLead", 2, 1.00, "HDRel_RawPlastic", 1, 0.75, "HDRel_RawPowder", 1, 0.50, 1.50);
+        addRecipe("HDSpent9mm",           null,            0, 0.00, "HDRel_RawPlastic", 0, 0.75, null,              0, 0.00, 1.50);
+
+        // .355
+        addRecipe("HDRevolverAmmo",       "HDRel_RawLead", 2, 1.00, "HDRel_RawPlastic", 1, 0.70, "HDRel_RawPowder", 2, 1.25, 1.00);
+        addRecipe("HDSpent355",           null,            0, 0.00, "HDRel_RawPlastic", 0, 0.70, null,              0, 0.00, 1.00);
+
+        // 12ga Shells
+        addRecipe("HDShellAmmo",          "HDRel_RawLead", 4, 3.00, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.50, 1.00);
+        addRecipe("HDSpentShell",         null,            0, 0.00, "HDRel_RawPlastic", 0, 1.00, null,              0, 0.00, 1.00);
+
+        // 4.26mm
+        addRecipe("FourMilAmmo",          "HDRel_RawLead", 0, 1.00, null,               0, 0.00, "HDRel_RawPowder", 0, 1.00, 5.00);
+
+        // 7.76mm
+        addRecipe("SevenMilAmmo",         "HDRel_RawLead", 2, 1.50, "HDRel_RawBrass",   2, 1.75, "HDRel_RawPowder", 4, 2.50, 1.00);
+        addRecipe("SevenMilAmmoRecast",   "HDRel_RawLead", 1, 1.00, "HDRel_RawBrass",   2, 1.75, "HDRel_RawPowder", 4, 2.50, 1.00);
+        addRecipe("SevenMilBrass",        null,            0, 0.00, "HDRel_RawBrass",   0, 1.75, null,              0, 0.00, 1.00);
+
+
+        // HDBULLETLIB-RECASTED
+
+        // 4ga 00 Buckshot
+        addRecipe("HD4GBAmmo",            "HDRel_RawLead", 8, 6.00, "HDRel_RawPlastic", 4, 2.50, "HDRel_RawPowder", 3, 2.00, 0.50);
+        addRecipe("HDSpent4GB",           null,            0, 0.00, "HDRel_RawPlastic", 0, 2.50, null,              0, 0.00, 0.50);
+
+        // 4ga Saboted Slug
+        addRecipe("HD4GSAmmo",            "HDRel_RawLead", 8, 6.00, "HDRel_RawPlastic", 4, 3.00, "HDRel_RawPowder", 3, 2.00, 0.50);
+        addRecipe("HDSpent4GS",           null,            0, 0.00, "HDRel_RawPlastic", 0, 3.00, null,              0, 0.00, 0.50);
+
+        // 5mm MR
+        addRecipe("HD5mm_Ammo",           "HDRel_RawLead", 1, 0.50, "HDRel_RawPlastic", 1, 0.50, "HDRel_RawPowder", 1, 0.50, 1.75);
+        addRecipe("HDSpent5mmMR",         null,            0, 0.00, "HDRel_RawPlastic", 0, 0.50, null,              0, 0.00, 1.75);
+
+        // 6mm Flechettes
+        addRecipe("HD6mmFlechetteAmmo",   "HDRel_RawLead", 2, 1.00, "HDRel_RawPlastic", 1, 0.75, "HDRel_RawPowder", 1, 0.75, 1.25);
+        addRecipe("HDSpent6mmFlechette",  null,            0, 0.00, "HDRel_RawPlastic", 0, 0.75, null,              0, 0.00, 1.25);
+
+        // 10mm Auto
+        addRecipe("HD10mAmmo",            "HDRel_RawLead", 6, 2.50, "HDRel_RawBrass",   2, 1.50, "HDRel_RawPowder", 3, 1.50, 1.00);
+        addRecipe("TenMilBrass",          null,            0, 0.00, "HDRel_RawBrass",   0, 1.50, null,              0, 0.00, 1.00);
+
+        //.30-06
+        addRecipe("ThirtyAughtSixAmmo",   "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.75, "HDRel_RawPowder", 4, 2.50, 0.90);
+        addRecipe("ThirtyAughtSixBrass",  null,            0, 0.00, "HDRel_RawBrass",   0, 1.75, null,              0, 0.00, 0.90);
+
+        // .45 ACP
+        addRecipe("HD45ACPAmmo",          "HDRel_RawLead", 2, 1.50, "HDRel_RawBrass",   2, 1.00, "HDRel_RawPowder", 2, 1.00, 0.75);
+        addRecipe("HDSpent45ACP",         null,            0, 0.00, "HDRel_RawBrass",   0, 1.00, null,              0, 0.00, 0.75);
+
+        // .45 LC
+        addRecipe("HD45LCAmmo",           "HDRel_RawLead", 2, 1.50, "HDRel_RawBrass",   2, 1.00, "HDRel_RawPowder", 3, 1.50, 0.75);
+        addRecipe("HDSpent45LC",          null,            0, 0.00, "HDRel_RawBrass",   0, 1.00, null,              0, 0.00, 0.75);
+
+        // .45 Golden LC
+        addRecipe("HDGold45LCAmmo",       "HDRel_RawLead", 4, 3.00, "HDRel_RawBrass",   2, 1.00, "HDRel_RawPowder", 6, 3.50, 0.75);
+        addRecipe("HDSpentGold45lc",      null,            0, 0.00, "HDRel_RawBrass",   0, 1.00, null,              0, 0.00, 0.75);
+
+        // .50 AE
+        addRecipe("HD50AEAmmo",           "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.25, 0.75);
+        addRecipe("HDSpent50AE",          null,            0, 0.00, "HDRel_RawBrass",   0, 1.25, null,              0, 0.00, 0.75);
+        
+        // .50 Action-Mega
+        addRecipe("HD50AM_Ammo",          "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75);
+        addRecipe("HDSpent50AM",          null,            0, 0.00, "HDRel_RawBrass",   0, 1.25, null,              0, 0.00, 0.75);
+
+        // .50 OMG
+        addRecipe("HD50OMGAmmo",          "HDRel_RawLead", 5, 3.80, "HDRel_RawBrass",   4, 3.00, "HDRel_RawPowder", 6, 4.00, 0.50);
+        addRecipe("HDSpent50OMG",         null,            0, 0.00, "HDRel_RawBrass",   0, 3.00, null,              0, 0.00, 0.50);
+
+        // 56cal Lead Ball
+        addRecipe("HDBallAmmo",           "HDRel_RawLead", 5, 5.00, "HDRel_RawBrass",   0, 0.00, "HDRel_RawPowder", 0, 0.00, 0.25);
+
+        // .451 Frei
+        addRecipe("HDAurochsAmmo",        "HDRel_RawLead", 2, 1.50, "HDRel_RawPlastic", 2, 1.50, "HDRel_RawPowder", 2, 1.50, 0.90);
+        addRecipe("HDSpent420",           null,            0, 0.00, "HDRel_RawPlastic", 1, 1.50, null,              0, 0.00, 0.90);
+
+        // .066 Bore Shell
+        addRecipe("HD069BoreAmmo",        "HDRel_RawLead", 2, 1.70, "HDRel_RawPlastic", 2, 1.70, "HDRel_RawPowder", 2, 1.70, 0.90);
+        addRecipe("HDSpent069Bore",       null,            0, 0.00, "HDRel_RawPlastic", 1, 1.70, null,              0, 0.00, 0.90);
+
+        // .300 Savage
+        addRecipe("Savage300Ammo",        "HDRel_RawLead", 2, 1.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 4, 2.25, 1.20);
+        addRecipe("Savage300Brass",       null,            0, 0.00, "HDRel_RawBrass",   2, 1.25, null,              0, 0.00, 1.20);
+
+        // .500 S&W
+        addRecipe("HD500SWLightAmmo",     "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75);
+        addRecipe("HD500SWHeavyAmmo",     "HDRel_RawLead", 4, 3.00, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75);
+        addRecipe("HDSpent500",           null,            0, 0.00, "HDRel_RawBrass",   0, 1.25, null,              0, 0.00, 0.75);
+
+        // .762 Tokarev
+        addRecipe("HD762TokarevAmmo",     "HDRel_RawLead", 2, 1.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 4, 2.25, 1.20);
+        addRecipe("TokarevBrass",         null,            0, 0.00, "HDRel_RawBrass",   2, 1.25, null,              0, 0.00, 1.20);
+
+        // Birdshot Shells
+        addRecipe("HDBirdshotShellAmmo",  "HDRel_RawLead", 4, 3.00, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.50, 1.00);
+        addRecipe("HDSpentBirdshotShell", null,            0, 0.00, "HDRel_RawPlastic", 0, 1.00, null,              0, 0.00, 1.00);
+
+        // Explosive Shells
+        addRecipe("HDExplosiveShellAmmo",  "HDRel_RawLead", 4, 1.50, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.75, 1.00);
+        addRecipe("HDSpentExplosiveShell", null,            0, 0.00, "HDRel_RawPlastic", 0, 1.00, null,              0, 0.00, 1.00);
+
+        // Flare Shells
+        addRecipe("HDFlareAmmo",           "HDRel_RawLead", 4, 1.50, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.75, 1.00);
+
+        // Less-Lethal Shells
+        addRecipe("HDLLShellAmmo",         "HDRel_RawLead", 2, 0.50, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.50, 1.00);
+        addRecipe("HDLLSpentShell",        null,            0, 0.00, "HDRel_RawPlastic", 0, 1.00, null,              0, 0.00, 1.00);
+
+        // 12ga Slugs
+        addRecipe("HDSlugAmmo",            "HDRel_RawLead", 5, 3.00, "HDRel_RawPlastic", 1, 0.75, "HDRel_RawPowder", 2, 1.00, 1.00);
+        addRecipe("HDSpentSlug",           null,            0, 0.00, "HDRel_RawPlastic", 0, 0.75, null,              0, 0.00, 1.00);
+
+
+        // PEPPERGRINDER
+
+        // 9mm NDM
+        addRecipe("HDNDMLoose",            "HDRel_RawLead", 4, 2.75, "HDRel_RawBrass",   1, 0.75, "HDRel_RawPowder", 2, 1.00, 1.00);
+        addRecipe("HDSpentNDM",            null,            0, 0.00, "HDRel_RawBrass",   0, 0.75, null,              0, 0.00, 1.00);
     }
 
     // Random stuff, stores it and forces negative values just to be 0.
