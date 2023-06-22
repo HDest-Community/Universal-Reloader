@@ -1,5 +1,11 @@
 version "4.10"
 
+#include "zscript/gunsmithpouch/gunsmithpouch.zsc"
+#include "zscript/gunsmithpouch/gunsmithpouch_bulk.zsc"
+#include "zscript/gunsmithpouch/gunsmithpouch_hud.zsc"
+#include "zscript/gunsmithpouch/gunsmithpouch_itemstorage.zsc"
+#include "zscript/gunsmithpouch/gunsmithpouch_spawning.zsc"
+
 #include "zscript/universalreloader/spawnHandler.zsc"
 
 #include "zscript/universalreloader/items/universalReloader.zsc"

@@ -1,5 +1,0 @@
-Code:
-- Accensus
-
-Sprites:
-- Reloader sprite by Mor'ladim.
