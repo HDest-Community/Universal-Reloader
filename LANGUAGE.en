@@ -1,0 +1,26 @@
+[enu default]
+
+// Options Menu Labels
+URL_MENU              = "Universal Reloader Options";
+
+URL_ENABLED           = "Enabled";
+URL_DISABLED          = "Disabled";
+
+URL_PROJECTILE        = "Projectile";
+URL_CASING            = "Casing";
+URL_POWDER            = "Powder";
+
+URL_CRAFTING_MATERIAL = "Crafting Material";
+URL_MATERIAL_COST     = "Material Cost";
+URL_DISASSEMBLE_RATIO = "Percent Returned when Disassembling";
+
+URL_RESET             = "Reset options";
+URL_RESET_ALL         = "Reset all options";
+
+// Crafting Materials
+URL_NO_MATERIAL       = "No Material";
+TAG_RAWBRASS          = "Raw Brass";
+TAG_RAWLEAD           = "Raw Lead";
+TAG_RAWPLASTIC        = "Raw Plastic";
+TAG_RAWPOWDER         = "Raw Powder";
+TAG_RAW_STEEL         = "Raw Steel";

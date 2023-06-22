@@ -197,131 +197,370 @@ class URLSpawnHandler : EventHandler {
         addAmmo("HDRel_RawPowder", mat_powder);
 
         //---------------------
-        // Crafting Recipes               Projectile mat, cost, produced; CasingmMat, cost, produced; Powder mat, cost, produced; Speed.
+        // Crafting Recipes
         //---------------------
+
+        string projectileMats[2] = { "", "HDRel_RawLead" };
+        string casingMats[3]     = { "", "HDRel_RawBrass", "HDRel_RawPlastic" };
+        string powderMats[2]     = { "", "HDRel_RawPowder" };
+
+        //            Crafting Result;         Projectile mat, cost, produced;
+        //                                     Casingm Mat,    cost, produced;
+        //                                     Powder mat,     cost, produced;
+        //                                     Speed.
 
         // VANILLA HDEST
 
         // 9mm
-        addRecipe("HDPistolAmmo",         "HDRel_RawLead", 2, 1.00, "HDRel_RawPlastic", 1, 0.75, "HDRel_RawPowder", 1, 0.50, 1.50);
-        addRecipe("HDSpent9mm",           null,            0, 0.00, "HDRel_RawPlastic", 0, 0.75, null,              0, 0.00, 1.50);
+        if (url_9mm_enabled) {
+            addRecipe("HDPistolAmmo",          projectileMats[url_9mm_projMat], url_9mm_projAmt,   url_9mm_projAmt * url_disassemble_ratio,
+                                               casingMats[url_9mm_casingMat],   url_9mm_casingAmt, url_9mm_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_9mm_powderMat],   url_9mm_powderAmt, url_9mm_powderAmt * url_disassemble_ratio,
+                                               url_9mm_speed);
+            addRecipe("HDSpent9mm",            null,                            0,                 0.00,
+                                               casingMats[url_9mm_casingMat],   url_9mm_casingAmt, url_9mm_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_9mm_speed);
+        }
 
         // .355
-        addRecipe("HDRevolverAmmo",       "HDRel_RawLead", 2, 1.00, "HDRel_RawPlastic", 1, 0.70, "HDRel_RawPowder", 2, 1.25, 1.00);
-        addRecipe("HDSpent355",           null,            0, 0.00, "HDRel_RawPlastic", 0, 0.70, null,              0, 0.00, 1.00);
+        if (url_355_enabled) {
+            addRecipe("HDRevolverAmmo",        projectileMats[url_355_projMat], url_355_projAmt,   url_355_projAmt * url_disassemble_ratio,
+                                               casingMats[url_355_casingMat],   url_355_casingAmt, url_355_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_355_powderMat],   url_355_powderAmt, url_355_powderAmt * url_disassemble_ratio,
+                                               url_355_speed);
+            addRecipe("HDSpent355",            null,                            0,                 0.00,
+                                               casingMats[url_355_casingMat],   url_355_casingAmt, url_355_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_355_speed);
+        }
 
         // 12ga Shells
-        addRecipe("HDShellAmmo",          "HDRel_RawLead", 4, 3.00, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.50, 1.00);
-        addRecipe("HDSpentShell",         null,            0, 0.00, "HDRel_RawPlastic", 0, 1.00, null,              0, 0.00, 1.00);
+        if (url_12gaShells_enabled) {
+            addRecipe("HDShellAmmo",           projectileMats[url_12gaShells_projMat], url_12gaShells_projAmt,   url_12gaShells_projAmt * url_disassemble_ratio,
+                                               casingMats[url_12gaShells_casingMat],   url_12gaShells_casingAmt, url_12gaShells_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_12gaShells_powderMat],   url_12gaShells_powderAmt, url_12gaShells_powderAmt * url_disassemble_ratio,
+                                               url_12gaShells_speed);
+            addRecipe("HDSpentShell",          null,                            0,                 0.00,
+                                               casingMats[url_12gaShells_casingMat],   url_12gaShells_casingAmt, url_12gaShells_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_12gaShells_speed);
+        }
 
         // 4.26mm
-        addRecipe("FourMilAmmo",          "HDRel_RawLead", 0, 1.00, null,               0, 0.00, "HDRel_RawPowder", 0, 1.00, 5.00);
+        if (url_4mm_enabled) {
+            // Hardcoded Casing Material away because caseless.
+            addRecipe("FourMilAmmo",           projectileMats[url_4mm_projMat], url_4mm_projAmt,   url_4mm_projAmt * url_disassemble_ratio,
+                                               casingMats[url_4mm_casingMat],   url_4mm_casingAmt, url_4mm_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_4mm_powderMat],   url_4mm_powderAmt, url_4mm_powderAmt * url_disassemble_ratio,
+                                               url_4mm_speed);
+        }
 
         // 7.76mm
-        addRecipe("SevenMilAmmo",         "HDRel_RawLead", 2, 1.50, "HDRel_RawBrass",   2, 1.75, "HDRel_RawPowder", 4, 2.50, 1.00);
-        addRecipe("SevenMilAmmoRecast",   "HDRel_RawLead", 1, 1.00, "HDRel_RawBrass",   2, 1.75, "HDRel_RawPowder", 4, 2.50, 1.00);
-        addRecipe("SevenMilBrass",        null,            0, 0.00, "HDRel_RawBrass",   0, 1.75, null,              0, 0.00, 1.00);
+        if (url_7mm_enabled) {
+            addRecipe("SevenMilAmmo",          projectileMats[url_7mm_projMat], url_7mm_projAmt,   url_7mm_projAmt * url_disassemble_ratio,
+                                               casingMats[url_7mm_casingMat],   url_7mm_casingAmt, url_7mm_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_7mm_powderMat],   url_7mm_powderAmt, url_7mm_powderAmt * url_disassemble_ratio,
+                                               url_7mm_speed);
+            addRecipe("SevenMilAmmoRecast",    projectileMats[url_7mmRecast_projMat], url_7mmRecast_projAmt,   url_7mmRecast_projAmt * url_disassemble_ratio,
+                                               casingMats[url_7mm_casingMat],   url_7mm_casingAmt, url_7mm_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_7mm_powderMat],   url_7mm_powderAmt, url_7mm_powderAmt * url_disassemble_ratio,
+                                               url_7mm_speed);
+            addRecipe("SevenMilBrass",         null,                            0,                 0.00,
+                                               casingMats[url_7mm_casingMat],   url_7mm_casingAmt, url_7mm_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_7mm_speed);
+        }
 
 
         // HDBULLETLIB-RECASTED
 
         // 4ga 00 Buckshot
-        addRecipe("HD4GBAmmo",            "HDRel_RawLead", 8, 6.00, "HDRel_RawPlastic", 4, 2.50, "HDRel_RawPowder", 3, 2.00, 0.50);
-        addRecipe("HDSpent4GB",           null,            0, 0.00, "HDRel_RawPlastic", 0, 2.50, null,              0, 0.00, 0.50);
+        if (url_4gb_enabled) {
+            addRecipe("HD4GBAmmo",             projectileMats[url_4gb_projMat], url_4gb_projAmt,   url_4gb_projAmt * url_disassemble_ratio,
+                                               casingMats[url_4gb_casingMat],   url_4gb_casingAmt, url_4gb_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_4gb_powderMat],   url_4gb_powderAmt, url_4gb_powderAmt * url_disassemble_ratio,
+                                               url_4gb_speed);
+            addRecipe("HDSpent4GB",            null,                            0,                 0.00,
+                                               casingMats[url_4gb_casingMat],   url_4gb_casingAmt, url_4gb_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_4gb_speed);
+        }
 
         // 4ga Saboted Slug
-        addRecipe("HD4GSAmmo",            "HDRel_RawLead", 8, 6.00, "HDRel_RawPlastic", 4, 3.00, "HDRel_RawPowder", 3, 2.00, 0.50);
-        addRecipe("HDSpent4GS",           null,            0, 0.00, "HDRel_RawPlastic", 0, 3.00, null,              0, 0.00, 0.50);
+        if (url_4gs_enabled) {
+            addRecipe("HD4GSAmmo",             projectileMats[url_4gs_projMat], url_4gs_projAmt,   url_4gs_projAmt * url_disassemble_ratio,
+                                               casingMats[url_4gs_casingMat],   url_4gs_casingAmt, url_4gs_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_4gs_powderMat],   url_4gs_powderAmt, url_4gs_powderAmt * url_disassemble_ratio,
+                                               url_4gs_speed);
+            addRecipe("HDSpent4GS",            null,                            0,                 0.00,
+                                               casingMats[url_4gs_casingMat],   url_4gs_casingAmt, url_4gs_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_4gs_speed);
+        }
 
         // 5mm MR
-        addRecipe("HD5mm_Ammo",           "HDRel_RawLead", 1, 0.50, "HDRel_RawPlastic", 1, 0.50, "HDRel_RawPowder", 1, 0.50, 1.75);
-        addRecipe("HDSpent5mmMR",         null,            0, 0.00, "HDRel_RawPlastic", 0, 0.50, null,              0, 0.00, 1.75);
+        if (url_5mm_enabled) {
+            addRecipe("HD5mm_Ammo",            projectileMats[url_5mm_projMat], url_5mm_projAmt,   url_5mm_projAmt * url_disassemble_ratio,
+                                               casingMats[url_5mm_casingMat],   url_5mm_casingAmt, url_5mm_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_5mm_powderMat],   url_5mm_powderAmt, url_5mm_powderAmt * url_disassemble_ratio,
+                                               url_5mm_speed);
+            addRecipe("HDSpent5mmMR",          null,                            0,                 0.00,
+                                               casingMats[url_5mm_casingMat],   url_5mm_casingAmt, url_5mm_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_5mm_speed);
+        }
 
         // 6mm Flechettes
-        addRecipe("HD6mmFlechetteAmmo",   "HDRel_RawLead", 2, 1.00, "HDRel_RawPlastic", 1, 0.75, "HDRel_RawPowder", 1, 0.75, 1.25);
-        addRecipe("HDSpent6mmFlechette",  null,            0, 0.00, "HDRel_RawPlastic", 0, 0.75, null,              0, 0.00, 1.25);
+        if (url_6mm_enabled) {
+            addRecipe("HD6mmFlechetteAmmo",    projectileMats[url_6mm_projMat], url_6mm_projAmt,   url_6mm_projAmt * url_disassemble_ratio,
+                                               casingMats[url_6mm_casingMat],   url_6mm_casingAmt, url_6mm_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_6mm_powderMat],   url_6mm_powderAmt, url_6mm_powderAmt * url_disassemble_ratio,
+                                               url_6mm_speed);
+            addRecipe("HDSpent6mmFlechette",   null,                            0,                 0.00,
+                                               casingMats[url_6mm_casingMat],   url_6mm_casingAmt, url_6mm_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_6mm_speed);
+        }
 
         // 10mm Auto
-        addRecipe("HD10mAmmo",            "HDRel_RawLead", 6, 2.50, "HDRel_RawBrass",   2, 1.50, "HDRel_RawPowder", 3, 1.50, 1.00);
-        addRecipe("TenMilBrass",          null,            0, 0.00, "HDRel_RawBrass",   0, 1.50, null,              0, 0.00, 1.00);
+        if (url_10mm_enabled) {
+            addRecipe("HD10mAmmo",             projectileMats[url_10mm_projMat], url_10mm_projAmt,   url_10mm_projAmt * url_disassemble_ratio,
+                                               casingMats[url_10mm_casingMat],   url_10mm_casingAmt, url_10mm_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_10mm_powderMat],   url_10mm_powderAmt, url_10mm_powderAmt * url_disassemble_ratio,
+                                               url_10mm_speed);
+            addRecipe("TenMilBrass",           null,                            0,                 0.00,
+                                               casingMats[url_10mm_casingMat],   url_10mm_casingAmt, url_10mm_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_10mm_speed);
+        }
 
         //.30-06
-        addRecipe("ThirtyAughtSixAmmo",   "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.75, "HDRel_RawPowder", 4, 2.50, 0.90);
-        addRecipe("ThirtyAughtSixBrass",  null,            0, 0.00, "HDRel_RawBrass",   0, 1.75, null,              0, 0.00, 0.90);
+        if (url_3006_enabled) {
+            addRecipe("ThirtyAughtSixAmmo",    projectileMats[url_3006_projMat], url_3006_projAmt,   url_3006_projAmt * url_disassemble_ratio,
+                                               casingMats[url_3006_casingMat],   url_3006_casingAmt, url_3006_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_3006_powderMat],   url_3006_powderAmt, url_3006_powderAmt * url_disassemble_ratio,
+                                               url_3006_speed);
+            addRecipe("ThirtyAughtSixBrass",   null,                            0,                 0.00,
+                                               casingMats[url_3006_casingMat],   url_3006_casingAmt, url_3006_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_3006_speed);
+        }
 
         // .45 ACP
-        addRecipe("HD45ACPAmmo",          "HDRel_RawLead", 2, 1.50, "HDRel_RawBrass",   2, 1.00, "HDRel_RawPowder", 2, 1.00, 0.75);
-        addRecipe("HDSpent45ACP",         null,            0, 0.00, "HDRel_RawBrass",   0, 1.00, null,              0, 0.00, 0.75);
+        if (url_45acp_enabled) {
+            addRecipe("HD45ACPAmmo",           projectileMats[url_45acp_projMat], url_45acp_projAmt,   url_45acp_projAmt * url_disassemble_ratio,
+                                               casingMats[url_45acp_casingMat],   url_45acp_casingAmt, url_45acp_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_45acp_powderMat],   url_45acp_powderAmt, url_45acp_powderAmt * url_disassemble_ratio,
+                                               url_45acp_speed);
+            addRecipe("HDSpent45ACP",          null,                            0,                 0.00,
+                                               casingMats[url_45acp_casingMat],   url_45acp_casingAmt, url_45acp_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_45acp_speed);
+        }
 
         // .45 LC
-        addRecipe("HD45LCAmmo",           "HDRel_RawLead", 2, 1.50, "HDRel_RawBrass",   2, 1.00, "HDRel_RawPowder", 3, 1.50, 0.75);
-        addRecipe("HDSpent45LC",          null,            0, 0.00, "HDRel_RawBrass",   0, 1.00, null,              0, 0.00, 0.75);
+        if (url_45lc_enabled) {
+            addRecipe("HD45LCAmmo",            projectileMats[url_45lc_projMat], url_45lc_projAmt,   url_45lc_projAmt * url_disassemble_ratio,
+                                               casingMats[url_45lc_casingMat],   url_45lc_casingAmt, url_45lc_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_45lc_powderMat],   url_45lc_powderAmt, url_45lc_powderAmt * url_disassemble_ratio,
+                                               url_45lc_speed);
+            addRecipe("HDSpent45LC",           null,                            0,                 0.00,
+                                               casingMats[url_45lc_casingMat],   url_45lc_casingAmt, url_45lc_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_45lc_speed);
+        }
 
         // .45 Golden LC
-        addRecipe("HDGold45LCAmmo",       "HDRel_RawLead", 4, 3.00, "HDRel_RawBrass",   2, 1.00, "HDRel_RawPowder", 6, 3.50, 0.75);
-        addRecipe("HDSpentGold45lc",      null,            0, 0.00, "HDRel_RawBrass",   0, 1.00, null,              0, 0.00, 0.75);
+        if (url_g45lc_enabled) {
+            addRecipe("HDGold45LCAmmo",        projectileMats[url_g45lc_projMat], url_g45lc_projAmt,   url_g45lc_projAmt * url_disassemble_ratio,
+                                               casingMats[url_g45lc_casingMat],   url_g45lc_casingAmt, url_g45lc_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_g45lc_powderMat],   url_g45lc_powderAmt, url_g45lc_powderAmt * url_disassemble_ratio,
+                                               url_g45lc_speed);
+            addRecipe("HDSpentGold45lc",       null,                            0,                 0.00,
+                                               casingMats[url_g45lc_casingMat],   url_g45lc_casingAmt, url_g45lc_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_g45lc_speed);
+        }
 
         // .50 AE
-        addRecipe("HD50AEAmmo",           "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.25, 0.75);
-        addRecipe("HDSpent50AE",          null,            0, 0.00, "HDRel_RawBrass",   0, 1.25, null,              0, 0.00, 0.75);
+        if (url_50ae_enabled) {
+            addRecipe("HD50AEAmmo",            projectileMats[url_50ae_projMat], url_50ae_projAmt,   url_50ae_projAmt * url_disassemble_ratio,
+                                               casingMats[url_50ae_casingMat],   url_50ae_casingAmt, url_50ae_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_50ae_powderMat],   url_50ae_powderAmt, url_50ae_powderAmt * url_disassemble_ratio,
+                                               url_50ae_speed);
+            addRecipe("HDSpent50AE",           null,                            0,                 0.00,
+                                               casingMats[url_50ae_casingMat],   url_50ae_casingAmt, url_50ae_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_50ae_speed);
+        }
         
         // .50 Action-Mega
-        addRecipe("HD50AM_Ammo",          "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75);
-        addRecipe("HDSpent50AM",          null,            0, 0.00, "HDRel_RawBrass",   0, 1.25, null,              0, 0.00, 0.75);
+        if (url_50am_enabled) {
+            addRecipe("HD50AM_Ammo",           projectileMats[url_50am_projMat], url_50am_projAmt,   url_50am_projAmt * url_disassemble_ratio,
+                                               casingMats[url_50am_casingMat],   url_50am_casingAmt, url_50am_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_50am_powderMat],   url_50am_powderAmt, url_50am_powderAmt * url_disassemble_ratio,
+                                               url_50am_speed);
+            addRecipe("HDSpent50AM",           null,                            0,                 0.00,
+                                               casingMats[url_50am_casingMat],   url_50am_casingAmt, url_50am_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_50am_speed);
+        }
 
         // .50 OMG
-        addRecipe("HD50OMGAmmo",          "HDRel_RawLead", 5, 3.80, "HDRel_RawBrass",   4, 3.00, "HDRel_RawPowder", 6, 4.00, 0.50);
-        addRecipe("HDSpent50OMG",         null,            0, 0.00, "HDRel_RawBrass",   0, 3.00, null,              0, 0.00, 0.50);
+        if (url_50omg_enabled) {
+            addRecipe("HD50OMGAmmo",           projectileMats[url_50omg_projMat], url_50omg_projAmt,   url_50omg_projAmt * url_disassemble_ratio,
+                                               casingMats[url_50omg_casingMat],   url_50omg_casingAmt, url_50omg_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_50omg_powderMat],   url_50omg_powderAmt, url_50omg_powderAmt * url_disassemble_ratio,
+                                               url_50omg_speed);
+            addRecipe("HDSpent50OMG",          null,                            0,                 0.00,
+                                               casingMats[url_50omg_casingMat],   url_50omg_casingAmt, url_50omg_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_50omg_speed);
+        }
 
         // 56cal Lead Ball
-        addRecipe("HDBallAmmo",           "HDRel_RawLead", 5, 5.00, "HDRel_RawBrass",   0, 0.00, "HDRel_RawPowder", 0, 0.00, 0.25);
+        if (url_mball_enabled) {
+            addRecipe("HDBallAmmo",            projectileMats[url_mball_projMat], url_mball_projAmt,   url_mball_projAmt * url_disassemble_ratio,
+                                               casingMats[url_mball_casingMat],   url_mball_casingAmt, url_mball_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_mball_powderMat],   url_mball_powderAmt, url_mball_powderAmt * url_disassemble_ratio,
+                                               url_mball_speed);
+        }
 
         // .451 Frei
-        addRecipe("HDAurochsAmmo",        "HDRel_RawLead", 2, 1.50, "HDRel_RawPlastic", 2, 1.50, "HDRel_RawPowder", 2, 1.50, 0.90);
-        addRecipe("HDSpent420",           null,            0, 0.00, "HDRel_RawPlastic", 1, 1.50, null,              0, 0.00, 0.90);
+        if (url_420_enabled) {
+            addRecipe("HDAurochsAmmo",         projectileMats[url_420_projMat], url_420_projAmt,   url_420_projAmt * url_disassemble_ratio,
+                                               casingMats[url_420_casingMat],   url_420_casingAmt, url_420_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_420_powderMat],   url_420_powderAmt, url_420_powderAmt * url_disassemble_ratio,
+                                               url_420_speed);
+            addRecipe("HDSpent420",            null,                            0,                 0.00,
+                                               casingMats[url_420_casingMat],   url_420_casingAmt, url_420_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_420_speed);
+        }
 
         // .066 Bore Shell
-        addRecipe("HD069BoreAmmo",        "HDRel_RawLead", 2, 1.70, "HDRel_RawPlastic", 2, 1.70, "HDRel_RawPowder", 2, 1.70, 0.90);
-        addRecipe("HDSpent069Bore",       null,            0, 0.00, "HDRel_RawPlastic", 1, 1.70, null,              0, 0.00, 0.90);
+        if (url_069_enabled) {
+            addRecipe("HD069BoreAmmo",         projectileMats[url_069_projMat], url_069_projAmt,   url_069_projAmt * url_disassemble_ratio,
+                                               casingMats[url_069_casingMat],   url_069_casingAmt, url_069_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_069_powderMat],   url_069_powderAmt, url_069_powderAmt * url_disassemble_ratio,
+                                               url_069_speed);
+            addRecipe("HDSpent069Bore",        null,                            0,                 0.00,
+                                               casingMats[url_069_casingMat],   url_069_casingAmt, url_069_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_069_speed);
+        }
 
         // .300 Savage
-        addRecipe("Savage300Ammo",        "HDRel_RawLead", 2, 1.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 4, 2.25, 1.20);
-        addRecipe("Savage300Brass",       null,            0, 0.00, "HDRel_RawBrass",   2, 1.25, null,              0, 0.00, 1.20);
+        if (url_300savage_enabled) {
+            addRecipe("Savage300Ammo",         projectileMats[url_300savage_projMat], url_300savage_projAmt,   url_300savage_projAmt * url_disassemble_ratio,
+                                               casingMats[url_300savage_casingMat],   url_300savage_casingAmt, url_300savage_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_300savage_powderMat],   url_300savage_powderAmt, url_300savage_powderAmt * url_disassemble_ratio,
+                                               url_300savage_speed);
+            addRecipe("Savage300Brass",        null,                            0,                 0.00,
+                                               casingMats[url_300savage_casingMat],   url_300savage_casingAmt, url_300savage_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_300savage_speed);
+        }
 
         // .500 S&W
-        addRecipe("HD500SWLightAmmo",     "HDRel_RawLead", 3, 2.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75);
-        addRecipe("HD500SWHeavyAmmo",     "HDRel_RawLead", 4, 3.00, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 2, 1.00, 0.75);
-        addRecipe("HDSpent500",           null,            0, 0.00, "HDRel_RawBrass",   0, 1.25, null,              0, 0.00, 0.75);
+        if (url_500sw_enabled) {
+            addRecipe("HD500SWLightAmmo",      projectileMats[url_500swl_projMat], url_500swl_projAmt,   url_500swl_projAmt * url_disassemble_ratio,
+                                               casingMats[url_500sw_casingMat],   url_500sw_casingAmt, url_500sw_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_500sw_powderMat],   url_500sw_powderAmt, url_500sw_powderAmt * url_disassemble_ratio,
+                                               url_500sw_speed);
+            addRecipe("HD500SWHeavyAmmo",      projectileMats[url_500swh_projMat], url_500swh_projAmt,   url_500swh_projAmt * url_disassemble_ratio,
+                                               casingMats[url_500sw_casingMat],   url_500sw_casingAmt, url_500sw_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_500sw_powderMat],   url_500sw_powderAmt, url_500sw_powderAmt * url_disassemble_ratio,
+                                               url_500sw_speed);
+            addRecipe("HDSpent500",            null,                            0,                 0.00,
+                                               casingMats[url_500sw_casingMat],   url_500sw_casingAmt, url_500sw_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_500sw_speed);
+        }
 
         // .762 Tokarev
-        addRecipe("HD762TokarevAmmo",     "HDRel_RawLead", 2, 1.25, "HDRel_RawBrass",   2, 1.25, "HDRel_RawPowder", 4, 2.25, 1.20);
-        addRecipe("TokarevBrass",         null,            0, 0.00, "HDRel_RawBrass",   2, 1.25, null,              0, 0.00, 1.20);
+        if (url_762tokarev_enabled) {
+            addRecipe("HD762TokarevAmmo",      projectileMats[url_762tokarev_projMat], url_762tokarev_projAmt,   url_762tokarev_projAmt * url_disassemble_ratio,
+                                               casingMats[url_762tokarev_casingMat],   url_762tokarev_casingAmt, url_762tokarev_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_762tokarev_powderMat],   url_762tokarev_powderAmt, url_762tokarev_powderAmt * url_disassemble_ratio,
+                                               url_762tokarev_speed);
+            addRecipe("TokarevBrass",          null,                            0,                 0.00,
+                                               casingMats[url_762tokarev_casingMat],   url_762tokarev_casingAmt, url_762tokarev_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_762tokarev_speed);
+        }
 
         // Birdshot Shells
-        addRecipe("HDBirdshotShellAmmo",  "HDRel_RawLead", 4, 3.00, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.50, 1.00);
-        addRecipe("HDSpentBirdshotShell", null,            0, 0.00, "HDRel_RawPlastic", 0, 1.00, null,              0, 0.00, 1.00);
+        if (url_birdshot_enabled) {
+            addRecipe("HDBirdshotShellAmmo",   projectileMats[url_birdshot_projMat], url_birdshot_projAmt,   url_birdshot_projAmt * url_disassemble_ratio,
+                                               casingMats[url_birdshot_casingMat],   url_birdshot_casingAmt, url_birdshot_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_birdshot_powderMat],   url_birdshot_powderAmt, url_birdshot_powderAmt * url_disassemble_ratio,
+                                               url_birdshot_speed);
+            addRecipe("HDSpentBirdshotShell",  null,                            0,                 0.00,
+                                               casingMats[url_birdshot_casingMat],   url_birdshot_casingAmt, url_birdshot_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_birdshot_speed);
+        }
 
         // Explosive Shells
-        addRecipe("HDExplosiveShellAmmo",  "HDRel_RawLead", 4, 1.50, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.75, 1.00);
-        addRecipe("HDSpentExplosiveShell", null,            0, 0.00, "HDRel_RawPlastic", 0, 1.00, null,              0, 0.00, 1.00);
+        if (url_explosiveShells_enabled) {
+            addRecipe("HDExplosiveShellAmmo",  projectileMats[url_explosiveShells_projMat], url_explosiveShells_projAmt,   url_explosiveShells_projAmt * url_disassemble_ratio,
+                                               casingMats[url_explosiveShells_casingMat],   url_explosiveShells_casingAmt, url_explosiveShells_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_explosiveShells_powderMat],   url_explosiveShells_powderAmt, url_explosiveShells_powderAmt * url_disassemble_ratio,
+                                               url_explosiveShells_speed);
+            addRecipe("HDSpentExplosiveShell", null,                            0,                 0.00,
+                                               casingMats[url_explosiveShells_casingMat],   url_explosiveShells_casingAmt, url_explosiveShells_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_explosiveShells_speed);
+        }
 
         // Flare Shells
-        addRecipe("HDFlareAmmo",           "HDRel_RawLead", 4, 1.50, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.75, 1.00);
+        if (url_flareShells_enabled) {
+            addRecipe("HDFlareAmmo",           projectileMats[url_flareShells_projMat], url_flareShells_projAmt,   url_flareShells_projAmt * url_disassemble_ratio,
+                                               casingMats[url_flareShells_casingMat],   url_flareShells_casingAmt, url_flareShells_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_flareShells_powderMat],   url_flareShells_powderAmt, url_flareShells_powderAmt * url_disassemble_ratio,
+                                               url_flareShells_speed);
+        }
 
         // Less-Lethal Shells
-        addRecipe("HDLLShellAmmo",         "HDRel_RawLead", 2, 0.50, "HDRel_RawPlastic", 2, 1.00, "HDRel_RawPowder", 1, 0.50, 1.00);
-        addRecipe("HDLLSpentShell",        null,            0, 0.00, "HDRel_RawPlastic", 0, 1.00, null,              0, 0.00, 1.00);
+        if (url_llShells_enabled) {
+            addRecipe("HDLLShellAmmo",         projectileMats[url_llShells_projMat], url_llShells_projAmt,   url_llShells_projAmt * url_disassemble_ratio,
+                                               casingMats[url_llShells_casingMat],   url_llShells_casingAmt, url_llShells_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_llShells_powderMat],   url_llShells_powderAmt, url_llShells_powderAmt * url_disassemble_ratio,
+                                               url_llShells_speed);
+            addRecipe("HDLLSpentShell",        null,                            0,                 0.00,
+                                               casingMats[url_llShells_casingMat],   url_llShells_casingAmt, url_llShells_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_llShells_speed);
+        }
 
         // 12ga Slugs
-        addRecipe("HDSlugAmmo",            "HDRel_RawLead", 5, 3.00, "HDRel_RawPlastic", 1, 0.75, "HDRel_RawPowder", 2, 1.00, 1.00);
-        addRecipe("HDSpentSlug",           null,            0, 0.00, "HDRel_RawPlastic", 0, 0.75, null,              0, 0.00, 1.00);
+        if (url_12gaSlugs_enabled) {
+            addRecipe("HDSlugAmmo",            projectileMats[url_12gaSlugs_projMat], url_12gaSlugs_projAmt,   url_12gaSlugs_projAmt * url_disassemble_ratio,
+                                               casingMats[url_12gaSlugs_casingMat],   url_12gaSlugs_casingAmt, url_12gaSlugs_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_12gaSlugs_powderMat],   url_12gaSlugs_powderAmt, url_12gaSlugs_powderAmt * url_disassemble_ratio,
+                                               url_12gaSlugs_speed);
+            addRecipe("HDSpentSlug",           null,                            0,                 0.00,
+                                               casingMats[url_12gaSlugs_casingMat],   url_12gaSlugs_casingAmt, url_12gaSlugs_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_12gaSlugs_speed);
+        }
 
 
         // PEPPERGRINDER
 
         // 9mm NDM
-        addRecipe("HDNDMLoose",            "HDRel_RawLead", 4, 2.75, "HDRel_RawBrass",   1, 0.75, "HDRel_RawPowder", 2, 1.00, 1.00);
-        addRecipe("HDSpentNDM",            null,            0, 0.00, "HDRel_RawBrass",   0, 0.75, null,              0, 0.00, 1.00);
+        if (url_ndm_enabled) {
+            addRecipe("HDNDMLoose",            projectileMats[url_ndm_projMat], url_ndm_projAmt,   url_ndm_projAmt * url_disassemble_ratio,
+                                               casingMats[url_ndm_casingMat],   url_ndm_casingAmt, url_ndm_casingAmt * url_disassemble_ratio,
+                                               powderMats[url_ndm_powderMat],   url_ndm_powderAmt, url_ndm_powderAmt * url_disassemble_ratio,
+                                               url_ndm_speed);
+            addRecipe("HDSpentNDM",            null,                            0,                 0.00,
+                                               casingMats[url_ndm_casingMat],   url_ndm_casingAmt, url_ndm_casingAmt * url_disassemble_ratio,
+                                               null,                            0,                 0.00,
+                                               url_ndm_speed);
+        }
     }
 
     // Random stuff, stores it and forces negative values just to be 0.
