@@ -1,0 +1,53 @@
+//==================================================
+// Bulk and Multiple Pouches
+//==================================================
+extend class GunsmithPouch {
+	override double WeaponBulk() {
+		int calcamount = min(max(weaponstatus[GSP_AMOUNT], 1), 5);
+		double reductionfactor = 0.15 + min(0.05 * calcamount, 0.5);
+		double basebulk = 35* max(weaponstatus[GSP_AMOUNT], 1);
+		return max((Storage ? Storage.TotalBulk * reductionfactor : 0), basebulk);
+	}
+
+	override void UpdateCapacity() {
+		MaxCapacity = default.MaxCapacity / max(hd_encumbrance, 0.01);
+		Storage.MaxBulk = MaxCapacity * max(weaponstatus[GSP_AMOUNT], 1);
+	}
+
+	override void actualpickup(actor other,bool silent) {
+		GunsmithPouch HeldGSP=GunsmithPouch(other.findinventory("GunsmithPouch"));
+		if (HeldGSP) {
+			HeldGSP.weaponstatus[GSP_AMOUNT]++;
+			HeldGSP.UpdateCapacity();
+			for (int i = 0; i < Storage.Items.Size(); i++) {
+				StorageItem MoveItem = Storage.Items[i];
+				int AmountToMove = MoveItem.Amounts.Size() > 0 ? MoveItem.Amounts[0] : 0;
+				HeldGSP.Storage.AddAmount(MoveItem.ItemClass, AmountToMove);
+			}
+			self.destroy();
+			return;
+		}
+		super.actualpickup(other, silent);
+	}
+
+	override inventory CreateTossable(int amt) {
+		bool DoSplit = (weaponstatus[GSP_AMOUNT] > 1);
+		amount = weaponstatus[GSP_AMOUNT]; // Hack to satisfy CreateTossable expectations
+		GunsmithPouch DroppedGSP = GunsmithPouch(super.CreateTossable(amt));
+		DroppedGSP.weaponstatus[GSP_AMOUNT] = 1;
+		DroppedGSP.UpdateCapacity();
+		if (DoSplit) {
+			weaponstatus[GSP_AMOUNT]--;
+			StorageItem SelItem = Storage.GetSelectedItem();
+			if (!SelItem || Storage.Items.Size() <= 0) { return DroppedGSP;}
+			int AmountInPouch = SelItem.Amounts.Size() > 0 ? SelItem.Amounts[0] : 0;
+			double UnitBulk = HDPickup(getdefaultbytype(SelItem.ItemClass)).bulk * hdmath.getencumbrancemult();
+			UnitBulk = max(UnitBulk, 0.01);
+			int AmountToMove = int((DroppedGSP.Storage.MaxBulk - DroppedGSP.Storage.TotalBulk) / UnitBulk);
+			AmountToMove = min(AmountToMove, AmountInPouch);
+			DroppedGSP.Storage.AddAmount(SelItem.ItemClass, AmountToMove);
+			Storage.RemoveItem(SelItem, null, null, AmountToMove);
+		}
+		return DroppedGSP;
+	}
+}

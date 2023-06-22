@@ -1,0 +1,24 @@
+//==================================================
+// Item Storage Definitions
+// Expand this later with UASINFO?
+//==================================================
+class GSP_ItemStorage : ItemStorage {
+	override int CheckConditions(Inventory item, class<Inventory> cls) {
+		bool valid = (
+			(item && (item is 'HDRel_CraftingMaterial')) ||
+			(cls  && (cls  is 'HDRel_CraftingMaterial'))
+		);
+
+		if (!valid) { return IType_Invalid; }
+		return super.CheckConditions(item,cls);
+	}
+
+	override int GetOperationSpeed(class<Inventory> item, int operation) {
+		switch (clamp(operation, 0, 2)) {
+			case 0: return 0; break;	//extract
+			case 1: return 0; break;	//pocket
+			case 2: return 0; break;	//insert
+		}
+		return 10;
+	}
+}

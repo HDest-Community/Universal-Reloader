@@ -1,4 +1,4 @@
 gameinfo
 {
-	AddEventHandlers = "URLSpawnHandler"
+	AddEventHandlers = "URLSpawnHandler", "GunsmithPouchSpawner"
 }
