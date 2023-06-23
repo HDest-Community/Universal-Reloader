@@ -245,9 +245,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_12gaShells_casingMat],   url_12gaShells_casingAmt, url_12gaShells_casingAmt * url_disassemble_ratio,
                                                powderMats[url_12gaShells_powderMat],   url_12gaShells_powderAmt, url_12gaShells_powderAmt * url_disassemble_ratio,
                                                url_12gaShells_speed);
-            addRecipe("HDSpentShell",          null,                            0,                 0.00,
+            addRecipe("HDSpentShell",          null,                                   0,                        0.00,
                                                casingMats[url_12gaShells_casingMat],   url_12gaShells_casingAmt, url_12gaShells_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                                   0,                        0.00,
                                                url_12gaShells_speed);
         }
 
@@ -333,9 +333,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_10mm_casingMat],   url_10mm_casingAmt, url_10mm_casingAmt * url_disassemble_ratio,
                                                powderMats[url_10mm_powderMat],   url_10mm_powderAmt, url_10mm_powderAmt * url_disassemble_ratio,
                                                url_10mm_speed);
-            addRecipe("TenMilBrass",           null,                            0,                 0.00,
+            addRecipe("TenMilBrass",           null,                             0,                  0.00,
                                                casingMats[url_10mm_casingMat],   url_10mm_casingAmt, url_10mm_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                             0,                  0.00,
                                                url_10mm_speed);
         }
 
@@ -345,9 +345,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_3006_casingMat],   url_3006_casingAmt, url_3006_casingAmt * url_disassemble_ratio,
                                                powderMats[url_3006_powderMat],   url_3006_powderAmt, url_3006_powderAmt * url_disassemble_ratio,
                                                url_3006_speed);
-            addRecipe("ThirtyAughtSixBrass",   null,                            0,                 0.00,
+            addRecipe("ThirtyAughtSixBrass",   null,                             0,                  0.00,
                                                casingMats[url_3006_casingMat],   url_3006_casingAmt, url_3006_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                             0,                  0.00,
                                                url_3006_speed);
         }
 
@@ -357,9 +357,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_45acp_casingMat],   url_45acp_casingAmt, url_45acp_casingAmt * url_disassemble_ratio,
                                                powderMats[url_45acp_powderMat],   url_45acp_powderAmt, url_45acp_powderAmt * url_disassemble_ratio,
                                                url_45acp_speed);
-            addRecipe("HDSpent45ACP",          null,                            0,                 0.00,
+            addRecipe("HDSpent45ACP",          null,                              0,                   0.00,
                                                casingMats[url_45acp_casingMat],   url_45acp_casingAmt, url_45acp_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                              0,                   0.00,
                                                url_45acp_speed);
         }
 
@@ -369,9 +369,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_45lc_casingMat],   url_45lc_casingAmt, url_45lc_casingAmt * url_disassemble_ratio,
                                                powderMats[url_45lc_powderMat],   url_45lc_powderAmt, url_45lc_powderAmt * url_disassemble_ratio,
                                                url_45lc_speed);
-            addRecipe("HDSpent45LC",           null,                            0,                 0.00,
+            addRecipe("HDSpent45LC",           null,                             0,                  0.00,
                                                casingMats[url_45lc_casingMat],   url_45lc_casingAmt, url_45lc_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                             0,                  0.00,
                                                url_45lc_speed);
         }
 
@@ -381,9 +381,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_g45lc_casingMat],   url_g45lc_casingAmt, url_g45lc_casingAmt * url_disassemble_ratio,
                                                powderMats[url_g45lc_powderMat],   url_g45lc_powderAmt, url_g45lc_powderAmt * url_disassemble_ratio,
                                                url_g45lc_speed);
-            addRecipe("HDSpentGold45lc",       null,                            0,                 0.00,
+            addRecipe("HDSpentGold45lc",       null,                              0,                   0.00,
                                                casingMats[url_g45lc_casingMat],   url_g45lc_casingAmt, url_g45lc_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                              0,                   0.00,
                                                url_g45lc_speed);
         }
 
@@ -393,9 +393,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_50ae_casingMat],   url_50ae_casingAmt, url_50ae_casingAmt * url_disassemble_ratio,
                                                powderMats[url_50ae_powderMat],   url_50ae_powderAmt, url_50ae_powderAmt * url_disassemble_ratio,
                                                url_50ae_speed);
-            addRecipe("HDSpent50AE",           null,                            0,                 0.00,
+            addRecipe("HDSpent50AE",           null,                             0,                  0.00,
                                                casingMats[url_50ae_casingMat],   url_50ae_casingAmt, url_50ae_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                             0,                  0.00,
                                                url_50ae_speed);
         }
         
@@ -405,9 +405,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_50am_casingMat],   url_50am_casingAmt, url_50am_casingAmt * url_disassemble_ratio,
                                                powderMats[url_50am_powderMat],   url_50am_powderAmt, url_50am_powderAmt * url_disassemble_ratio,
                                                url_50am_speed);
-            addRecipe("HDSpent50AM",           null,                            0,                 0.00,
+            addRecipe("HDSpent50AM",           null,                             0,                  0.00,
                                                casingMats[url_50am_casingMat],   url_50am_casingAmt, url_50am_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                             0,                  0.00,
                                                url_50am_speed);
         }
 
@@ -417,9 +417,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_50omg_casingMat],   url_50omg_casingAmt, url_50omg_casingAmt * url_disassemble_ratio,
                                                powderMats[url_50omg_powderMat],   url_50omg_powderAmt, url_50omg_powderAmt * url_disassemble_ratio,
                                                url_50omg_speed);
-            addRecipe("HDSpent50OMG",          null,                            0,                 0.00,
+            addRecipe("HDSpent50OMG",          null,                              0,                   0.00,
                                                casingMats[url_50omg_casingMat],   url_50omg_casingAmt, url_50omg_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                              0,                   0.00,
                                                url_50omg_speed);
         }
 
@@ -461,9 +461,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_300savage_casingMat],   url_300savage_casingAmt, url_300savage_casingAmt * url_disassemble_ratio,
                                                powderMats[url_300savage_powderMat],   url_300savage_powderAmt, url_300savage_powderAmt * url_disassemble_ratio,
                                                url_300savage_speed);
-            addRecipe("Savage300Brass",        null,                            0,                 0.00,
+            addRecipe("Savage300Brass",        null,                                  0,                       0.00,
                                                casingMats[url_300savage_casingMat],   url_300savage_casingAmt, url_300savage_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                                  0,                       0.00,
                                                url_300savage_speed);
         }
 
@@ -477,9 +477,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_500sw_casingMat],   url_500sw_casingAmt, url_500sw_casingAmt * url_disassemble_ratio,
                                                powderMats[url_500sw_powderMat],   url_500sw_powderAmt, url_500sw_powderAmt * url_disassemble_ratio,
                                                url_500sw_speed);
-            addRecipe("HDSpent500",            null,                            0,                 0.00,
+            addRecipe("HDSpent500",            null,                              0,                   0.00,
                                                casingMats[url_500sw_casingMat],   url_500sw_casingAmt, url_500sw_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                              0,                   0.00,
                                                url_500sw_speed);
         }
 
@@ -489,9 +489,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_762tokarev_casingMat],   url_762tokarev_casingAmt, url_762tokarev_casingAmt * url_disassemble_ratio,
                                                powderMats[url_762tokarev_powderMat],   url_762tokarev_powderAmt, url_762tokarev_powderAmt * url_disassemble_ratio,
                                                url_762tokarev_speed);
-            addRecipe("TokarevBrass",          null,                            0,                 0.00,
+            addRecipe("TokarevBrass",          null,                                   0,                        0.00,
                                                casingMats[url_762tokarev_casingMat],   url_762tokarev_casingAmt, url_762tokarev_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                                   0,                        0.00,
                                                url_762tokarev_speed);
         }
 
@@ -501,9 +501,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_birdshot_casingMat],   url_birdshot_casingAmt, url_birdshot_casingAmt * url_disassemble_ratio,
                                                powderMats[url_birdshot_powderMat],   url_birdshot_powderAmt, url_birdshot_powderAmt * url_disassemble_ratio,
                                                url_birdshot_speed);
-            addRecipe("HDSpentBirdshotShell",  null,                            0,                 0.00,
+            addRecipe("HDSpentBirdshotShell",  null,                                 0,                      0.00,
                                                casingMats[url_birdshot_casingMat],   url_birdshot_casingAmt, url_birdshot_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                                 0,                      0.00,
                                                url_birdshot_speed);
         }
 
@@ -513,9 +513,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_explosiveShells_casingMat],   url_explosiveShells_casingAmt, url_explosiveShells_casingAmt * url_disassemble_ratio,
                                                powderMats[url_explosiveShells_powderMat],   url_explosiveShells_powderAmt, url_explosiveShells_powderAmt * url_disassemble_ratio,
                                                url_explosiveShells_speed);
-            addRecipe("HDSpentExplosiveShell", null,                            0,                 0.00,
+            addRecipe("HDSpentExplosiveShell", null,                                        0,                             0.00,
                                                casingMats[url_explosiveShells_casingMat],   url_explosiveShells_casingAmt, url_explosiveShells_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                                        0,                             0.00,
                                                url_explosiveShells_speed);
         }
 
@@ -533,9 +533,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_llShells_casingMat],   url_llShells_casingAmt, url_llShells_casingAmt * url_disassemble_ratio,
                                                powderMats[url_llShells_powderMat],   url_llShells_powderAmt, url_llShells_powderAmt * url_disassemble_ratio,
                                                url_llShells_speed);
-            addRecipe("HDLLSpentShell",        null,                            0,                 0.00,
+            addRecipe("HDLLSpentShell",        null,                                 0,                      0.00,
                                                casingMats[url_llShells_casingMat],   url_llShells_casingAmt, url_llShells_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                                 0,                      0.00,
                                                url_llShells_speed);
         }
 
@@ -545,9 +545,9 @@ class URLSpawnHandler : EventHandler {
                                                casingMats[url_12gaSlugs_casingMat],   url_12gaSlugs_casingAmt, url_12gaSlugs_casingAmt * url_disassemble_ratio,
                                                powderMats[url_12gaSlugs_powderMat],   url_12gaSlugs_powderAmt, url_12gaSlugs_powderAmt * url_disassemble_ratio,
                                                url_12gaSlugs_speed);
-            addRecipe("HDSpentSlug",           null,                            0,                 0.00,
+            addRecipe("HDSpentSlug",           null,                                  0,                       0.00,
                                                casingMats[url_12gaSlugs_casingMat],   url_12gaSlugs_casingAmt, url_12gaSlugs_casingAmt * url_disassemble_ratio,
-                                               null,                            0,                 0.00,
+                                               null,                                  0,                       0.00,
                                                url_12gaSlugs_speed);
         }
 
