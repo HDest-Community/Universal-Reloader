@@ -151,9 +151,9 @@ class URLSpawnHandler : EventHandler {
     }
 
     void addRecipe(string amcls,
-        class<HDRel_ProjectileMaterial> projMat, int projCost, double projProd,
-        class<HDRel_CasingMaterial> casingMat,   int csgCost,  double csgProd,
-        class<HDRel_PowderMaterial> powderMat,   int pwdCost,  double pwdProd,
+        class<HDRel_CraftingMaterial> projMat,   int projCost, double projProd,
+        class<HDRel_CraftingMaterial> casingMat, int csgCost,  double csgProd,
+        class<HDRel_CraftingMaterial> powderMat, int pwdCost,  double pwdProd,
         double speed
     ) {
         HDRel_Recipe r;
@@ -195,6 +195,10 @@ class URLSpawnHandler : EventHandler {
         Array<String> mat_powder;
         mat_powder.push("HDUniversalReloader");
         addAmmo("HDRel_RawPowder", mat_powder);
+
+        Array<String> mat_steel;
+        mat_steel.push("HDUniversalReloader");
+        addAmmo("HDRel_RawSteel", mat_steel);
 
         //---------------------
         // Crafting Recipes

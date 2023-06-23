@@ -1,8 +1,8 @@
-class HDRel_RawSteel : HDRel_CasingMaterial
+class HDRel_RawSteel : HDRel_CraftingMaterial
 {
     Default
     {
-        Tag "Steel Materials";
+        Tag "Steel";
         Inventory.Icon "STMTA0";
         Inventory.PickupMessage "Picked up some steel materials.";
 		HDRel_CraftingMaterial.PileMessage "Picked up a ball of steel.";

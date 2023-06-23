@@ -71,8 +71,3 @@ class HDRel_CraftingMaterial : HDAmmo abstract
 		+HDPICKUP.MULTIPICKUP
 	}
 }
-
-// [Ace] Just in case I want to change things individually later down the line.
-class HDRel_CasingMaterial : HDRel_CraftingMaterial abstract { }
-class HDRel_PowderMaterial : HDRel_CraftingMaterial abstract { }
-class HDRel_ProjectileMaterial : HDRel_CraftingMaterial abstract { }

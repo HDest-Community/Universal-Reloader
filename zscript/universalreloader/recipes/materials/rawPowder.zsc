@@ -1,4 +1,4 @@
-class HDRel_RawPowder : HDRel_PowderMaterial
+class HDRel_RawPowder : HDRel_CraftingMaterial
 {
 	Default
 	{

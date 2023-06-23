@@ -1,4 +1,4 @@
-class HDRel_RawLead : HDRel_ProjectileMaterial 
+class HDRel_RawLead : HDRel_CraftingMaterial 
 {
 	Default
 	{
