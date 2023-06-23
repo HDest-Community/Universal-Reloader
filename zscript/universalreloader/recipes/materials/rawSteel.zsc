@@ -1,0 +1,19 @@
+class HDRel_RawSteel : HDRel_CraftingMaterial
+{
+    Default
+    {
+        Tag "Steel";
+        Inventory.Icon "STMTA0";
+        Inventory.PickupMessage "Picked up some steel materials.";
+		HDRel_CraftingMaterial.PileMessage "Picked up a ball of steel.";
+		HDRel_CraftingMaterial.PileType PType_Ball;
+        HDPickup.Bulk 0.28;
+    }
+
+    States
+    {
+        Spawn:
+            STMT A -1;
+            Stop;
+    }
+}

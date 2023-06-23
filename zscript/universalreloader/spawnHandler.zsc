@@ -151,9 +151,9 @@ class URLSpawnHandler : EventHandler {
     }
 
     void addRecipe(string amcls,
-        class<HDRel_ProjectileMaterial> projMat, int projCost, double projProd,
-        class<HDRel_CasingMaterial> casingMat,   int csgCost,  double csgProd,
-        class<HDRel_PowderMaterial> powderMat,   int pwdCost,  double pwdProd,
+        class<HDRel_CraftingMaterial> projMat,   int projCost, double projProd,
+        class<HDRel_CraftingMaterial> casingMat, int csgCost,  double csgProd,
+        class<HDRel_CraftingMaterial> powderMat, int pwdCost,  double pwdProd,
         double speed
     ) {
         HDRel_Recipe r;
@@ -196,12 +196,16 @@ class URLSpawnHandler : EventHandler {
         mat_powder.push("HDUniversalReloader");
         addAmmo("HDRel_RawPowder", mat_powder);
 
+        Array<String> mat_steel;
+        mat_steel.push("HDUniversalReloader");
+        addAmmo("HDRel_RawSteel", mat_steel);
+
         //---------------------
         // Crafting Recipes
         //---------------------
 
-        string projectileMats[2] = { "", "HDRel_RawLead" };
-        string casingMats[3]     = { "", "HDRel_RawBrass", "HDRel_RawPlastic" };
+        string projectileMats[3] = { "", "HDRel_RawLead", "HDRel_RawSteel" };
+        string casingMats[4]     = { "", "HDRel_RawBrass", "HDRel_RawPlastic", "HDRel_RawSteel" };
         string powderMats[2]     = { "", "HDRel_RawPowder" };
 
         //            Crafting Result;         Projectile mat, cost, produced;

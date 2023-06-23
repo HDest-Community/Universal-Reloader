@@ -1,4 +1,4 @@
-class HDRel_RawPlastic : HDRel_CasingMaterial
+class HDRel_RawPlastic : HDRel_CraftingMaterial
 {
 	Default
 	{

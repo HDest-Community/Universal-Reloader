@@ -8,9 +8,9 @@ class HDRel_Recipe {
 	double SpeedMult;
 
 	static HDRel_Recipe TryCreate(string amcls,
-		class<HDRel_ProjectileMaterial> projMat, int projCost, double projProd,
-		class<HDRel_CasingMaterial> casingMat,   int csgCost,  double csgProd,
-		class<HDRel_PowderMaterial> powderMat,   int pwdCost,  double pwdProd,
+		class<HDRel_CraftingMaterial> projMat,   int projCost, double projProd,
+		class<HDRel_CraftingMaterial> casingMat, int csgCost,  double csgProd,
+		class<HDRel_CraftingMaterial> powderMat, int pwdCost,  double pwdProd,
 		double speed
 	) {
 		HDRel_Recipe Ret = new("HDRel_Recipe");
