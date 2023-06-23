@@ -2,10 +2,10 @@ class HDRel_RawPowder : HDRel_CraftingMaterial
 {
 	Default
 	{
-		Tag "Powder";
+		Tag "$TAG_RAWPOWDER";
 		Inventory.Icon "PWDRA0";
-		Inventory.PickupMessage "Picked up some powder.";
-		HDRel_CraftingMaterial.PileMessage "Picked up a pile of powder.";
+		Inventory.PickupMessage "$PICKUP_RAWPOWDER";
+		HDRel_CraftingMaterial.PileMessage "$PICKUP_PILE_RAWPOWDER";
 		HDRel_CraftingMaterial.PileType PType_Pile;
 		HDPickup.Bulk 0.08;
 	}

@@ -1,26 +1,43 @@
 [enu default]
 
 // Options Menu Labels
-URL_MENU              = "Universal Reloader Options";
+URL_MENU                  = "Universal Reloader Options";
 
-URL_ENABLED           = "Enabled";
-URL_DISABLED          = "Disabled";
+URL_ENABLED               = "Enabled";
+URL_DISABLED              = "Disabled";
 
-URL_PROJECTILE        = "Projectile";
-URL_CASING            = "Casing";
-URL_POWDER            = "Powder";
+URL_PROJECTILE            = "Projectile";
+URL_CASING                = "Casing";
+URL_POWDER                = "Powder";
 
-URL_CRAFTING_MATERIAL = "Crafting Material";
-URL_MATERIAL_COST     = "Material Cost";
-URL_DISASSEMBLE_RATIO = "Percent Returned when Disassembling";
+URL_CRAFTING_MATERIAL     = "Crafting Material";
+URL_MATERIAL_COST         = "Material Cost";
+URL_DISASSEMBLE_RATIO     = "Percent Returned when Disassembling";
 
-URL_RESET             = "Reset options";
-URL_RESET_ALL         = "Reset all options";
+URL_RESET                 = "Reset options";
+URL_RESET_ALL             = "Reset all options";
 
-// Crafting Materials
-URL_NO_MATERIAL       = "No Material";
-TAG_RAWBRASS          = "Raw Brass";
-TAG_RAWLEAD           = "Raw Lead";
-TAG_RAWPLASTIC        = "Raw Plastic";
-TAG_RAWPOWDER         = "Raw Powder";
-TAG_RAW_STEEL         = "Raw Steel";
+URL_NO_MATERIAL           = "No Material";
+
+// Item Tags
+TAG_RAWBRASS              = "Brass";
+TAG_RAWLEAD               = "Lead";
+TAG_RAWPLASTIC            = "Plastic";
+TAG_RAWPOWDER             = "Powder";
+TAG_RAWSTEEL              = "Steel";
+TAG_UNIVERSAL_RELOADER    = "Universal Reloading Device";
+TAG_GUNSMITH_POUCH        = "Gunsmith's Pouch";
+
+// Pickup Messages
+PICKUP_RAWBRASS           = "Picked up some brass materials.";
+PICKUP_RAWLEAD            = "Picked up some lead materials.";
+PICKUP_RAWPLASTIC         = "Picked up some plastic materials.";
+PICKUP_RAWPOWDER          = "Picked up some powder.";
+PICKUP_RAWSTEEL           = "Picked up some steel materials.";
+PICKUP_PILE_RAWBRASS      = "Picked up a ball of brass.";
+PICKUP_PILE_RAWLEAD       = "Picked up a ball of lead.";
+PICKUP_PILE_RAWPLASTIC    = "Picked up a pile of plastic.";
+PICKUP_PILE_RAWPOWDER     = "Picked up a pile of powder.";
+PICKUP_PILE_RAWSTEEL      = "Picked up a ball of steel.";
+PICKUP_UNIVERSAL_RELOADER = "Picked up a universal reloading device.";
+PICKUP_GUNSMITH_POUCH     = "Picked up a gunsmith's pouch, for all your gunpowder!";

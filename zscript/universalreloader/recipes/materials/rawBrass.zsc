@@ -2,10 +2,10 @@ class HDRel_RawBrass : HDRel_CraftingMaterial
 {
 	Default
 	{
-		Tag "Brass";
+		Tag "$TAG_RAWBRASS";
 		Inventory.Icon "BRMTA0";
-		Inventory.PickupMessage "Picked up some brass materials.";
-		HDRel_CraftingMaterial.PileMessage "Picked up a ball of brass.";
+		Inventory.PickupMessage "$PICKUP_RAWBRASS";
+		HDRel_CraftingMaterial.PileMessage "$PICKUP_PILE_RAWBRASS";
 		HDRel_CraftingMaterial.PileType PType_Ball;
 		HDPickup.Bulk 0.20;
 	}

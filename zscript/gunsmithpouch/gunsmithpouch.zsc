@@ -5,10 +5,10 @@ const HDLD_GSPouch = "gsp";
 //==================================================
 class GunsmithPouch : HDBackpack {
 	default {
-		tag "Gunsmith's Pouch";
+		tag "$TAG_GUNSMITH_POUCH";
 		HDBackpack.MaxCapacity 200;
 		Inventory.Icon "GSPPA0";
-		Inventory.PickupMessage "Picked up a gunsmith's pouch, for all your gunpowder!";
+		Inventory.PickupMessage "$PICKUP_GUNSMITH_POUCH";
 		scale 0.6;
 		hdweapon.wornlayer 0;
 		hdweapon.refid HDLD_GSPouch;

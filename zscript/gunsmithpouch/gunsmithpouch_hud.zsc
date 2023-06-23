@@ -6,7 +6,7 @@ extend class GunsmithPouch {
 	{
 		int BaseOffset = -80;
 
-		sb.DrawString(sb.pSmallFont, "\c[DarkBrown][] [] [] \c[DarkGreen]Gunsmith Pouch\c[DarkBrown] [] [] []", (0, BaseOffset), sb.DI_SCREEN_CENTER | sb.DI_TEXT_ALIGN_CENTER);
+		sb.DrawString(sb.pSmallFont, "\c[DarkBrown][] [] [] \c[DarkGreen]"..StringTable.localize("$TAG_GUNSMITH_POUCH").."\c[DarkBrown] [] [] []", (0, BaseOffset), sb.DI_SCREEN_CENTER | sb.DI_TEXT_ALIGN_CENTER);
 		string BulkString = "Total Bulk: \cf"..int(Storage.TotalBulk).."\c-";
 		if  (weaponstatus[GSP_AMOUNT] > 1) { BulkString = BulkString.." --- Pouches: \cf"..weaponstatus[GSP_AMOUNT].."\c-"; }
 		sb.DrawString(sb.pSmallFont, BulkString, (0, BaseOffset + 10), sb.DI_SCREEN_CENTER | sb.DI_TEXT_ALIGN_CENTER);

@@ -2,10 +2,10 @@ class HDRel_RawPlastic : HDRel_CraftingMaterial
 {
 	Default
 	{
-		Tag "Plastic";
+		Tag "$TAG_RAWPLASTIC";
 		Inventory.Icon "PLTCA0";
-		Inventory.PickupMessage "Picked up some plastic materials.";
-		HDRel_CraftingMaterial.PileMessage "Picked up a pile of plastic.";
+		Inventory.PickupMessage "$PICKUP_RAWPLASTIC";
+		HDRel_CraftingMaterial.PileMessage "$PICKUP_PILE_RAWPLASTIC";
 		HDRel_CraftingMaterial.PileType PType_None;
 		HDPickup.Bulk 0.11;
 		Scale 0.4;

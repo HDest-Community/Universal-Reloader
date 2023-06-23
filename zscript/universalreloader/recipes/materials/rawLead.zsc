@@ -2,10 +2,10 @@ class HDRel_RawLead : HDRel_CraftingMaterial
 {
 	Default
 	{
-		Tag "Lead";
+		Tag "$TAG_RAWLEAD";
 		Inventory.Icon "LEADA0";
-		Inventory.PickupMessage "Picked up some lead materials.";
-		HDRel_CraftingMaterial.PileMessage "Picked up a ball of lead.";
+		Inventory.PickupMessage "$PICKUP_RAWLEAD";
+		HDRel_CraftingMaterial.PileMessage "$PICKUP_PILE_RAWLEAD";
 		HDRel_CraftingMaterial.PileType PType_Ball;
 		HDPickup.Bulk 0.25;
 		Scale 0.8;

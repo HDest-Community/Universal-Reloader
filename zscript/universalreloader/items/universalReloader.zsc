@@ -266,10 +266,10 @@ class HDUniversalReloader : HDWeapon
 		+HDWEAPON.FITSINBACKPACK
 		+HDWEAPON.DONTFISTONDROP
 		Inventory.PickupSound "misc/w_pkup";
-		Inventory.PickupMessage "Picked up a universal reloading device.";
+		Inventory.PickupMessage "$PICKUP_UNIVERSAL_RELOADER";
 		Scale 0.6;
 		HDWeapon.RefId "url";
-		Tag "Universal reloading device";
+		Tag "$TAG_UNIVERSAL_RELOADER";
 	}
 
     void addRecipes(Array<HDRel_Recipe> newRecipes) {

@@ -2,10 +2,10 @@ class HDRel_RawSteel : HDRel_CraftingMaterial
 {
     Default
     {
-        Tag "Steel";
+        Tag "$TAG_RAWSTEEL";
         Inventory.Icon "STMTA0";
-        Inventory.PickupMessage "Picked up some steel materials.";
-		HDRel_CraftingMaterial.PileMessage "Picked up a ball of steel.";
+        Inventory.PickupMessage "$PICKUP_RAWSTEEL";
+		HDRel_CraftingMaterial.PileMessage "$PICKUP_PILE_RAWSTEEL";
 		HDRel_CraftingMaterial.PileType PType_Ball;
         HDPickup.Bulk 0.28;
     }

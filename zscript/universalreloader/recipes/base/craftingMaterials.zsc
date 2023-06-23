@@ -14,7 +14,7 @@ class HDRel_CraftingMaterial : HDAmmo abstract
 
 	override string PickupMessage()
 	{
-		return Amount > 1 ? PileMessage : default.PickupMsg; 
+		return StringTable.localize(Amount > 1 ? PileMessage : default.PickupMsg);
 	}
 
 	override void SplitPickup()
