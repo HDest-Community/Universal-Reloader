@@ -1,12 +1,14 @@
 OptionValue "ProjectileMaterial" {
 	0, "$URL_NO_MATERIAL"
     1, "$TAG_RAWLEAD"
+	2, "$TAG_RAWSTEEL"
 }
 
 OptionValue "CasingMaterial" {
 	0, "$URL_NO_MATERIAL"
     1, "$TAG_RAWBRASS"
 	2, "$TAG_RAWPLASTIC"
+	3, "$TAG_RAWSTEEL"
 }
 
 OptionValue "PowderMaterial" {

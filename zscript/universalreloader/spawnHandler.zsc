@@ -200,8 +200,8 @@ class URLSpawnHandler : EventHandler {
         // Crafting Recipes
         //---------------------
 
-        string projectileMats[2] = { "", "HDRel_RawLead" };
-        string casingMats[3]     = { "", "HDRel_RawBrass", "HDRel_RawPlastic" };
+        string projectileMats[3] = { "", "HDRel_RawLead", "HDRel_RawSteel" };
+        string casingMats[4]     = { "", "HDRel_RawBrass", "HDRel_RawPlastic", "HDRel_RawSteel" };
         string powderMats[2]     = { "", "HDRel_RawPowder" };
 
         //            Crafting Result;         Projectile mat, cost, produced;
