@@ -16,6 +16,13 @@ OptionValue "PowderMaterial" {
     1, "$TAG_RAWPOWDER"
 }
 
+OptionValue "RecipeEnabled" {
+	0, "$URL_DISABLED"
+	1, "$URL_ASSEMBLY_ONLY"
+	2, "$URL_DISASSEMBLY_ONLY"
+	3, "$URL_ENABLED"
+}
+
 OptionMenu URLMenu {
     Title "------ Universal Reloader Options ------"
 	
@@ -100,7 +107,7 @@ AddOptionMenu "HDAddonMenu"
 OptionMenu URLPistolAmmo {
     Title "------ 9mm Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_9mm_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_9mm_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -127,7 +134,7 @@ OptionMenu URLPistolAmmo {
 OptionMenu URLRevolverAmmo {
     Title "------ .355 Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_355_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_355_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -154,7 +161,7 @@ OptionMenu URLRevolverAmmo {
 OptionMenu URLShellAmmo {
     Title "------ 12ga Shell Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_12gaShells_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_12gaShells_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -181,7 +188,7 @@ OptionMenu URLShellAmmo {
 OptionMenu URL4mmAmmo {
     Title "------ 4.26mm Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_4mm_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_4mm_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -208,7 +215,7 @@ OptionMenu URL4mmAmmo {
 OptionMenu URL7mmAmmo {
     Title "------ 7.76mm Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_7mm_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_7mm_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -241,7 +248,7 @@ OptionMenu URL7mmAmmo {
 OptionMenu URL4gbAmmo {
     Title "------ 4ga 00 Buckshot Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_4gb_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_4gb_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -268,7 +275,7 @@ OptionMenu URL4gbAmmo {
 OptionMenu URL4gsAmmo {
     Title "------ 4ga Saboted Slug Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_4gs_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_4gs_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -295,7 +302,7 @@ OptionMenu URL4gsAmmo {
 OptionMenu URL5mmAmmo {
     Title "------ 5mm BR Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_5mm_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_5mm_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -322,7 +329,7 @@ OptionMenu URL5mmAmmo {
 OptionMenu URL6mmAmmo {
     Title "------ 6mm Flechette Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_6mm_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_6mm_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -349,7 +356,7 @@ OptionMenu URL6mmAmmo {
 OptionMenu URL10mmAmmo {
     Title "------ 10mm Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_10mm_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_10mm_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -376,7 +383,7 @@ OptionMenu URL10mmAmmo {
 OptionMenu URL3006Ammo {
     Title "------ .30-06 Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_3006_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_3006_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -403,7 +410,7 @@ OptionMenu URL3006Ammo {
 OptionMenu URL45acpAmmo {
     Title "------ .45 ACP Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_45acp_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_45acp_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -430,7 +437,7 @@ OptionMenu URL45acpAmmo {
 OptionMenu URL45lcAmmo {
     Title "------ .45 LC Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_45lc_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_45lc_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -457,7 +464,7 @@ OptionMenu URL45lcAmmo {
 OptionMenu URLg45lcAmmo {
     Title "------ Golden .45 LC Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_g45lc_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_g45lc_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -484,7 +491,7 @@ OptionMenu URLg45lcAmmo {
 OptionMenu URL50aeAmmo {
     Title "------ .50 AE Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_50ae_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_50ae_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -511,7 +518,7 @@ OptionMenu URL50aeAmmo {
 OptionMenu URL50amAmmo {
     Title "------ .50 AM Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_50am_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_50am_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -538,7 +545,7 @@ OptionMenu URL50amAmmo {
 OptionMenu URL50omgAmmo {
     Title "------ .50 OMG Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_50omg_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_50omg_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -565,7 +572,7 @@ OptionMenu URL50omgAmmo {
 OptionMenu URLmBallAmmo {
     Title "------ Musket Ball Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_mball_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_mball_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -592,7 +599,7 @@ OptionMenu URLmBallAmmo {
 OptionMenu URL420Ammo {
     Title "------ .451 Frei Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_420_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_420_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -619,7 +626,7 @@ OptionMenu URL420Ammo {
 OptionMenu URL069Ammo {
     Title "------ .066 Bore Shell Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_069_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_069_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -646,7 +653,7 @@ OptionMenu URL069Ammo {
 OptionMenu URL300SavageAmmo {
     Title "------ .300 Savage Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_300savage_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_300savage_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -673,7 +680,7 @@ OptionMenu URL300SavageAmmo {
 OptionMenu URL500swAmmo {
     Title "------ .500 S&W Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_500sw_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_500sw_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -707,7 +714,7 @@ OptionMenu URL500swAmmo {
 OptionMenu URL762TokarevAmmo {
     Title "------ 7.62 Tokarev Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_762tokarev_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_762tokarev_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -734,7 +741,7 @@ OptionMenu URL762TokarevAmmo {
 OptionMenu URLbirdshotAmmo {
     Title "------ Birdshot Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_birdshot_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_birdshot_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -761,7 +768,7 @@ OptionMenu URLbirdshotAmmo {
 OptionMenu URLexplosiveShellAmmo {
     Title "------ 12ga Explosive Shell Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_explosiveShells_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_explosiveShells_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -788,7 +795,7 @@ OptionMenu URLexplosiveShellAmmo {
 OptionMenu URLflareShellAmmo {
     Title "------ 12ga Flare Shell Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_flareShells_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_flareShells_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -815,7 +822,7 @@ OptionMenu URLflareShellAmmo {
 OptionMenu URLllShellsAmmo {
     Title "------ Less-Lethal Shell Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_llShells_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_llShells_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -842,7 +849,7 @@ OptionMenu URLllShellsAmmo {
 OptionMenu URL12gaSlugsAmmo {
     Title "------ 12ga Slugs Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_12gaSlugs_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_12gaSlugs_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"
@@ -869,7 +876,7 @@ OptionMenu URL12gaSlugsAmmo {
 OptionMenu URLNDMAmmo {
     Title "------ 9mm NDM Ammo Recipe Options ------"
     StaticText ""
-	Option "$URL_ENABLED", "url_ndm_enabled", "OnOff"
+	Option "$URL_ENABLED", "url_ndm_enabled", "RecipeEnabled"
 	
     StaticText ""
     StaticText "$URL_PROJECTILE"

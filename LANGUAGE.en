@@ -4,6 +4,8 @@
 URL_MENU                  = "Universal Reloader Options";
 
 URL_ENABLED               = "Enabled";
+URL_ASSEMBLY_ONLY         = "Assembly Only";
+URL_DISASSEMBLY_ONLY      = "Disassembly Only";
 URL_DISABLED              = "Disabled";
 
 URL_PROJECTILE            = "Projectile";
