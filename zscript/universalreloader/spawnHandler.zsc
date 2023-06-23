@@ -150,7 +150,7 @@ class URLSpawnHandler : EventHandler {
         ammoSpawnList.push(spawnee);
     }
 
-    void addRecipe(string amcls,
+    void addRecipe(string amcls, int enabled,
         class<HDRel_CraftingMaterial> projMat,   int projCost, double projProd,
         class<HDRel_CraftingMaterial> casingMat, int csgCost,  double csgProd,
         class<HDRel_CraftingMaterial> powderMat, int pwdCost,  double pwdProd,
@@ -158,7 +158,7 @@ class URLSpawnHandler : EventHandler {
     ) {
         HDRel_Recipe r;
 
-        if (r = HDRel_Recipe.TryCreate(amcls,
+        if (r = HDRel_Recipe.TryCreate(amcls, enabled,
             projMat, projCost, projProd,
             casingMat, csgCost, csgProd,
             powderMat, pwdCost, pwdProd,
@@ -217,11 +217,13 @@ class URLSpawnHandler : EventHandler {
 
         // 9mm
         if (url_9mm_enabled) {
-            addRecipe("HDPistolAmmo",          projectileMats[url_9mm_projMat], url_9mm_projAmt,   url_9mm_projAmt * url_disassemble_ratio,
+            addRecipe("HDPistolAmmo",          url_9mm_enabled,
+                                               projectileMats[url_9mm_projMat], url_9mm_projAmt,   url_9mm_projAmt * url_disassemble_ratio,
                                                casingMats[url_9mm_casingMat],   url_9mm_casingAmt, url_9mm_casingAmt * url_disassemble_ratio,
                                                powderMats[url_9mm_powderMat],   url_9mm_powderAmt, url_9mm_powderAmt * url_disassemble_ratio,
                                                url_9mm_speed);
-            addRecipe("HDSpent9mm",            null,                            0,                 0.00,
+            addRecipe("HDSpent9mm",            url_9mm_enabled,
+                                               null,                            0,                 0.00,
                                                casingMats[url_9mm_casingMat],   url_9mm_casingAmt, url_9mm_casingAmt * url_disassemble_ratio,
                                                null,                            0,                 0.00,
                                                url_9mm_speed);
@@ -229,11 +231,13 @@ class URLSpawnHandler : EventHandler {
 
         // .355
         if (url_355_enabled) {
-            addRecipe("HDRevolverAmmo",        projectileMats[url_355_projMat], url_355_projAmt,   url_355_projAmt * url_disassemble_ratio,
+            addRecipe("HDRevolverAmmo",        url_355_enabled,
+                                               projectileMats[url_355_projMat], url_355_projAmt,   url_355_projAmt * url_disassemble_ratio,
                                                casingMats[url_355_casingMat],   url_355_casingAmt, url_355_casingAmt * url_disassemble_ratio,
                                                powderMats[url_355_powderMat],   url_355_powderAmt, url_355_powderAmt * url_disassemble_ratio,
                                                url_355_speed);
-            addRecipe("HDSpent355",            null,                            0,                 0.00,
+            addRecipe("HDSpent355",            url_355_enabled,
+                                               null,                            0,                 0.00,
                                                casingMats[url_355_casingMat],   url_355_casingAmt, url_355_casingAmt * url_disassemble_ratio,
                                                null,                            0,                 0.00,
                                                url_355_speed);
@@ -241,11 +245,13 @@ class URLSpawnHandler : EventHandler {
 
         // 12ga Shells
         if (url_12gaShells_enabled) {
-            addRecipe("HDShellAmmo",           projectileMats[url_12gaShells_projMat], url_12gaShells_projAmt,   url_12gaShells_projAmt * url_disassemble_ratio,
+            addRecipe("HDShellAmmo",           url_12gaShells_enabled,
+                                               projectileMats[url_12gaShells_projMat], url_12gaShells_projAmt,   url_12gaShells_projAmt * url_disassemble_ratio,
                                                casingMats[url_12gaShells_casingMat],   url_12gaShells_casingAmt, url_12gaShells_casingAmt * url_disassemble_ratio,
                                                powderMats[url_12gaShells_powderMat],   url_12gaShells_powderAmt, url_12gaShells_powderAmt * url_disassemble_ratio,
                                                url_12gaShells_speed);
-            addRecipe("HDSpentShell",          null,                                   0,                        0.00,
+            addRecipe("HDSpentShell",          url_12gaShells_enabled,
+                                               null,                                   0,                        0.00,
                                                casingMats[url_12gaShells_casingMat],   url_12gaShells_casingAmt, url_12gaShells_casingAmt * url_disassemble_ratio,
                                                null,                                   0,                        0.00,
                                                url_12gaShells_speed);
@@ -254,7 +260,8 @@ class URLSpawnHandler : EventHandler {
         // 4.26mm
         if (url_4mm_enabled) {
             // Hardcoded Casing Material away because caseless.
-            addRecipe("FourMilAmmo",           projectileMats[url_4mm_projMat], url_4mm_projAmt,   url_4mm_projAmt * url_disassemble_ratio,
+            addRecipe("FourMilAmmo",           url_4mm_enabled,
+                                               projectileMats[url_4mm_projMat], url_4mm_projAmt,   url_4mm_projAmt * url_disassemble_ratio,
                                                casingMats[url_4mm_casingMat],   url_4mm_casingAmt, url_4mm_casingAmt * url_disassemble_ratio,
                                                powderMats[url_4mm_powderMat],   url_4mm_powderAmt, url_4mm_powderAmt * url_disassemble_ratio,
                                                url_4mm_speed);
@@ -262,15 +269,18 @@ class URLSpawnHandler : EventHandler {
 
         // 7.76mm
         if (url_7mm_enabled) {
-            addRecipe("SevenMilAmmo",          projectileMats[url_7mm_projMat], url_7mm_projAmt,   url_7mm_projAmt * url_disassemble_ratio,
+            addRecipe("SevenMilAmmo",          url_7mm_enabled,
+                                               projectileMats[url_7mm_projMat], url_7mm_projAmt,   url_7mm_projAmt * url_disassemble_ratio,
                                                casingMats[url_7mm_casingMat],   url_7mm_casingAmt, url_7mm_casingAmt * url_disassemble_ratio,
                                                powderMats[url_7mm_powderMat],   url_7mm_powderAmt, url_7mm_powderAmt * url_disassemble_ratio,
                                                url_7mm_speed);
-            addRecipe("SevenMilAmmoRecast",    projectileMats[url_7mmRecast_projMat], url_7mmRecast_projAmt,   url_7mmRecast_projAmt * url_disassemble_ratio,
+            addRecipe("SevenMilAmmoRecast",    url_7mm_enabled,
+                                               projectileMats[url_7mmRecast_projMat], url_7mmRecast_projAmt,   url_7mmRecast_projAmt * url_disassemble_ratio,
                                                casingMats[url_7mm_casingMat],   url_7mm_casingAmt, url_7mm_casingAmt * url_disassemble_ratio,
                                                powderMats[url_7mm_powderMat],   url_7mm_powderAmt, url_7mm_powderAmt * url_disassemble_ratio,
                                                url_7mm_speed);
-            addRecipe("SevenMilBrass",         null,                            0,                 0.00,
+            addRecipe("SevenMilBrass",         url_7mm_enabled,
+                                               null,                            0,                 0.00,
                                                casingMats[url_7mm_casingMat],   url_7mm_casingAmt, url_7mm_casingAmt * url_disassemble_ratio,
                                                null,                            0,                 0.00,
                                                url_7mm_speed);
@@ -281,11 +291,13 @@ class URLSpawnHandler : EventHandler {
 
         // 4ga 00 Buckshot
         if (url_4gb_enabled) {
-            addRecipe("HD4GBAmmo",             projectileMats[url_4gb_projMat], url_4gb_projAmt,   url_4gb_projAmt * url_disassemble_ratio,
+            addRecipe("HD4GBAmmo",             url_4gb_enabled,
+                                               projectileMats[url_4gb_projMat], url_4gb_projAmt,   url_4gb_projAmt * url_disassemble_ratio,
                                                casingMats[url_4gb_casingMat],   url_4gb_casingAmt, url_4gb_casingAmt * url_disassemble_ratio,
                                                powderMats[url_4gb_powderMat],   url_4gb_powderAmt, url_4gb_powderAmt * url_disassemble_ratio,
                                                url_4gb_speed);
-            addRecipe("HDSpent4GB",            null,                            0,                 0.00,
+            addRecipe("HDSpent4GB",            url_4gb_enabled,
+                                               null,                            0,                 0.00,
                                                casingMats[url_4gb_casingMat],   url_4gb_casingAmt, url_4gb_casingAmt * url_disassemble_ratio,
                                                null,                            0,                 0.00,
                                                url_4gb_speed);
@@ -293,11 +305,13 @@ class URLSpawnHandler : EventHandler {
 
         // 4ga Saboted Slug
         if (url_4gs_enabled) {
-            addRecipe("HD4GSAmmo",             projectileMats[url_4gs_projMat], url_4gs_projAmt,   url_4gs_projAmt * url_disassemble_ratio,
+            addRecipe("HD4GSAmmo",             url_4gs_enabled,
+                                               projectileMats[url_4gs_projMat], url_4gs_projAmt,   url_4gs_projAmt * url_disassemble_ratio,
                                                casingMats[url_4gs_casingMat],   url_4gs_casingAmt, url_4gs_casingAmt * url_disassemble_ratio,
                                                powderMats[url_4gs_powderMat],   url_4gs_powderAmt, url_4gs_powderAmt * url_disassemble_ratio,
                                                url_4gs_speed);
-            addRecipe("HDSpent4GS",            null,                            0,                 0.00,
+            addRecipe("HDSpent4GS",            url_4gs_enabled,
+                                               null,                            0,                 0.00,
                                                casingMats[url_4gs_casingMat],   url_4gs_casingAmt, url_4gs_casingAmt * url_disassemble_ratio,
                                                null,                            0,                 0.00,
                                                url_4gs_speed);
@@ -305,11 +319,13 @@ class URLSpawnHandler : EventHandler {
 
         // 5mm MR
         if (url_5mm_enabled) {
-            addRecipe("HD5mm_Ammo",            projectileMats[url_5mm_projMat], url_5mm_projAmt,   url_5mm_projAmt * url_disassemble_ratio,
+            addRecipe("HD5mm_Ammo",            url_5mm_enabled,
+                                               projectileMats[url_5mm_projMat], url_5mm_projAmt,   url_5mm_projAmt * url_disassemble_ratio,
                                                casingMats[url_5mm_casingMat],   url_5mm_casingAmt, url_5mm_casingAmt * url_disassemble_ratio,
                                                powderMats[url_5mm_powderMat],   url_5mm_powderAmt, url_5mm_powderAmt * url_disassemble_ratio,
                                                url_5mm_speed);
-            addRecipe("HDSpent5mmMR",          null,                            0,                 0.00,
+            addRecipe("HDSpent5mmMR",          url_5mm_enabled,
+                                               null,                            0,                 0.00,
                                                casingMats[url_5mm_casingMat],   url_5mm_casingAmt, url_5mm_casingAmt * url_disassemble_ratio,
                                                null,                            0,                 0.00,
                                                url_5mm_speed);
@@ -317,11 +333,13 @@ class URLSpawnHandler : EventHandler {
 
         // 6mm Flechettes
         if (url_6mm_enabled) {
-            addRecipe("HD6mmFlechetteAmmo",    projectileMats[url_6mm_projMat], url_6mm_projAmt,   url_6mm_projAmt * url_disassemble_ratio,
+            addRecipe("HD6mmFlechetteAmmo",    url_6mm_enabled,
+                                               projectileMats[url_6mm_projMat], url_6mm_projAmt,   url_6mm_projAmt * url_disassemble_ratio,
                                                casingMats[url_6mm_casingMat],   url_6mm_casingAmt, url_6mm_casingAmt * url_disassemble_ratio,
                                                powderMats[url_6mm_powderMat],   url_6mm_powderAmt, url_6mm_powderAmt * url_disassemble_ratio,
                                                url_6mm_speed);
-            addRecipe("HDSpent6mmFlechette",   null,                            0,                 0.00,
+            addRecipe("HDSpent6mmFlechette",   url_6mm_enabled,
+                                               null,                            0,                 0.00,
                                                casingMats[url_6mm_casingMat],   url_6mm_casingAmt, url_6mm_casingAmt * url_disassemble_ratio,
                                                null,                            0,                 0.00,
                                                url_6mm_speed);
@@ -329,11 +347,13 @@ class URLSpawnHandler : EventHandler {
 
         // 10mm Auto
         if (url_10mm_enabled) {
-            addRecipe("HD10mAmmo",             projectileMats[url_10mm_projMat], url_10mm_projAmt,   url_10mm_projAmt * url_disassemble_ratio,
+            addRecipe("HD10mAmmo",             url_10mm_enabled,
+                                               projectileMats[url_10mm_projMat], url_10mm_projAmt,   url_10mm_projAmt * url_disassemble_ratio,
                                                casingMats[url_10mm_casingMat],   url_10mm_casingAmt, url_10mm_casingAmt * url_disassemble_ratio,
                                                powderMats[url_10mm_powderMat],   url_10mm_powderAmt, url_10mm_powderAmt * url_disassemble_ratio,
                                                url_10mm_speed);
-            addRecipe("TenMilBrass",           null,                             0,                  0.00,
+            addRecipe("TenMilBrass",           url_10mm_enabled,
+                                               null,                             0,                  0.00,
                                                casingMats[url_10mm_casingMat],   url_10mm_casingAmt, url_10mm_casingAmt * url_disassemble_ratio,
                                                null,                             0,                  0.00,
                                                url_10mm_speed);
@@ -341,11 +361,13 @@ class URLSpawnHandler : EventHandler {
 
         //.30-06
         if (url_3006_enabled) {
-            addRecipe("ThirtyAughtSixAmmo",    projectileMats[url_3006_projMat], url_3006_projAmt,   url_3006_projAmt * url_disassemble_ratio,
+            addRecipe("ThirtyAughtSixAmmo",    url_3006_enabled,
+                                               projectileMats[url_3006_projMat], url_3006_projAmt,   url_3006_projAmt * url_disassemble_ratio,
                                                casingMats[url_3006_casingMat],   url_3006_casingAmt, url_3006_casingAmt * url_disassemble_ratio,
                                                powderMats[url_3006_powderMat],   url_3006_powderAmt, url_3006_powderAmt * url_disassemble_ratio,
                                                url_3006_speed);
-            addRecipe("ThirtyAughtSixBrass",   null,                             0,                  0.00,
+            addRecipe("ThirtyAughtSixBrass",   url_3006_enabled,
+                                               null,                             0,                  0.00,
                                                casingMats[url_3006_casingMat],   url_3006_casingAmt, url_3006_casingAmt * url_disassemble_ratio,
                                                null,                             0,                  0.00,
                                                url_3006_speed);
@@ -353,11 +375,13 @@ class URLSpawnHandler : EventHandler {
 
         // .45 ACP
         if (url_45acp_enabled) {
-            addRecipe("HD45ACPAmmo",           projectileMats[url_45acp_projMat], url_45acp_projAmt,   url_45acp_projAmt * url_disassemble_ratio,
+            addRecipe("HD45ACPAmmo",           url_45acp_enabled,
+                                               projectileMats[url_45acp_projMat], url_45acp_projAmt,   url_45acp_projAmt * url_disassemble_ratio,
                                                casingMats[url_45acp_casingMat],   url_45acp_casingAmt, url_45acp_casingAmt * url_disassemble_ratio,
                                                powderMats[url_45acp_powderMat],   url_45acp_powderAmt, url_45acp_powderAmt * url_disassemble_ratio,
                                                url_45acp_speed);
-            addRecipe("HDSpent45ACP",          null,                              0,                   0.00,
+            addRecipe("HDSpent45ACP",          url_45acp_enabled,
+                                               null,                              0,                   0.00,
                                                casingMats[url_45acp_casingMat],   url_45acp_casingAmt, url_45acp_casingAmt * url_disassemble_ratio,
                                                null,                              0,                   0.00,
                                                url_45acp_speed);
@@ -365,11 +389,13 @@ class URLSpawnHandler : EventHandler {
 
         // .45 LC
         if (url_45lc_enabled) {
-            addRecipe("HD45LCAmmo",            projectileMats[url_45lc_projMat], url_45lc_projAmt,   url_45lc_projAmt * url_disassemble_ratio,
+            addRecipe("HD45LCAmmo",            url_45lc_enabled,
+                                               projectileMats[url_45lc_projMat], url_45lc_projAmt,   url_45lc_projAmt * url_disassemble_ratio,
                                                casingMats[url_45lc_casingMat],   url_45lc_casingAmt, url_45lc_casingAmt * url_disassemble_ratio,
                                                powderMats[url_45lc_powderMat],   url_45lc_powderAmt, url_45lc_powderAmt * url_disassemble_ratio,
                                                url_45lc_speed);
-            addRecipe("HDSpent45LC",           null,                             0,                  0.00,
+            addRecipe("HDSpent45LC",           url_45lc_enabled,
+                                               null,                             0,                  0.00,
                                                casingMats[url_45lc_casingMat],   url_45lc_casingAmt, url_45lc_casingAmt * url_disassemble_ratio,
                                                null,                             0,                  0.00,
                                                url_45lc_speed);
@@ -377,11 +403,13 @@ class URLSpawnHandler : EventHandler {
 
         // .45 Golden LC
         if (url_g45lc_enabled) {
-            addRecipe("HDGold45LCAmmo",        projectileMats[url_g45lc_projMat], url_g45lc_projAmt,   url_g45lc_projAmt * url_disassemble_ratio,
+            addRecipe("HDGold45LCAmmo",        url_g45lc_enabled,
+                                               projectileMats[url_g45lc_projMat], url_g45lc_projAmt,   url_g45lc_projAmt * url_disassemble_ratio,
                                                casingMats[url_g45lc_casingMat],   url_g45lc_casingAmt, url_g45lc_casingAmt * url_disassemble_ratio,
                                                powderMats[url_g45lc_powderMat],   url_g45lc_powderAmt, url_g45lc_powderAmt * url_disassemble_ratio,
                                                url_g45lc_speed);
-            addRecipe("HDSpentGold45lc",       null,                              0,                   0.00,
+            addRecipe("HDSpentGold45lc",       url_g45lc_enabled,
+                                               null,                              0,                   0.00,
                                                casingMats[url_g45lc_casingMat],   url_g45lc_casingAmt, url_g45lc_casingAmt * url_disassemble_ratio,
                                                null,                              0,                   0.00,
                                                url_g45lc_speed);
@@ -389,11 +417,13 @@ class URLSpawnHandler : EventHandler {
 
         // .50 AE
         if (url_50ae_enabled) {
-            addRecipe("HD50AEAmmo",            projectileMats[url_50ae_projMat], url_50ae_projAmt,   url_50ae_projAmt * url_disassemble_ratio,
+            addRecipe("HD50AEAmmo",            url_50ae_enabled,
+                                               projectileMats[url_50ae_projMat], url_50ae_projAmt,   url_50ae_projAmt * url_disassemble_ratio,
                                                casingMats[url_50ae_casingMat],   url_50ae_casingAmt, url_50ae_casingAmt * url_disassemble_ratio,
                                                powderMats[url_50ae_powderMat],   url_50ae_powderAmt, url_50ae_powderAmt * url_disassemble_ratio,
                                                url_50ae_speed);
-            addRecipe("HDSpent50AE",           null,                             0,                  0.00,
+            addRecipe("HDSpent50AE",           url_50ae_enabled,
+                                               null,                             0,                  0.00,
                                                casingMats[url_50ae_casingMat],   url_50ae_casingAmt, url_50ae_casingAmt * url_disassemble_ratio,
                                                null,                             0,                  0.00,
                                                url_50ae_speed);
@@ -401,11 +431,13 @@ class URLSpawnHandler : EventHandler {
         
         // .50 Action-Mega
         if (url_50am_enabled) {
-            addRecipe("HD50AM_Ammo",           projectileMats[url_50am_projMat], url_50am_projAmt,   url_50am_projAmt * url_disassemble_ratio,
+            addRecipe("HD50AM_Ammo",           url_50am_enabled,
+                                               projectileMats[url_50am_projMat], url_50am_projAmt,   url_50am_projAmt * url_disassemble_ratio,
                                                casingMats[url_50am_casingMat],   url_50am_casingAmt, url_50am_casingAmt * url_disassemble_ratio,
                                                powderMats[url_50am_powderMat],   url_50am_powderAmt, url_50am_powderAmt * url_disassemble_ratio,
                                                url_50am_speed);
-            addRecipe("HDSpent50AM",           null,                             0,                  0.00,
+            addRecipe("HDSpent50AM",           url_50am_enabled,
+                                               null,                             0,                  0.00,
                                                casingMats[url_50am_casingMat],   url_50am_casingAmt, url_50am_casingAmt * url_disassemble_ratio,
                                                null,                             0,                  0.00,
                                                url_50am_speed);
@@ -413,11 +445,13 @@ class URLSpawnHandler : EventHandler {
 
         // .50 OMG
         if (url_50omg_enabled) {
-            addRecipe("HD50OMGAmmo",           projectileMats[url_50omg_projMat], url_50omg_projAmt,   url_50omg_projAmt * url_disassemble_ratio,
+            addRecipe("HD50OMGAmmo",           url_50omg_enabled,
+                                               projectileMats[url_50omg_projMat], url_50omg_projAmt,   url_50omg_projAmt * url_disassemble_ratio,
                                                casingMats[url_50omg_casingMat],   url_50omg_casingAmt, url_50omg_casingAmt * url_disassemble_ratio,
                                                powderMats[url_50omg_powderMat],   url_50omg_powderAmt, url_50omg_powderAmt * url_disassemble_ratio,
                                                url_50omg_speed);
-            addRecipe("HDSpent50OMG",          null,                              0,                   0.00,
+            addRecipe("HDSpent50OMG",          url_50omg_enabled,
+                                               null,                              0,                   0.00,
                                                casingMats[url_50omg_casingMat],   url_50omg_casingAmt, url_50omg_casingAmt * url_disassemble_ratio,
                                                null,                              0,                   0.00,
                                                url_50omg_speed);
@@ -425,7 +459,8 @@ class URLSpawnHandler : EventHandler {
 
         // 56cal Lead Ball
         if (url_mball_enabled) {
-            addRecipe("HDBallAmmo",            projectileMats[url_mball_projMat], url_mball_projAmt,   url_mball_projAmt * url_disassemble_ratio,
+            addRecipe("HDBallAmmo",            url_mball_enabled,
+                                               projectileMats[url_mball_projMat], url_mball_projAmt,   url_mball_projAmt * url_disassemble_ratio,
                                                casingMats[url_mball_casingMat],   url_mball_casingAmt, url_mball_casingAmt * url_disassemble_ratio,
                                                powderMats[url_mball_powderMat],   url_mball_powderAmt, url_mball_powderAmt * url_disassemble_ratio,
                                                url_mball_speed);
@@ -433,11 +468,13 @@ class URLSpawnHandler : EventHandler {
 
         // .451 Frei
         if (url_420_enabled) {
-            addRecipe("HDAurochsAmmo",         projectileMats[url_420_projMat], url_420_projAmt,   url_420_projAmt * url_disassemble_ratio,
+            addRecipe("HDAurochsAmmo",         url_420_enabled,
+                                               projectileMats[url_420_projMat], url_420_projAmt,   url_420_projAmt * url_disassemble_ratio,
                                                casingMats[url_420_casingMat],   url_420_casingAmt, url_420_casingAmt * url_disassemble_ratio,
                                                powderMats[url_420_powderMat],   url_420_powderAmt, url_420_powderAmt * url_disassemble_ratio,
                                                url_420_speed);
-            addRecipe("HDSpent420",            null,                            0,                 0.00,
+            addRecipe("HDSpent420",            url_420_enabled,
+                                               null,                            0,                 0.00,
                                                casingMats[url_420_casingMat],   url_420_casingAmt, url_420_casingAmt * url_disassemble_ratio,
                                                null,                            0,                 0.00,
                                                url_420_speed);
@@ -445,11 +482,13 @@ class URLSpawnHandler : EventHandler {
 
         // .066 Bore Shell
         if (url_069_enabled) {
-            addRecipe("HD069BoreAmmo",         projectileMats[url_069_projMat], url_069_projAmt,   url_069_projAmt * url_disassemble_ratio,
+            addRecipe("HD069BoreAmmo",         url_069_enabled,
+                                               projectileMats[url_069_projMat], url_069_projAmt,   url_069_projAmt * url_disassemble_ratio,
                                                casingMats[url_069_casingMat],   url_069_casingAmt, url_069_casingAmt * url_disassemble_ratio,
                                                powderMats[url_069_powderMat],   url_069_powderAmt, url_069_powderAmt * url_disassemble_ratio,
                                                url_069_speed);
-            addRecipe("HDSpent069Bore",        null,                            0,                 0.00,
+            addRecipe("HDSpent069Bore",        url_069_enabled,
+                                               null,                            0,                 0.00,
                                                casingMats[url_069_casingMat],   url_069_casingAmt, url_069_casingAmt * url_disassemble_ratio,
                                                null,                            0,                 0.00,
                                                url_069_speed);
@@ -457,11 +496,13 @@ class URLSpawnHandler : EventHandler {
 
         // .300 Savage
         if (url_300savage_enabled) {
-            addRecipe("Savage300Ammo",         projectileMats[url_300savage_projMat], url_300savage_projAmt,   url_300savage_projAmt * url_disassemble_ratio,
+            addRecipe("Savage300Ammo",         url_3006_enabled,
+                                               projectileMats[url_300savage_projMat], url_300savage_projAmt,   url_300savage_projAmt * url_disassemble_ratio,
                                                casingMats[url_300savage_casingMat],   url_300savage_casingAmt, url_300savage_casingAmt * url_disassemble_ratio,
                                                powderMats[url_300savage_powderMat],   url_300savage_powderAmt, url_300savage_powderAmt * url_disassemble_ratio,
                                                url_300savage_speed);
-            addRecipe("Savage300Brass",        null,                                  0,                       0.00,
+            addRecipe("Savage300Brass",        url_3006_enabled,
+                                               null,                                  0,                       0.00,
                                                casingMats[url_300savage_casingMat],   url_300savage_casingAmt, url_300savage_casingAmt * url_disassemble_ratio,
                                                null,                                  0,                       0.00,
                                                url_300savage_speed);
@@ -469,15 +510,18 @@ class URLSpawnHandler : EventHandler {
 
         // .500 S&W
         if (url_500sw_enabled) {
-            addRecipe("HD500SWLightAmmo",      projectileMats[url_500swl_projMat], url_500swl_projAmt,   url_500swl_projAmt * url_disassemble_ratio,
+            addRecipe("HD500SWLightAmmo",      url_500sw_enabled,
+                                               projectileMats[url_500swl_projMat], url_500swl_projAmt,   url_500swl_projAmt * url_disassemble_ratio,
                                                casingMats[url_500sw_casingMat],   url_500sw_casingAmt, url_500sw_casingAmt * url_disassemble_ratio,
                                                powderMats[url_500sw_powderMat],   url_500sw_powderAmt, url_500sw_powderAmt * url_disassemble_ratio,
                                                url_500sw_speed);
-            addRecipe("HD500SWHeavyAmmo",      projectileMats[url_500swh_projMat], url_500swh_projAmt,   url_500swh_projAmt * url_disassemble_ratio,
+            addRecipe("HD500SWHeavyAmmo",      url_500sw_enabled,
+                                               projectileMats[url_500swh_projMat], url_500swh_projAmt,   url_500swh_projAmt * url_disassemble_ratio,
                                                casingMats[url_500sw_casingMat],   url_500sw_casingAmt, url_500sw_casingAmt * url_disassemble_ratio,
                                                powderMats[url_500sw_powderMat],   url_500sw_powderAmt, url_500sw_powderAmt * url_disassemble_ratio,
                                                url_500sw_speed);
-            addRecipe("HDSpent500",            null,                              0,                   0.00,
+            addRecipe("HDSpent500",            url_500sw_enabled,
+                                               null,                              0,                   0.00,
                                                casingMats[url_500sw_casingMat],   url_500sw_casingAmt, url_500sw_casingAmt * url_disassemble_ratio,
                                                null,                              0,                   0.00,
                                                url_500sw_speed);
@@ -485,11 +529,13 @@ class URLSpawnHandler : EventHandler {
 
         // .762 Tokarev
         if (url_762tokarev_enabled) {
-            addRecipe("HD762TokarevAmmo",      projectileMats[url_762tokarev_projMat], url_762tokarev_projAmt,   url_762tokarev_projAmt * url_disassemble_ratio,
+            addRecipe("HD762TokarevAmmo",      url_762tokarev_enabled,
+                                               projectileMats[url_762tokarev_projMat], url_762tokarev_projAmt,   url_762tokarev_projAmt * url_disassemble_ratio,
                                                casingMats[url_762tokarev_casingMat],   url_762tokarev_casingAmt, url_762tokarev_casingAmt * url_disassemble_ratio,
                                                powderMats[url_762tokarev_powderMat],   url_762tokarev_powderAmt, url_762tokarev_powderAmt * url_disassemble_ratio,
                                                url_762tokarev_speed);
-            addRecipe("TokarevBrass",          null,                                   0,                        0.00,
+            addRecipe("TokarevBrass",          url_762tokarev_enabled,
+                                               null,                                   0,                        0.00,
                                                casingMats[url_762tokarev_casingMat],   url_762tokarev_casingAmt, url_762tokarev_casingAmt * url_disassemble_ratio,
                                                null,                                   0,                        0.00,
                                                url_762tokarev_speed);
@@ -497,11 +543,13 @@ class URLSpawnHandler : EventHandler {
 
         // Birdshot Shells
         if (url_birdshot_enabled) {
-            addRecipe("HDBirdshotShellAmmo",   projectileMats[url_birdshot_projMat], url_birdshot_projAmt,   url_birdshot_projAmt * url_disassemble_ratio,
+            addRecipe("HDBirdshotShellAmmo",   url_birdshot_enabled,
+                                               projectileMats[url_birdshot_projMat], url_birdshot_projAmt,   url_birdshot_projAmt * url_disassemble_ratio,
                                                casingMats[url_birdshot_casingMat],   url_birdshot_casingAmt, url_birdshot_casingAmt * url_disassemble_ratio,
                                                powderMats[url_birdshot_powderMat],   url_birdshot_powderAmt, url_birdshot_powderAmt * url_disassemble_ratio,
                                                url_birdshot_speed);
-            addRecipe("HDSpentBirdshotShell",  null,                                 0,                      0.00,
+            addRecipe("HDSpentBirdshotShell",  url_birdshot_enabled,
+                                               null,                                 0,                      0.00,
                                                casingMats[url_birdshot_casingMat],   url_birdshot_casingAmt, url_birdshot_casingAmt * url_disassemble_ratio,
                                                null,                                 0,                      0.00,
                                                url_birdshot_speed);
@@ -509,11 +557,13 @@ class URLSpawnHandler : EventHandler {
 
         // Explosive Shells
         if (url_explosiveShells_enabled) {
-            addRecipe("HDExplosiveShellAmmo",  projectileMats[url_explosiveShells_projMat], url_explosiveShells_projAmt,   url_explosiveShells_projAmt * url_disassemble_ratio,
+            addRecipe("HDExplosiveShellAmmo",  url_explosiveShells_enabled,
+                                               projectileMats[url_explosiveShells_projMat], url_explosiveShells_projAmt,   url_explosiveShells_projAmt * url_disassemble_ratio,
                                                casingMats[url_explosiveShells_casingMat],   url_explosiveShells_casingAmt, url_explosiveShells_casingAmt * url_disassemble_ratio,
                                                powderMats[url_explosiveShells_powderMat],   url_explosiveShells_powderAmt, url_explosiveShells_powderAmt * url_disassemble_ratio,
                                                url_explosiveShells_speed);
-            addRecipe("HDSpentExplosiveShell", null,                                        0,                             0.00,
+            addRecipe("HDSpentExplosiveShell", url_explosiveShells_enabled,
+                                               null,                                        0,                             0.00,
                                                casingMats[url_explosiveShells_casingMat],   url_explosiveShells_casingAmt, url_explosiveShells_casingAmt * url_disassemble_ratio,
                                                null,                                        0,                             0.00,
                                                url_explosiveShells_speed);
@@ -521,7 +571,8 @@ class URLSpawnHandler : EventHandler {
 
         // Flare Shells
         if (url_flareShells_enabled) {
-            addRecipe("HDFlareAmmo",           projectileMats[url_flareShells_projMat], url_flareShells_projAmt,   url_flareShells_projAmt * url_disassemble_ratio,
+            addRecipe("HDFlareAmmo",           url_flareShells_enabled,
+                                               projectileMats[url_flareShells_projMat], url_flareShells_projAmt,   url_flareShells_projAmt * url_disassemble_ratio,
                                                casingMats[url_flareShells_casingMat],   url_flareShells_casingAmt, url_flareShells_casingAmt * url_disassemble_ratio,
                                                powderMats[url_flareShells_powderMat],   url_flareShells_powderAmt, url_flareShells_powderAmt * url_disassemble_ratio,
                                                url_flareShells_speed);
@@ -529,11 +580,13 @@ class URLSpawnHandler : EventHandler {
 
         // Less-Lethal Shells
         if (url_llShells_enabled) {
-            addRecipe("HDLLShellAmmo",         projectileMats[url_llShells_projMat], url_llShells_projAmt,   url_llShells_projAmt * url_disassemble_ratio,
+            addRecipe("HDLLShellAmmo",         url_llShells_enabled,
+                                               projectileMats[url_llShells_projMat], url_llShells_projAmt,   url_llShells_projAmt * url_disassemble_ratio,
                                                casingMats[url_llShells_casingMat],   url_llShells_casingAmt, url_llShells_casingAmt * url_disassemble_ratio,
                                                powderMats[url_llShells_powderMat],   url_llShells_powderAmt, url_llShells_powderAmt * url_disassemble_ratio,
                                                url_llShells_speed);
-            addRecipe("HDLLSpentShell",        null,                                 0,                      0.00,
+            addRecipe("HDLLSpentShell",        url_llShells_enabled,
+                                               null,                                 0,                      0.00,
                                                casingMats[url_llShells_casingMat],   url_llShells_casingAmt, url_llShells_casingAmt * url_disassemble_ratio,
                                                null,                                 0,                      0.00,
                                                url_llShells_speed);
@@ -541,11 +594,13 @@ class URLSpawnHandler : EventHandler {
 
         // 12ga Slugs
         if (url_12gaSlugs_enabled) {
-            addRecipe("HDSlugAmmo",            projectileMats[url_12gaSlugs_projMat], url_12gaSlugs_projAmt,   url_12gaSlugs_projAmt * url_disassemble_ratio,
+            addRecipe("HDSlugAmmo",            url_12gaSlugs_enabled,
+                                               projectileMats[url_12gaSlugs_projMat], url_12gaSlugs_projAmt,   url_12gaSlugs_projAmt * url_disassemble_ratio,
                                                casingMats[url_12gaSlugs_casingMat],   url_12gaSlugs_casingAmt, url_12gaSlugs_casingAmt * url_disassemble_ratio,
                                                powderMats[url_12gaSlugs_powderMat],   url_12gaSlugs_powderAmt, url_12gaSlugs_powderAmt * url_disassemble_ratio,
                                                url_12gaSlugs_speed);
-            addRecipe("HDSpentSlug",           null,                                  0,                       0.00,
+            addRecipe("HDSpentSlug",           url_12gaSlugs_enabled,
+                                               null,                                  0,                       0.00,
                                                casingMats[url_12gaSlugs_casingMat],   url_12gaSlugs_casingAmt, url_12gaSlugs_casingAmt * url_disassemble_ratio,
                                                null,                                  0,                       0.00,
                                                url_12gaSlugs_speed);
@@ -556,11 +611,13 @@ class URLSpawnHandler : EventHandler {
 
         // 9mm NDM
         if (url_ndm_enabled) {
-            addRecipe("HDNDMLoose",            projectileMats[url_ndm_projMat], url_ndm_projAmt,   url_ndm_projAmt * url_disassemble_ratio,
+            addRecipe("HDNDMLoose",            url_ndm_enabled,
+                                               projectileMats[url_ndm_projMat], url_ndm_projAmt,   url_ndm_projAmt * url_disassemble_ratio,
                                                casingMats[url_ndm_casingMat],   url_ndm_casingAmt, url_ndm_casingAmt * url_disassemble_ratio,
                                                powderMats[url_ndm_powderMat],   url_ndm_powderAmt, url_ndm_powderAmt * url_disassemble_ratio,
                                                url_ndm_speed);
-            addRecipe("HDSpentNDM",            null,                            0,                 0.00,
+            addRecipe("HDSpentNDM",            url_ndm_enabled,
+                                               null,                            0,                 0.00,
                                                casingMats[url_ndm_casingMat],   url_ndm_casingAmt, url_ndm_casingAmt * url_disassemble_ratio,
                                                null,                            0,                 0.00,
                                                url_ndm_speed);

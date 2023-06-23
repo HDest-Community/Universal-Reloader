@@ -142,10 +142,12 @@ class HDUniversalReloader : HDWeapon
 		int BaseYOffset = -182;
 		
 		sb.DrawImage("URLDA0", (0, BaseYOffset + 68) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale:(2, 2));
+
 		let recipe = GetSelectedRecipe();
 		if (recipe)
 		{
-			bool canAssemble = recipe.CanBeAssembled();
+			bool canAssemble    = recipe.CanBeAssembled();
+			bool canDisassemble = recipe.CanBeDisassembled();
 
 			let AmmoClass = GetDefaultByType(recipe.AmmoClass);
 			string icon = TexMan.GetName(AmmoClass.Icon);
@@ -156,10 +158,19 @@ class HDUniversalReloader : HDWeapon
 			string invAmt = sb.FormatNumber(sb.GetAmount(AmmoClass.GetClass()), 1, 4);
 			sb.DrawString(sb.pSmallFont, invAmt, (0, BaseYOffset + 20) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE);
 			sb.DrawString(sb.pSmallFont, tag, (0, BaseYOffset + 28) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY);
-			if (!canAssemble)
-			{
-				sb.DrawString(sb.pSmallFont, "Cannot be assembled", (0, BaseYOffset + 36) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_RED);
-			}
+			
+			sb.DrawString(sb.pSmallFont, canAssemble ? "Can be assembled" : "Cannot be assembled",
+				(0, BaseYOffset + 37) + bob,
+				sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER,
+				canAssemble ? Font.CR_GREEN : Font.CR_RED,
+				scale: (0.5, 0.5)
+			);
+			sb.DrawString(sb.pSmallFont, canDisassemble ? "Can be disassembled" : "Cannot be disassembled",
+				(0, BaseYOffset + 42) + bob,
+				sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER,
+				canDisassemble ? Font.CR_GREEN : Font.CR_RED,
+				scale: (0.5, 0.5)
+			);
 
 			for (int i = 0; i < MaterialCount; ++i)
 			{
@@ -310,9 +321,12 @@ class HDUniversalReloader : HDWeapon
 		Unload:
 			TNT1 A 5
 			{
-				invoker.ChargeUp = 0;
-				invoker.FactoryAction = FAction_Disassemble;
-				DropInventory(invoker);
+				if (invoker.GetSelectedRecipe().CanBeDisassembled())
+				{
+					invoker.ChargeUp = 0;
+					invoker.FactoryAction = FAction_Disassemble;
+					DropInventory(invoker);
+				}
 			}
 			Goto Ready;
 		LookForStuff:

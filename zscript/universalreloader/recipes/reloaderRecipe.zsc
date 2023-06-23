@@ -8,7 +8,7 @@ class HDRel_Recipe {
 	double Products[HDUniversalReloader.MaterialCount];
 	double SpeedMult;
 
-	static HDRel_Recipe TryCreate(int enabled, string amcls,
+	static HDRel_Recipe TryCreate(string amcls, int enabled,
 		class<HDRel_CraftingMaterial> projMat,   int projCost, double projProd,
 		class<HDRel_CraftingMaterial> casingMat, int csgCost,  double csgProd,
 		class<HDRel_CraftingMaterial> powderMat, int pwdCost,  double pwdProd,
