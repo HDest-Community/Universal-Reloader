@@ -103,13 +103,71 @@ class HDUniversalReloader : HDWeapon
 		IsBeingPickedUp = false;
 	}
 
+	protected clearscope void GetCraftableRecipes(out Array<int> arr)
+	{
+		arr.clear();
+
+		for (let i = 0; i < Recipes.size(); i++)
+		{
+			let r = Recipes[i];
+
+			// if (hd_debug) console.printf(r.toString());
+
+			let canCraft = r && (canAssemble(r) || canDisassemble(r));
+			if (hd_debug) console.printf("Can craft "..r.AmmoClass.GetClassName().."? "..canCraft);
+
+			if (canCraft) arr.push(i);
+		}
+
+		if (hd_debug) {
+			for (let i = 0; i < arr.size(); i++) {
+				console.printf(""..arr[i]);
+			}
+		}
+	}
+
+	protected clearscope bool canAssemble(HDRel_Recipe recipe)
+	{
+		let canCraft = recipe.CanBeAssembled();
+
+		if (canCraft)
+		{
+			for (let i = 0; i < MaterialCount; i++)
+			{
+				canCraft = canCraft & (owner && owner.countInv(recipe.Materials[i]) >= recipe.Costs[i]);
+			}
+		}
+		
+		if (hd_debug) console.printf("Can assemble "..recipe.AmmoClass.GetClassName().."? "..canCraft);
+
+		return canCraft;
+	}
+
+	protected clearscope bool canDisassemble(HDRel_Recipe recipe)
+	{
+		let canCraft = owner && owner.countInv(recipe.AmmoClass) > 0;
+		
+		if (hd_debug) console.printf("Can disassemble "..recipe.AmmoClass.GetClassName().."? "..canCraft);
+
+		return canCraft;
+	}
+
 	protected clearscope HDRel_Recipe GetSelectedRecipe()
 	{
-		int Size = Recipes.Size();
+		Array<int> arr;
+		// Build list of currently craftable recipes
+		GetCraftableRecipes(CraftableRecipes);
+
+		int Size = CraftableRecipes.Size();
 		int SelIndex = WeaponStatus[RProperty_SelectedRecipe];
-		if (Size > 0 && SelIndex < Size)
-		{
-			return Recipes[SelIndex];
+		
+		if (hd_debug) console.printf("Craftable Recipes: "..Size);
+
+		if (Size > 0) {
+			if (hd_debug) console.printf("Selected Index: "..SelIndex);
+			if (hd_debug) console.printf("Selected Recipe: "..Recipes[CraftableRecipes[SelIndex]].toString());
+
+			return SelIndex < Size ? Recipes[CraftableRecipes[SelIndex]] : Recipes[0];
 		}
 
 		return null;
@@ -219,15 +277,24 @@ class HDUniversalReloader : HDWeapon
 	protected action void A_CheckCycle(int cycleDir)
 	{
 		int SelIndex = invoker.WeaponStatus[RProperty_SelectedRecipe];
-		switch (cycleDir)
+		let size = invoker.CraftableRecipes.size();
+		
+		if (hd_debug) console.printf("Current Selected Index: "..SelIndex);
+		if (size)
 		{
-			case 1:
-				++SelIndex %= invoker.Recipes.Size();
-				break;
-			case -1:
-				SelIndex = SelIndex == 0 ? invoker.Recipes.Size() - 1 : SelIndex - 1;
-				break;
+			switch (cycleDir)
+			{
+				case 1:
+					++SelIndex %= size;
+					break;
+				case -1:
+					SelIndex = SelIndex == 0 ? size - 1 : SelIndex - 1;
+					break;
+			}
+		
 		}
+		if (hd_debug) console.printf("New Selected Index: "..SelIndex);
+
 		invoker.WeaponStatus[RProperty_SelectedRecipe] = SelIndex;
 	}
 
@@ -261,6 +328,7 @@ class HDUniversalReloader : HDWeapon
 	private int LoadedMats[MaterialCount];
 	private int LoadedRounds;
 	protected FAction FactoryAction;
+	protected Array<int> CraftableRecipes;
 	protected Array<HDRel_Recipe> Recipes;
 	private int ChugTicker;
 	private int ChargeUp;
@@ -310,7 +378,8 @@ class HDUniversalReloader : HDWeapon
 		Reload:
 			TNT1 A 5
 			{
-				if (invoker.GetSelectedRecipe().CanBeAssembled())
+				let recipe = invoker.GetSelectedRecipe();
+				if (recipe && recipe.CanBeAssembled())
 				{
 					invoker.ChargeUp = 0;
 					invoker.FactoryAction = FAction_Assemble;
@@ -321,7 +390,8 @@ class HDUniversalReloader : HDWeapon
 		Unload:
 			TNT1 A 5
 			{
-				if (invoker.GetSelectedRecipe().CanBeDisassembled())
+				let recipe = invoker.GetSelectedRecipe();
+				if (recipe && recipe.CanBeDisassembled())
 				{
 					invoker.ChargeUp = 0;
 					invoker.FactoryAction = FAction_Disassemble;

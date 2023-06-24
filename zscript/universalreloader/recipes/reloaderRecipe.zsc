@@ -47,6 +47,13 @@ class HDRel_Recipe {
 	bool CanBeDisassembled() {
 		return enabled & DISASSEMBLE_ONLY;
 	}
+
+	string toString() {
+		return GetClassName().."{ AmmoClass='"..AmmoClass.GetClassName().."', materials=["
+			..(Materials[0] ? "'"..Materials[0].GetClassName().."' ("..Costs[0].."/"..Products[0]..")" : "empty")..", "
+			..(Materials[1] ? "'"..Materials[1].GetClassName().."' ("..Costs[1].."/"..Products[1]..")" : "empty")..", "
+			..(Materials[2] ? "'"..Materials[2].GetClassName().."' ("..Costs[2].."/"..Products[2]..")" : "empty")..", speed="..(SpeedMult * 100).."% }";
+	}
 }
 
 enum RecipeEnabledState {
