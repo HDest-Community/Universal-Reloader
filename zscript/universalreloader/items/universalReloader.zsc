@@ -198,12 +198,14 @@ class HDUniversalReloader : HDWeapon
 		sb.DrawImage("URLDA0", (0, BaseYOffset + 68) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale:(2, 2));
 
 		GetCraftableRecipes(CraftableRecipes);
-		
+
 		let recipe = GetSelectedRecipe();
 		if (recipe)
 		{
-			bool canAssemble    = recipe.CanBeAssembled();
-			bool canDisassemble = recipe.CanBeDisassembled();
+			bool assemblyEnabled    = recipe.CanBeAssembled();
+			bool disassemblyEnabled = recipe.CanBeDisassembled();
+			bool canAssemble        = canAssemble(recipe);
+			bool canDisassemble     = canDisassemble(recipe);
 
 			let AmmoClass = GetDefaultByType(recipe.AmmoClass);
 			string icon = TexMan.GetName(AmmoClass.Icon);
@@ -215,16 +217,17 @@ class HDUniversalReloader : HDWeapon
 			sb.DrawString(sb.pSmallFont, invAmt, (0, BaseYOffset + 20) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE);
 			sb.DrawString(sb.pSmallFont, tag, (0, BaseYOffset + 28) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY);
 			
-			sb.DrawString(sb.pSmallFont, canAssemble ? "Can be assembled" : "Cannot be assembled",
+
+			sb.DrawString(sb.pSmallFont, assemblyEnabled ? (canAssemble ? "Can be assembled" : "Materials needed") : "Cannot be assembled",
 				(0, BaseYOffset + 37) + bob,
 				sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER,
-				canAssemble ? Font.CR_GREEN : Font.CR_RED,
+				assemblyEnabled ? (canAssemble ? Font.CR_GREEN : Font.CR_GOLD) : Font.CR_RED,
 				scale: (0.5, 0.5)
 			);
-			sb.DrawString(sb.pSmallFont, canDisassemble ? "Can be disassembled" : "Cannot be disassembled",
+			sb.DrawString(sb.pSmallFont, disassemblyEnabled ? (canDisassemble ? "Can be disassembled" : "Rounds needed") : "Cannot be disassembled",
 				(0, BaseYOffset + 42) + bob,
 				sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER,
-				canDisassemble ? Font.CR_GREEN : Font.CR_RED,
+				disassemblyEnabled ? (canDisassemble ? Font.CR_GREEN : Font.CR_GOLD) : Font.CR_RED,
 				scale: (0.5, 0.5)
 			);
 
@@ -377,7 +380,7 @@ class HDUniversalReloader : HDWeapon
 			TNT1 A 5
 			{
 				let recipe = invoker.GetSelectedRecipe();
-				if (recipe && recipe.CanBeAssembled())
+				if (invoker.canAssemble(recipe))
 				{
 					invoker.ChargeUp = 0;
 					invoker.FactoryAction = FAction_Assemble;
@@ -389,7 +392,7 @@ class HDUniversalReloader : HDWeapon
 			TNT1 A 5
 			{
 				let recipe = invoker.GetSelectedRecipe();
-				if (recipe && recipe.CanBeDisassembled())
+				if (invoker.canDisassemble(recipe))
 				{
 					invoker.ChargeUp = 0;
 					invoker.FactoryAction = FAction_Disassemble;
