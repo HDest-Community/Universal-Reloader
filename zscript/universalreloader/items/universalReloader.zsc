@@ -128,7 +128,7 @@ class HDUniversalReloader : HDWeapon
 
 	protected clearscope bool canAssemble(HDRel_Recipe recipe)
 	{
-		let canCraft = recipe.CanBeAssembled();
+		let canCraft = owner && recipe && recipe.CanBeAssembled();
 
 		if (canCraft)
 		{
@@ -145,7 +145,7 @@ class HDUniversalReloader : HDWeapon
 
 	protected clearscope bool canDisassemble(HDRel_Recipe recipe)
 	{
-		let canCraft = owner && owner.countInv(recipe.AmmoClass) > 0;
+		let canCraft = owner && recipe && owner.countInv(recipe.AmmoClass) > 0;
 		
 		if (hd_debug) console.printf("Can disassemble "..recipe.AmmoClass.GetClassName().."? "..canCraft);
 
