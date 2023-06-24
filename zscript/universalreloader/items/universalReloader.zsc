@@ -154,10 +154,6 @@ class HDUniversalReloader : HDWeapon
 
 	protected clearscope HDRel_Recipe GetSelectedRecipe()
 	{
-		Array<int> arr;
-		// Build list of currently craftable recipes
-		GetCraftableRecipes(CraftableRecipes);
-
 		int Size = CraftableRecipes.Size();
 		int SelIndex = WeaponStatus[RProperty_SelectedRecipe];
 		
@@ -201,6 +197,8 @@ class HDUniversalReloader : HDWeapon
 		
 		sb.DrawImage("URLDA0", (0, BaseYOffset + 68) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale:(2, 2));
 
+		GetCraftableRecipes(CraftableRecipes);
+		
 		let recipe = GetSelectedRecipe();
 		if (recipe)
 		{
