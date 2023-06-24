@@ -211,6 +211,12 @@ class HDUniversalReloader : HDWeapon
 			string icon = TexMan.GetName(AmmoClass.Icon);
 			string tag = AmmoClass.GetTag();
 
+			sb.DrawString(sb.pSmallFont, (WeaponStatus[RProperty_SelectedRecipe] + 1).." / "..CraftableRecipes.size(),
+				(0, BaseYOffset - 10) + bob,
+				sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_WHITE,
+				scale: (0.5, 0.5)
+			);
+
 			sb.DrawImage(icon, (0, BaseYOffset + 4) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, 1.0, (-1, 20), (2.5, 2.5));
 
 			string invAmt = sb.FormatNumber(sb.GetAmount(AmmoClass.GetClass()), 1, 4);
