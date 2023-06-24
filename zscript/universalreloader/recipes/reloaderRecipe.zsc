@@ -1,13 +1,14 @@
 // [Ace] This is used for both crafting and disassembly.
 class HDRel_Recipe {
 
+	int enabled;
 	class<HDAmmo> AmmoClass;
 	class<HDRel_CraftingMaterial> Materials[HDUniversalReloader.MaterialCount];
 	int Costs[HDUniversalReloader.MaterialCount];
 	double Products[HDUniversalReloader.MaterialCount];
 	double SpeedMult;
 
-	static HDRel_Recipe TryCreate(string amcls,
+	static HDRel_Recipe TryCreate(string amcls, int enabled,
 		class<HDRel_CraftingMaterial> projMat,   int projCost, double projProd,
 		class<HDRel_CraftingMaterial> casingMat, int csgCost,  double csgProd,
 		class<HDRel_CraftingMaterial> powderMat, int pwdCost,  double pwdProd,
@@ -17,6 +18,8 @@ class HDRel_Recipe {
 		
 		Ret.AmmoClass = amcls;
 		if (Ret.AmmoClass) {
+			Ret.enabled = enabled;
+
 			Ret.Materials[0] = projMat;
 			Ret.Costs[0] = projCost;
 			Ret.Products[0] = projProd;
@@ -37,10 +40,18 @@ class HDRel_Recipe {
 		return null;
 	}
 
-	// [Ace] Can't assemble something that's missing a material.
 	bool CanBeAssembled() {
-		for (int i = 0; i < Materials.Size(); i++) if (!Materials[i]) return false;
-
-		return true;
+		return enabled & ASSEMBLE_ONLY;
 	}
+
+	bool CanBeDisassembled() {
+		return enabled & DISASSEMBLE_ONLY;
+	}
+}
+
+enum RecipeEnabledState {
+	DISABLED         = 0,
+	ASSEMBLE_ONLY    = 1,
+	DISASSEMBLE_ONLY = 2,
+	BOTH             = 3
 }

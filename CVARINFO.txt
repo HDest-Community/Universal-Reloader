@@ -3,7 +3,7 @@ server float url_disassemble_ratio         = 0.5;
 server bool  url_disabled                  = false;
 
 // VANILLA HDEST
-server bool  url_9mm_enabled               = true;
+server int   url_9mm_enabled               = 3;
 server int   url_9mm_projMat               = 1;
 server int   url_9mm_projAmt               = 2;
 server int   url_9mm_casingMat             = 2;
@@ -12,7 +12,7 @@ server int   url_9mm_powderMat             = 1;
 server int   url_9mm_powderAmt             = 1;
 server float url_9mm_speed                 = 1.5;
 
-server bool  url_355_enabled               = true;
+server int   url_355_enabled               = 3;
 server int   url_355_projMat               = 1;
 server int   url_355_projAmt               = 2;
 server int   url_355_casingMat             = 2;
@@ -21,7 +21,7 @@ server int   url_355_powderMat             = 1;
 server int   url_355_powderAmt             = 2;
 server float url_355_speed                 = 1.0;
 
-server bool  url_12gaShells_enabled        = true;
+server int   url_12gaShells_enabled        = 3;
 server int   url_12gaShells_projMat        = 1;
 server int   url_12gaShells_projAmt        = 4;
 server int   url_12gaShells_casingMat      = 2;
@@ -30,7 +30,7 @@ server int   url_12gaShells_powderMat      = 1;
 server int   url_12gaShells_powderAmt      = 1;
 server float url_12gaShells_speed          = 1.0;
 
-server bool  url_4mm_enabled               = true;
+server int   url_4mm_enabled               = 3;
 server int   url_4mm_projMat               = 1;
 server int   url_4mm_projAmt               = 2;
 server int   url_4mm_casingMat             = 0;
@@ -39,7 +39,7 @@ server int   url_4mm_powderMat             = 1;
 server int   url_4mm_powderAmt             = 2;
 server float url_4mm_speed                 = 5.0;
 
-server bool  url_7mm_enabled               = true;
+server int   url_7mm_enabled               = 3;
 server int   url_7mm_projMat               = 1;
 server int   url_7mm_projAmt               = 2;
 server int   url_7mmRecast_projMat         = 1;
@@ -52,7 +52,7 @@ server float url_7mm_speed                 = 1.0;
 
 
 // HDBULLETLIB
-server bool  url_4gb_enabled               = true;
+server int   url_4gb_enabled               = 3;
 server int   url_4gb_projMat               = 1;
 server int   url_4gb_projAmt               = 8;
 server int   url_4gb_casingMat             = 2;
@@ -61,7 +61,7 @@ server int   url_4gb_powderMat             = 1;
 server int   url_4gb_powderAmt             = 3;
 server float url_4gb_speed                 = 0.5;
 
-server bool  url_4gs_enabled               = true;
+server int   url_4gs_enabled               = 3;
 server int   url_4gs_projMat               = 1;
 server int   url_4gs_projAmt               = 8;
 server int   url_4gs_casingMat             = 2;
@@ -70,7 +70,7 @@ server int   url_4gs_powderMat             = 1;
 server int   url_4gs_powderAmt             = 3;
 server float url_4gs_speed                 = 0.5;
 
-server bool  url_5mm_enabled               = true;
+server int   url_5mm_enabled               = 3;
 server int   url_5mm_projMat               = 1;
 server int   url_5mm_projAmt               = 1;
 server int   url_5mm_casingMat             = 2;
@@ -79,7 +79,7 @@ server int   url_5mm_powderMat             = 1;
 server int   url_5mm_powderAmt             = 1;
 server float url_5mm_speed                 = 1.75;
 
-server bool  url_6mm_enabled               = true;
+server int   url_6mm_enabled               = 3;
 server int   url_6mm_projMat               = 1;
 server int   url_6mm_projAmt               = 2;
 server int   url_6mm_casingMat             = 2;
@@ -88,7 +88,7 @@ server int   url_6mm_powderMat             = 1;
 server int   url_6mm_powderAmt             = 1;
 server float url_6mm_speed                 = 1.25;
 
-server bool  url_10mm_enabled              = true;
+server int   url_10mm_enabled              = 3;
 server int   url_10mm_projMat              = 1;
 server int   url_10mm_projAmt              = 6;
 server int   url_10mm_casingMat            = 1;
@@ -97,7 +97,7 @@ server int   url_10mm_powderMat            = 1;
 server int   url_10mm_powderAmt            = 3;
 server float url_10mm_speed                = 1.0;
 
-server bool  url_3006_enabled              = true;
+server int   url_3006_enabled              = 3;
 server int   url_3006_projMat              = 1;
 server int   url_3006_projAmt              = 3;
 server int   url_3006_casingMat            = 1;
@@ -106,7 +106,7 @@ server int   url_3006_powderMat            = 1;
 server int   url_3006_powderAmt            = 4;
 server float url_3006_speed                = 0.9;
 
-server bool  url_45acp_enabled             = true;
+server int   url_45acp_enabled             = 3;
 server int   url_45acp_projMat             = 1;
 server int   url_45acp_projAmt             = 2;
 server int   url_45acp_casingMat           = 1;
@@ -115,7 +115,7 @@ server int   url_45acp_powderMat           = 1;
 server int   url_45acp_powderAmt           = 2;
 server float url_45acp_speed               = 0.75;
 
-server bool  url_45lc_enabled              = true;
+server int   url_45lc_enabled              = 3;
 server int   url_45lc_projMat              = 1;
 server int   url_45lc_projAmt              = 2;
 server int   url_45lc_casingMat            = 1;
@@ -124,7 +124,7 @@ server int   url_45lc_powderMat            = 1;
 server int   url_45lc_powderAmt            = 3;
 server float url_45lc_speed                = 0.75;
 
-server bool  url_g45lc_enabled             = false;
+server int   url_g45lc_enabled             = 0;
 server int   url_g45lc_projMat             = 1;
 server int   url_g45lc_projAmt             = 4;
 server int   url_g45lc_casingMat           = 1;
@@ -133,7 +133,7 @@ server int   url_g45lc_powderMat           = 1;
 server int   url_g45lc_powderAmt           = 6;
 server float url_g45lc_speed               = 0.75;
 
-server bool  url_50ae_enabled              = true;
+server int   url_50ae_enabled              = 3;
 server int   url_50ae_projMat              = 1;
 server int   url_50ae_projAmt              = 3;
 server int   url_50ae_casingMat            = 1;
@@ -142,7 +142,7 @@ server int   url_50ae_powderMat            = 1;
 server int   url_50ae_powderAmt            = 2;
 server float url_50ae_speed                = 0.75;
 
-server bool  url_50am_enabled              = true;
+server int   url_50am_enabled              = 3;
 server int   url_50am_projMat              = 1;
 server int   url_50am_projAmt              = 3;
 server int   url_50am_casingMat            = 1;
@@ -151,7 +151,7 @@ server int   url_50am_powderMat            = 1;
 server int   url_50am_powderAmt            = 2;
 server float url_50am_speed                = 0.75;
 
-server bool  url_50omg_enabled             = true;
+server int   url_50omg_enabled             = 3;
 server int   url_50omg_projMat             = 1;
 server int   url_50omg_projAmt             = 5;
 server int   url_50omg_casingMat           = 1;
@@ -160,7 +160,7 @@ server int   url_50omg_powderMat           = 1;
 server int   url_50omg_powderAmt           = 6;
 server float url_50omg_speed               = 0.5;
 
-server bool  url_mball_enabled             = true;
+server int   url_mball_enabled             = 3;
 server int   url_mball_projMat             = 1;
 server int   url_mball_projAmt             = 5;
 server int   url_mball_casingMat           = 0;
@@ -169,7 +169,7 @@ server int   url_mball_powderMat           = 0;
 server int   url_mball_powderAmt           = 0;
 server float url_mball_speed               = 0.25;
 
-server bool  url_420_enabled               = true;
+server int   url_420_enabled               = 3;
 server int   url_420_projMat               = 1;
 server int   url_420_projAmt               = 2;
 server int   url_420_casingMat             = 2;
@@ -178,7 +178,7 @@ server int   url_420_powderMat             = 1;
 server int   url_420_powderAmt             = 2;
 server float url_420_speed                 = 0.9;
 
-server bool  url_069_enabled               = true;
+server int   url_069_enabled               = 3;
 server int   url_069_projMat               = 1;
 server int   url_069_projAmt               = 2;
 server int   url_069_casingMat             = 2;
@@ -187,7 +187,7 @@ server int   url_069_powderMat             = 1;
 server int   url_069_powderAmt             = 2;
 server float url_069_speed                 = 0.9;
 
-server bool  url_300savage_enabled         = true;
+server int   url_300savage_enabled         = 3;
 server int   url_300savage_projMat         = 1;
 server int   url_300savage_projAmt         = 2;
 server int   url_300savage_casingMat       = 1;
@@ -196,7 +196,7 @@ server int   url_300savage_powderMat       = 1;
 server int   url_300savage_powderAmt       = 4;
 server float url_300savage_speed           = 1.2;
 
-server bool  url_500sw_enabled             = true;
+server int   url_500sw_enabled             = 3;
 server int   url_500swl_projMat            = 1;
 server int   url_500swl_projAmt            = 3;
 server int   url_500swh_projMat            = 1;
@@ -207,7 +207,7 @@ server int   url_500sw_powderMat           = 1;
 server int   url_500sw_powderAmt           = 2;
 server float url_500sw_speed               = 0.75;
 
-server bool  url_762tokarev_enabled        = true;
+server int   url_762tokarev_enabled        = 3;
 server int   url_762tokarev_projMat        = 1;
 server int   url_762tokarev_projAmt        = 2;
 server int   url_762tokarev_casingMat      = 1;
@@ -216,7 +216,7 @@ server int   url_762tokarev_powderMat      = 1;
 server int   url_762tokarev_powderAmt      = 4;
 server float url_762tokarev_speed          = 1.2;
 
-server bool  url_birdshot_enabled          = true;
+server int   url_birdshot_enabled          = 3;
 server int   url_birdshot_projMat          = 1;
 server int   url_birdshot_projAmt          = 4;
 server int   url_birdshot_casingMat        = 2;
@@ -225,7 +225,7 @@ server int   url_birdshot_powderMat        = 1;
 server int   url_birdshot_powderAmt        = 1;
 server float url_birdshot_speed            = 1.0;
 
-server bool  url_explosiveShells_enabled   = false;
+server int   url_explosiveShells_enabled   = 0;
 server int   url_explosiveShells_projMat   = 1;
 server int   url_explosiveShells_projAmt   = 4;
 server int   url_explosiveShells_casingMat = 2;
@@ -234,7 +234,7 @@ server int   url_explosiveShells_powderMat = 1;
 server int   url_explosiveShells_powderAmt = 1;
 server float url_explosiveShells_speed     = 1.0;
 
-server bool  url_flareShells_enabled       = false;
+server int   url_flareShells_enabled       = 0;
 server int   url_flareShells_projMat       = 1;
 server int   url_flareShells_projAmt       = 4;
 server int   url_flareShells_casingMat     = 2;
@@ -243,7 +243,7 @@ server int   url_flareShells_powderMat     = 1;
 server int   url_flareShells_powderAmt     = 1;
 server float url_flareShells_speed         = 1.0;
 
-server bool  url_llShells_enabled          = false;
+server int   url_llShells_enabled          = 0;
 server int   url_llShells_projMat          = 1;
 server int   url_llShells_projAmt          = 2;
 server int   url_llShells_casingMat        = 2;
@@ -252,7 +252,7 @@ server int   url_llShells_powderMat        = 1;
 server int   url_llShells_powderAmt        = 1;
 server float url_llShells_speed            = 1.0;
 
-server bool  url_12gaSlugs_enabled         = true;
+server int   url_12gaSlugs_enabled         = 3;
 server int   url_12gaSlugs_projMat         = 1;
 server int   url_12gaSlugs_projAmt         = 5;
 server int   url_12gaSlugs_casingMat       = 2;
@@ -263,7 +263,7 @@ server float url_12gaSlugs_speed           = 1.0;
 
 
 // PEPPERGRINDER
-server bool  url_ndm_enabled               = true;
+server int   url_ndm_enabled               = 3;
 server int   url_ndm_projMat               = 1;
 server int   url_ndm_projAmt               = 4;
 server int   url_ndm_casingMat             = 1;
