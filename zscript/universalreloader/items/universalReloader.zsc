@@ -138,7 +138,7 @@ class HDUniversalReloader : HDWeapon
 			}
 		}
 		
-		if (hd_debug) console.printf("Can assemble "..recipe.AmmoClass.GetClassName().."? "..canCraft);
+		if (hd_debug) console.printf("Can assemble "..(recipe ? recipe.AmmoClass.GetClassName() : 'nothing').."? "..canCraft);
 
 		return canCraft;
 	}
@@ -147,7 +147,7 @@ class HDUniversalReloader : HDWeapon
 	{
 		let canCraft = owner && recipe && owner.countInv(recipe.AmmoClass) > 0;
 		
-		if (hd_debug) console.printf("Can disassemble "..recipe.AmmoClass.GetClassName().."? "..canCraft);
+		if (hd_debug) console.printf("Can disassemble "..(recipe ? recipe.AmmoClass.GetClassName() : 'nothing').."? "..canCraft);
 
 		return canCraft;
 	}
