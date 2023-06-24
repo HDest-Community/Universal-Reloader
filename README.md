@@ -13,8 +13,10 @@ This mod adds a configurale device that can assemble and disassemble most rounds
 - Universal reloaders can only be found in backpacks. They are also sold by the [Merchant](https://github.com/HDest-Community/Merchant) if you have that loaded.
 
 ![example-recipe](./screenshots/example-recipe.png)
-![example-recipe-mats-needed](./screenshots/example-recipe-mats-needed.png)
 ![example-recipe-rounds-needed](./screenshots/example-recipe-rounds-needed.png)
+![example-recipe-assembly-only](./screenshots/example-recipe-assembly-only.png)
+![example-recipe-mats-needed](./screenshots/example-recipe-mats-needed.png)
+![example-recipe-disassembly-only](./screenshots/example-recipe-disassembly-only.png)
 
 ## Gunsmith Pouch
 - Loadout code is `gsp`.
