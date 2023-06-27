@@ -638,12 +638,12 @@ class URLSpawnHandler : EventHandler {
     }
 
     // Tries to create the item via random spawning.
-    bool tryCreateItem(Inventory item, URLSpawnItem f, int g, bool rep) {
+    bool tryCreateItem(Actor thing, URLSpawnItem f, int g, bool rep) {
         if (giveRandom(f.spawnReplaces[g].chance)) {
-            if (Actor.Spawn(f.spawnName, item.pos) && rep) {
-                if (hd_debug) console.printf(item.GetClassName().." -> "..f.spawnName);
+            if (Actor.Spawn(f.spawnName, thing.pos) && rep) {
+                if (hd_debug) console.printf(thing.GetClassName().." -> "..f.spawnName);
 
-                item.destroy();
+                thing.destroy();
 
                 return true;
             }
