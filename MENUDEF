@@ -23,14 +23,53 @@ OptionValue "RecipeEnabled" {
 	3, "$URL_ENABLED"
 }
 
-OptionMenu URLMenu {
-    Title "------ Universal Reloader Options ------"
+OptionMenu URLSpawning {
+    Title "------ Universal Reloader Spawning Options ------"
+    StaticText ""
+	
+	StaticText "Enable/Disable the Universal Reloader from spawning in Backpacks."
+	Option "Universal Reloader:", "url_allowBackpacks", "OnOff"
+ 	StaticText ""
+	
+	StaticText "Enable/Disable the Gunsmith Pouch from spawning in Backpacks."
+	Option "Gunsmith Pouch:", "gsp_allowBackpacks", "OnOff"
+ 	StaticText ""
+
+    StaticText "--- Raw Materials ---", "Green"
+    StaticText ""
+	
+	StaticText "Enable/Disable Raw Brass from spawning in Backpacks."
+	Option "Raw Brass:", "rawBrass_allowBackpacks", "OnOff"
+ 	StaticText ""
+	
+	StaticText "Enable/Disable Raw Lead from spawning in Backpacks."
+	Option "Raw Lead:", "rawLead_allowBackpacks", "OnOff"
+ 	StaticText ""
+	
+	StaticText "Enable/Disable Raw Plastic from spawning in Backpacks."
+	Option "Raw Plastic:", "rawPlastic_allowBackpacks", "OnOff"
+ 	StaticText ""
+	
+	StaticText "Enable/Disable Raw Powder from spawning in Backpacks."
+	Option "Raw Powder:", "rawPowder_allowBackpacks", "OnOff"
+ 	StaticText ""
+	
+	StaticText "Enable/Disable Raw Steel from spawning in Backpacks."
+	Option "Raw Steel:", "rawSteel_allowBackpacks", "OnOff"
+ 	StaticText ""
+}
+
+OptionMenu URLRecipes {
+    Title "------ Universal Reloader Recipe Options ------"
 	
     StaticText ""
 	Slider "$URL_DISASSEMBLE_RATIO", "url_disassemble_ratio", 0, 1, 0.05, 2
     StaticText ""
+    StaticText ""
+
     StaticText "--- Recipes ---", "Green"
     StaticText ""
+
     Submenu "$TAG_PISTOLAMMO", "URLPistolAmmo", 0, 1
     StaticText ""
     Submenu "$TAG_REVOLVERAMMO", "URLRevolverAmmo", 0, 1
@@ -88,20 +127,6 @@ OptionMenu URLMenu {
     Submenu "$TAG_12SLUG", "URL12gaSlugsAmmo", 0, 1
     StaticText ""
     Submenu "$PEPPER_TAG_NDM", "URLNDMAmmo", 0, 1
-    StaticText ""
-    StaticText "--- Reset Options ---", "red"
-    StaticText ""
-    SafeCommand "$URL_RESET_ALL", "URL_reset_cvars"
-}
-
-AddOptionMenu "OptionsMenu"
-{
-    Submenu "$URL_MENU", "URLMenu"
-}
-
-AddOptionMenu "HDAddonMenu"
-{
-    Submenu "$URL_MENU", "URLMenu"
 }
 
 OptionMenu URLPistolAmmo {
@@ -898,4 +923,30 @@ OptionMenu URLNDMAmmo {
     StaticText "--- Reset Options ---", "red"
     StaticText ""
     SafeCommand "$URL_RESET", "URL_ndm_reset_cvars"
+}
+
+OptionMenu URLMenu {
+    Title "------ Universal Reloader Options ------"
+    StaticText ""
+
+    Submenu "$URL_RECIPE_MENU", "URLRecipes"
+    StaticText "" 
+
+    Submenu "$URL_SPAWNING_MENU", "URLSpawning"
+    StaticText "" 
+   
+    StaticText ""
+    StaticText "--- Reset Options ---", "red"
+    StaticText ""
+    SafeCommand "$URL_RESET_ALL", "URL_reset_cvars"
+}
+
+AddOptionMenu "OptionsMenu"
+{
+    Submenu "$URL_MENU", "URLMenu"
+}
+
+AddOptionMenu "HDAddonMenu"
+{
+    Submenu "$URL_MENU", "URLMenu"
 }

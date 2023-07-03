@@ -82,6 +82,9 @@ class URLSpawnHandler : EventHandler {
         "HDLadderSection"
     };
 
+	// List of CVARs for Backpack Spawns
+	array<Class <Inventory> > backpackBlacklist;
+
     // List of weapon-ammo associations.
     // Used for ammo-use association on ammo spawn (happens very often).
     Array<URLSpawnAmmo> ammoSpawnList;
@@ -166,6 +169,19 @@ class URLSpawnHandler : EventHandler {
     void init() {
         
         cvarsAvailable = true;
+		
+		//-----------------
+		// Backpack Spawns
+		//-----------------
+
+        if (!url_allowBackpacks)        backpackBlacklist.push((Class<Inventory>)("HDUniversalReloader"));
+        if (!gsp_allowBackpacks)        backpackBlacklist.push((Class<Inventory>)("GunsmithPouch"));
+		
+        if (!rawBrass_allowBackpacks)   backpackBlacklist.push((Class<Inventory>)("HDRel_RawBrass"));
+        if (!rawLead_allowBackpacks)    backpackBlacklist.push((Class<Inventory>)("HDRel_RawLead"));
+        if (!rawPlastic_allowBackpacks) backpackBlacklist.push((Class<Inventory>)("HDRel_RawPlastic"));
+        if (!rawPowder_allowBackpacks)  backpackBlacklist.push((Class<Inventory>)("HDRel_RawPowder"));
+        if (!rawSteel_allowBackpacks)   backpackBlacklist.push((Class<Inventory>)("HDRel_RawSteel"));
 
         //---------------------
         // Crafting Materials
@@ -613,6 +629,38 @@ class URLSpawnHandler : EventHandler {
                                                null,                            0,                 0.00,
                                                url_ndm_speed);
         }
+
+        // Hide Unused Materials from Backpacks
+        foreach (cls : AllActorClasses) {
+
+            // Only consider non-abstract Crafting Material child classes that haven't already been disabled
+            // FIXME: attempting to find the current cls in the backpackBlacklist array crashdumps GZDoom :shrug: [UZ]
+            if ((Class<HDRel_CraftingMaterial>)(cls) && !cls.isAbstract() /* && backpackBlacklist.find(cls) != backpackBlacklist.size() */) {
+                let found = false;
+
+                foreach (recipe : recipes) {
+                    if (hd_debug && recipe.ammoClass) console.printf("Checking '"..recipe.ammoClass.getClassName().."' Recipe for '"..cls.getClassName().."' Material...");
+
+                    foreach(material : recipe.materials) {
+                        if (material && material.getClassName() == cls.getClassName()) {
+                            if (hd_debug) console.printf("Found  '"..cls.getClassName().."' Material.");
+                            
+                            found = true;
+                            
+                            break;
+                        }
+                    }
+
+                    if (found) break;
+                }
+
+                if (!found) {
+                    if (hd_debug) console.printf("'"..cls.getClassName().."' Not found in any recipe");
+
+                    backpackBlacklist.push(cls);
+                }
+            }
+        }
     }
 
     // Random stuff, stores it and forces negative values just to be 0.
@@ -643,9 +691,19 @@ class URLSpawnHandler : EventHandler {
         return false;
     }
 
-    override void worldThingSpawned(WorldEvent e) {
+	override void worldLoaded(WorldEvent e) {
+
         // Populates the main arrays if they haven't been already. 
         if (!cvarsAvailable) init();
+
+        foreach (bl : backpackBlacklist) {
+			if (hd_debug) console.printf("Removing "..bl.getClassName().." from Backpack Spawn Pool");
+                
+			BPSpawnPool.removeItem(bl);
+        }
+	}
+
+	override void worldThingSpawned(WorldEvent e) {
 
         // If thing spawned doesn't exist, quit
 		if (!e.thing) return;

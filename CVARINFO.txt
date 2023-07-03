@@ -2,6 +2,15 @@
 server float url_disassemble_ratio         = 0.5;
 server bool  url_disabled                  = false;
 
+server bool url_allowBackpacks             = true;
+server bool gsp_allowBackpacks             = true;
+
+server bool rawBrass_allowBackpacks        = true;
+server bool rawLead_allowBackpacks         = true;
+server bool rawPlastic_allowBackpacks      = true;
+server bool rawPowder_allowBackpacks       = true;
+server bool rawSteel_allowBackpacks        = true;
+
 // VANILLA HDEST
 server int   url_9mm_enabled               = 3;
 server int   url_9mm_projMat               = 1;
