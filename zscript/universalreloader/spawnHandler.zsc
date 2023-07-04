@@ -736,7 +736,7 @@ class URLSpawnHandler : EventHandler {
                 foreach (weapon : ammoSpawn.weaponNames) console.printf("* "..weapon);
 			}
 
-            maerial.itemsThatUseThis.append(ammoSpawn.weaponNames);
+            material.itemsThatUseThis.append(ammoSpawn.weaponNames);
         }
     }
 }
