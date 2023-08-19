@@ -25,6 +25,10 @@ This mod adds a configurale device that can assemble and disassemble most rounds
 ![gunsmith-pouch](./screenshots/gunsmith-pouch-gui.png)
 
 # Credits
+
+- Cryomundus, for porting mod into HDest Community Organization, updating the mod as needed.
+- Undead Zeratul, for adding crafting recipes for remaining HDBulletLib ammunition, adding crafting recipe tweaks menu.
+
 #### Code
 - Universal Reloader: Accensus
 - Gunsmith Pouch: Mohl
