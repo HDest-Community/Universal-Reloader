@@ -103,7 +103,7 @@ class HDUniversalReloader : HDWeapon
 		IsBeingPickedUp = false;
 	}
 
-	protected clearscope void GetCraftableRecipes(out Array<int> arr)
+	protected play void GetCraftableRecipes(out Array<int> arr)
 	{
 		arr.clear();
 
@@ -196,8 +196,6 @@ class HDUniversalReloader : HDWeapon
 		int BaseYOffset = -182;
 		
 		sb.DrawImage("URLDA0", (0, BaseYOffset + 68) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0, scale:(2, 2));
-
-		GetCraftableRecipes(CraftableRecipes);
 
 		let recipe = GetSelectedRecipe();
 		if (recipe)
@@ -374,6 +372,7 @@ class HDUniversalReloader : HDWeapon
 			TNT1 A 0 A_Lower(999);
 			Wait;
 		Ready:
+			TNT1 A 0 { invoker.GetCraftableRecipes(invoker.CraftableRecipes); }
 			TNT1 A 1 A_WeaponReady(WRF_ALLOWRELOAD | WRF_ALLOWUSER3 | WRF_ALLOWUSER4);
 			Goto ReadyEnd;
 		Fire:
