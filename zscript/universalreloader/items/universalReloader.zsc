@@ -119,11 +119,7 @@ class HDUniversalReloader : HDWeapon
 			if (canCraft) arr.push(i);
 		}
 
-		if (hd_debug) {
-			for (let i = 0; i < arr.size(); i++) {
-				console.printf(""..arr[i]);
-			}
-		}
+		if (hd_debug) foreach (i : arr) console.printf(i.."");
 	}
 
 	protected clearscope bool canAssemble(HDRel_Recipe recipe)
@@ -384,8 +380,7 @@ class HDUniversalReloader : HDWeapon
 		Reload:
 			TNT1 A 5
 			{
-				let recipe = invoker.GetSelectedRecipe();
-				if (invoker.canAssemble(recipe))
+				if (invoker.canAssemble(invoker.GetSelectedRecipe()))
 				{
 					invoker.ChargeUp = 0;
 					invoker.FactoryAction = FAction_Assemble;
@@ -396,8 +391,7 @@ class HDUniversalReloader : HDWeapon
 		Unload:
 			TNT1 A 5
 			{
-				let recipe = invoker.GetSelectedRecipe();
-				if (invoker.canDisassemble(recipe))
+				if (invoker.canDisassemble(invoker.GetSelectedRecipe()))
 				{
 					invoker.ChargeUp = 0;
 					invoker.FactoryAction = FAction_Disassemble;
