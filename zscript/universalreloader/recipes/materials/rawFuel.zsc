@@ -1,0 +1,19 @@
+class HDRel_RawFuel : HDRel_CraftingMaterial
+{
+	Default
+	{
+		Tag "$TAG_RAWFUEL";
+		Inventory.Icon "FUELA0";
+		Inventory.PickupMessage "$PICKUP_RAWFUEL";
+		HDRel_CraftingMaterial.PileMessage "$PICKUP_PILE_RAWFUEL";
+		HDRel_CraftingMaterial.PileType PType_None;
+		HDPickup.Bulk 0.05;
+	}
+
+	States
+	{
+		Spawn:
+			FUEL A -1;
+			Stop;
+	}
+}

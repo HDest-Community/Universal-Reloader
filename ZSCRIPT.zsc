@@ -15,6 +15,7 @@ version "4.10"
 #include "zscript/universalreloader/recipes/base/craftingMaterials.zsc"
 
 #include "zscript/universalreloader/recipes/materials/rawBrass.zsc"
+#include "zscript/universalreloader/recipes/materials/rawFuel.zsc"
 #include "zscript/universalreloader/recipes/materials/rawLead.zsc"
 #include "zscript/universalreloader/recipes/materials/rawPlastic.zsc"
 #include "zscript/universalreloader/recipes/materials/rawPowder.zsc"

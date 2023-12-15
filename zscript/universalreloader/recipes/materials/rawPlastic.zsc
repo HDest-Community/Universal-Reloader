@@ -7,7 +7,7 @@ class HDRel_RawPlastic : HDRel_CraftingMaterial
 		Inventory.PickupMessage "$PICKUP_RAWPLASTIC";
 		HDRel_CraftingMaterial.PileMessage "$PICKUP_PILE_RAWPLASTIC";
 		HDRel_CraftingMaterial.PileType PType_None;
-		HDPickup.Bulk 0.11;
+		HDPickup.Bulk 0.047;
 		Scale 0.4;
 	}
 
