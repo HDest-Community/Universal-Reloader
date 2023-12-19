@@ -1,7 +1,8 @@
 OptionValue "ProjectileMaterial" {
 	0, "$URL_NO_MATERIAL"
     1, "$TAG_RAWLEAD"
-	2, "$TAG_RAWSTEEL"
+	2, "$TAG_RAWPLASTIC"
+	3, "$TAG_RAWSTEEL"
 }
 
 OptionValue "CasingMaterial" {
@@ -13,7 +14,8 @@ OptionValue "CasingMaterial" {
 
 OptionValue "PowderMaterial" {
 	0, "$URL_NO_MATERIAL"
-    1, "$TAG_RAWPOWDER"
+    1, "$TAG_RAWFUEL"
+    2, "$TAG_RAWPOWDER"
 }
 
 OptionValue "RecipeEnabled" {
@@ -42,6 +44,10 @@ OptionMenu URLSpawning {
 	Option "Raw Brass:", "rawBrass_allowBackpacks", "OnOff"
  	StaticText ""
 	
+	StaticText "Enable/Disable Raw Fuel from spawning in Backpacks."
+	Option "Raw Fuel:", "rawFuel_allowBackpacks", "OnOff"
+ 	StaticText ""
+	
 	StaticText "Enable/Disable Raw Lead from spawning in Backpacks."
 	Option "Raw Lead:", "rawLead_allowBackpacks", "OnOff"
  	StaticText ""
@@ -63,7 +69,8 @@ OptionMenu URLRecipes {
     Title "------ Universal Reloader Recipe Options ------"
 	
     StaticText ""
-	Slider "$URL_DISASSEMBLE_RATIO", "url_disassemble_ratio", 0, 1, 0.05, 2
+	Slider "$URL_DISASSEMBLE_RATIO", "url_disassemble_ratio", 0, 100, 1, 0
+	Slider "$URL_FAIL_CHANCE", "url_fail_chance", 0, 100, 1, 0
     StaticText ""
     StaticText ""
 
@@ -80,6 +87,14 @@ OptionMenu URLRecipes {
     StaticText ""
     Submenu "$TAG_7MMAMMO", "URL7mmAmmo", 0, 1
     StaticText ""
+    Submenu "$TAG_ROCKETGRENADE", "URLRocketAmmo", 0, 1
+    StaticText ""
+    Submenu "$TAG_HEATROCKET", "URLHeatRocketAmmo", 0, 1
+    StaticText ""
+    Submenu "$TAG_GREFRAG", "URLFragGrenadeAmmo", 0, 1
+    StaticText ""
+    Submenu "$TAG_BRONTOSHELL", "URL35mmAmmo", 0, 1
+    StaticText ""
     Submenu "$TAG_4GB", "URL4gbAmmo", 0, 1
     StaticText ""
     Submenu "$TAG_4GS", "URL4gsAmmo", 0, 1
@@ -89,6 +104,8 @@ OptionMenu URLRecipes {
     Submenu "$TAG_6MMFLECH", "URL6mmAmmo", 0, 1
     StaticText ""
     Submenu "$TAG_10MMAUTO", "URL10mmAmmo", 0, 1
+    StaticText ""
+    Submenu "$TAG_20MMGREN", "URL20mmGrenadeAmmo", 0, 1
     StaticText ""
     Submenu "$TAG_3006", "URL3006Ammo", 0, 1
     StaticText ""
@@ -125,6 +142,10 @@ OptionMenu URLRecipes {
     Submenu "$TAG_LLSHELL", "URLllShellsAmmo", 0, 1
     StaticText ""
     Submenu "$TAG_12SLUG", "URL12gaSlugsAmmo", 0, 1
+    StaticText ""
+    Submenu "$TAG_THUNROCKET", "URLThunderRocketAmmo", 0, 1
+    StaticText ""
+    Submenu "$TAG_TORTROCKET", "URLTortoiseRocketAmmo", 0, 1
     StaticText ""
     Submenu "$PEPPER_TAG_NDM", "URLNDMAmmo", 0, 1
 }
@@ -270,6 +291,114 @@ OptionMenu URL7mmAmmo {
     SafeCommand "$URL_RESET", "URL_7mm_reset_cvars"
 }
 
+OptionMenu URLRocketAmmo {
+    Title "------ Rocket Grenade Ammo Recipe Options ------"
+    StaticText ""
+	Option "$URL_ENABLED", "url_rocket_enabled", "RecipeEnabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_rocket_projMat", "ProjectileMaterial", "url_rocket_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_rocket_projAmt", 0, 100, 1, 0,         "url_rocket_enabled"
+	
+    StaticText ""
+    StaticText "$URL_CASING"
+	Option "$URL_CRAFTING_MATERIAL", "url_rocket_casingMat", "CasingMaterial",   "url_rocket_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_rocket_casingAmt", 0, 100, 1, 0,       "url_rocket_enabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_rocket_powderMat", "PowderMaterial",     "url_rocket_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_rocket_powderAmt", 0, 100, 1, 0,         "url_rocket_enabled"
+	
+    StaticText ""
+    StaticText ""
+    StaticText "--- Reset Options ---", "red"
+    StaticText ""
+    SafeCommand "$URL_RESET", "URL_rocket_reset_cvars"
+}
+
+OptionMenu URLHeatRocketAmmo {
+    Title "------ H.E.A.T. Rocket Ammo Recipe Options ------"
+    StaticText ""
+	Option "$URL_ENABLED", "url_heat_enabled", "RecipeEnabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_heat_projMat", "ProjectileMaterial", "url_heat_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_heat_projAmt", 0, 100, 1, 0,         "url_heat_enabled"
+	
+    StaticText ""
+    StaticText "$URL_CASING"
+	Option "$URL_CRAFTING_MATERIAL", "url_heat_casingMat", "CasingMaterial",   "url_heat_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_heat_casingAmt", 0, 100, 1, 0,       "url_heat_enabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_heat_powderMat", "PowderMaterial",     "url_heat_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_heat_powderAmt", 0, 100, 1, 0,         "url_heat_enabled"
+	
+    StaticText ""
+    StaticText ""
+    StaticText "--- Reset Options ---", "red"
+    StaticText ""
+    SafeCommand "$URL_RESET", "URL_heat_reset_cvars"
+}
+
+OptionMenu URLFragGrenadeAmmo {
+    Title "------ Frag Grenade Ammo Recipe Options ------"
+    StaticText ""
+	Option "$URL_ENABLED", "url_fragGrenade_enabled", "RecipeEnabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_fragGrenade_projMat", "ProjectileMaterial", "url_fragGrenade_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_fragGrenade_projAmt", 0, 100, 1, 0,         "url_fragGrenade_enabled"
+	
+    StaticText ""
+    StaticText "$URL_CASING"
+	Option "$URL_CRAFTING_MATERIAL", "url_fragGrenade_casingMat", "CasingMaterial",   "url_fragGrenade_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_fragGrenade_casingAmt", 0, 100, 1, 0,       "url_fragGrenade_enabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_fragGrenade_powderMat", "PowderMaterial",     "url_fragGrenade_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_fragGrenade_powderAmt", 0, 100, 1, 0,         "url_fragGrenade_enabled"
+	
+    StaticText ""
+    StaticText ""
+    StaticText "--- Reset Options ---", "red"
+    StaticText ""
+    SafeCommand "$URL_RESET", "URL_fragGrenade_reset_cvars"
+}
+
+OptionMenu URL35mmAmmo {
+    Title "------ Brontornis Round Ammo Recipe Options ------"
+    StaticText ""
+	Option "$URL_ENABLED", "url_35mm_enabled", "RecipeEnabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_35mm_projMat", "ProjectileMaterial", "url_35mm_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_35mm_projAmt", 0, 100, 1, 0,         "url_35mm_enabled"
+	
+    StaticText ""
+    StaticText "$URL_CASING"
+	Option "$URL_CRAFTING_MATERIAL", "url_35mm_casingMat", "CasingMaterial",   "url_35mm_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_35mm_casingAmt", 0, 100, 1, 0,       "url_35mm_enabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_35mm_powderMat", "PowderMaterial",     "url_35mm_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_35mm_powderAmt", 0, 100, 1, 0,         "url_35mm_enabled"
+	
+    StaticText ""
+    StaticText ""
+    StaticText "--- Reset Options ---", "red"
+    StaticText ""
+    SafeCommand "$URL_RESET", "URL_35mm_reset_cvars"
+}
+
 OptionMenu URL4gbAmmo {
     Title "------ 4ga 00 Buckshot Ammo Recipe Options ------"
     StaticText ""
@@ -403,6 +532,33 @@ OptionMenu URL10mmAmmo {
     StaticText "--- Reset Options ---", "red"
     StaticText ""
     SafeCommand "$URL_RESET", "URL_10mm_reset_cvars"
+}
+
+OptionMenu URL20mmGrenadeAmmo {
+    Title "------ 20mm Grenade Ammo Recipe Options ------"
+    StaticText ""
+	Option "$URL_ENABLED", "url_20mm_enabled", "RecipeEnabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_20mm_projMat", "ProjectileMaterial", "url_20mm_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_20mm_projAmt", 0, 100, 1, 0,         "url_20mm_enabled"
+	
+    StaticText ""
+    StaticText "$URL_CASING"
+	Option "$URL_CRAFTING_MATERIAL", "url_20mm_casingMat", "CasingMaterial",   "url_20mm_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_20mm_casingAmt", 0, 100, 1, 0,       "url_20mm_enabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_20mm_powderMat", "PowderMaterial",     "url_20mm_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_20mm_powderAmt", 0, 100, 1, 0,         "url_20mm_enabled"
+	
+    StaticText ""
+    StaticText ""
+    StaticText "--- Reset Options ---", "red"
+    StaticText ""
+    SafeCommand "$URL_RESET", "URL_20mm_reset_cvars"
 }
 
 OptionMenu URL3006Ammo {
@@ -896,6 +1052,60 @@ OptionMenu URL12gaSlugsAmmo {
     StaticText "--- Reset Options ---", "red"
     StaticText ""
     SafeCommand "$URL_RESET", "URL_12gaSlugs_reset_cvars"
+}
+
+OptionMenu URLThunderRocketAmmo {
+    Title "------ Thunder Rocket Ammo Recipe Options ------"
+    StaticText ""
+	Option "$URL_ENABLED", "url_thunderRocket_enabled", "RecipeEnabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_thunderRocket_projMat", "ProjectileMaterial", "url_thunderRocket_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_thunderRocket_projAmt", 0, 100, 1, 0,         "url_thunderRocket_enabled"
+	
+    StaticText ""
+    StaticText "$URL_CASING"
+	Option "$URL_CRAFTING_MATERIAL", "url_thunderRocket_casingMat", "CasingMaterial",   "url_thunderRocket_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_thunderRocket_casingAmt", 0, 100, 1, 0,       "url_thunderRocket_enabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_thunderRocket_powderMat", "PowderMaterial",     "url_thunderRocket_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_thunderRocket_powderAmt", 0, 100, 1, 0,         "url_thunderRocket_enabled"
+	
+    StaticText ""
+    StaticText ""
+    StaticText "--- Reset Options ---", "red"
+    StaticText ""
+    SafeCommand "$URL_RESET", "URL_thunderRocket_reset_cvars"
+}
+
+OptionMenu URLTortoiseRocketAmmo {
+    Title "------ Tortoise Rocket Ammo Recipe Options ------"
+    StaticText ""
+	Option "$URL_ENABLED", "url_tortoiseRocket_enabled", "RecipeEnabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_tortoiseRocket_projMat", "ProjectileMaterial", "url_tortoiseRocket_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_tortoiseRocket_projAmt", 0, 100, 1, 0,         "url_tortoiseRocket_enabled"
+	
+    StaticText ""
+    StaticText "$URL_CASING"
+	Option "$URL_CRAFTING_MATERIAL", "url_tortoiseRocket_casingMat", "CasingMaterial",   "url_tortoiseRocket_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_tortoiseRocket_casingAmt", 0, 100, 1, 0,       "url_tortoiseRocket_enabled"
+	
+    StaticText ""
+    StaticText "$URL_PROJECTILE"
+	Option "$URL_CRAFTING_MATERIAL", "url_tortoiseRocket_powderMat", "PowderMaterial",     "url_tortoiseRocket_enabled"
+	Slider "$URL_MATERIAL_COST",     "url_tortoiseRocket_powderAmt", 0, 100, 1, 0,         "url_tortoiseRocket_enabled"
+	
+    StaticText ""
+    StaticText ""
+    StaticText "--- Reset Options ---", "red"
+    StaticText ""
+    SafeCommand "$URL_RESET", "URL_tortoiseRocket_reset_cvars"
 }
 
 OptionMenu URLNDMAmmo {

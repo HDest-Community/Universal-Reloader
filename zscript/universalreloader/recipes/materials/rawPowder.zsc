@@ -7,7 +7,7 @@ class HDRel_RawPowder : HDRel_CraftingMaterial
 		Inventory.PickupMessage "$PICKUP_RAWPOWDER";
 		HDRel_CraftingMaterial.PileMessage "$PICKUP_PILE_RAWPOWDER";
 		HDRel_CraftingMaterial.PileType PType_Pile;
-		HDPickup.Bulk 0.08;
+		HDPickup.Bulk 0.085;
 	}
 
 	States

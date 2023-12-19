@@ -7,7 +7,7 @@ class HDRel_RawBrass : HDRel_CraftingMaterial
 		Inventory.PickupMessage "$PICKUP_RAWBRASS";
 		HDRel_CraftingMaterial.PileMessage "$PICKUP_PILE_RAWBRASS";
 		HDRel_CraftingMaterial.PileType PType_Ball;
-		HDPickup.Bulk 0.20;
+		HDPickup.Bulk 0.425;
 	}
 
 	States

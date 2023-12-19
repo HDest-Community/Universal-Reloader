@@ -7,7 +7,7 @@ class HDRel_RawLead : HDRel_CraftingMaterial
 		Inventory.PickupMessage "$PICKUP_RAWLEAD";
 		HDRel_CraftingMaterial.PileMessage "$PICKUP_PILE_RAWLEAD";
 		HDRel_CraftingMaterial.PileType PType_Ball;
-		HDPickup.Bulk 0.25;
+		HDPickup.Bulk 0.55;
 		Scale 0.8;
 	}
 
