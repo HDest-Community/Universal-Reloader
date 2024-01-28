@@ -347,7 +347,6 @@ class HDUniversalReloader : HDWeapon
 		+WEAPON.WIMPY_WEAPON
 		+INVENTORY.INVBAR
 		+HDWEAPON.FITSINBACKPACK
-		+HDWEAPON.DONTFISTONDROP
 		Inventory.PickupSound "misc/w_pkup";
 		Inventory.PickupMessage "$PICKUP_UNIVERSAL_RELOADER";
 		Scale 0.6;
@@ -388,7 +387,6 @@ class HDUniversalReloader : HDWeapon
 					invoker.ChargeUp = 0;
 					invoker.FactoryAction = FAction_Assemble;
 					DropInventory(invoker);
-					SetWeaponState('nope');
 				}
 			}
 			Goto Ready;
@@ -400,7 +398,6 @@ class HDUniversalReloader : HDWeapon
 					invoker.ChargeUp = 0;
 					invoker.FactoryAction = FAction_Disassemble;
 					DropInventory(invoker);
-					SetWeaponState('nope');
 				}
 			}
 			Goto Ready;
