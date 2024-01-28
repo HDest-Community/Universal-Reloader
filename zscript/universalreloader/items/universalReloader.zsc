@@ -388,6 +388,7 @@ class HDUniversalReloader : HDWeapon
 					invoker.ChargeUp = 0;
 					invoker.FactoryAction = FAction_Assemble;
 					DropInventory(invoker);
+					SetWeaponState('nope');
 				}
 			}
 			Goto Ready;
@@ -399,6 +400,7 @@ class HDUniversalReloader : HDWeapon
 					invoker.ChargeUp = 0;
 					invoker.FactoryAction = FAction_Disassemble;
 					DropInventory(invoker);
+					SetWeaponState('nope');
 				}
 			}
 			Goto Ready;
