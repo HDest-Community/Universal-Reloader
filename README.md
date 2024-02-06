@@ -1,6 +1,9 @@
 ![thumbnail](./screenshots/thumbnail.png)
 
 # Universal Reloader
+
+[![Nightly Build](https://github.com/HDest-Community/Universal-Reloader/actions/workflows/nightly.yml/badge.svg)](https://github.com/HDest-Community/Universal-Reloader/actions/workflows/nightly.yml)
+
 _This mod requires [AceCoreLib](https://github.com/HDest-Community/AceCoreLib)_
 
 This mod adds a configurale device that can assemble and disassemble most rounds provided by both Vanilla HDest as well as those provided by [HDBulletLib-Recasted](https://github.com/HDest-Community/HDBulletLib-Recasted).  Along with this device, this mod adds an accompanying pouch to store all of the crafting materials gathered/created along the way.
