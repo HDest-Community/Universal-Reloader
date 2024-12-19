@@ -710,17 +710,19 @@ class URLSpawnHandler : EventHandler {
         // Hide Unused Materials from Backpacks
         foreach (cls : AllActorClasses) {
 
+            let matClass = (Class<HDRel_CraftingMaterial>)(cls);
+
             // Only consider non-abstract Crafting Material child classes that haven't already been disabled
             // FIXME: attempting to find the current cls in the backpackBlacklist array crashdumps GZDoom :shrug: [UZ]
-            if ((Class<HDRel_CraftingMaterial>)(cls) && !cls.isAbstract() /* && backpackBlacklist.find(cls) != backpackBlacklist.size() */) {
+            if (matClass && !matClass.isAbstract() /* && backpackBlacklist.find(cls) != backpackBlacklist.size() */) {
                 let found = false;
 
                 foreach (recipe : recipes) {
                     if (hd_debug && recipe.ammoClass) console.printf("Checking '"..recipe.ammoClass.getClassName().."' Recipe for '"..cls.getClassName().."' Material...");
 
                     foreach(material : recipe.materials) {
-                        if (material && material.getClassName() == cls.getClassName()) {
-                            if (hd_debug) console.printf("Found  '"..cls.getClassName().."' Material.");
+                        if (material && material.getClassName() == matClass.getClassName()) {
+                            if (hd_debug) console.printf("Found  '"..matClass.getClassName().."' Material.");
                             
                             found = true;
                             
@@ -732,9 +734,9 @@ class URLSpawnHandler : EventHandler {
                 }
 
                 if (!found) {
-                    if (hd_debug) console.printf("'"..cls.getClassName().."' Not found in any recipe");
+                    if (hd_debug) console.printf("'"..matClass.getClassName().."' Not found in any recipe");
 
-                    backpackBlacklist.push(cls);
+                    backpackBlacklist.push(matClass);
                 }
             }
         }
