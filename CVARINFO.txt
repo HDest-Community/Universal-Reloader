@@ -344,3 +344,13 @@ server int   url_ndm_casingAmt             = 1;
 server int   url_ndm_powderMat             = 2;
 server int   url_ndm_powderAmt             = 1;
 server float url_ndm_speed                 = 1.0;
+
+// Merchant Store Filters
+server bool hdm_enable_gunsmithpouch       = true;
+server bool hdm_enable_rawbrass            = true;
+server bool hdm_enable_rawfuel             = true;
+server bool hdm_enable_rawlead             = true;
+server bool hdm_enable_rawplastic          = true;
+server bool hdm_enable_rawpowder           = true;
+server bool hdm_enable_rawsteel            = true;
+server bool hdm_enable_url                 = true;

@@ -1,0 +1,10 @@
+// Merchant Store Entries
+newMerchantStoreItem => { "enabled": "#hdm_enable_gunsmithpouch", "type": "item", "category": "$MERCH_CAT_GUNSMITHPOUCH", "item": "GunsmithPouch", "icon": "GSPPA0", "displayName": "$MERCH_TAG_GUNSMITHPOUCH", "basePrice": "100", "flavorText": "$MERCH_FLAVOR_GUNSMITHPOUCH" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_url", "type": "item", "category": "$MERCH_CAT_URL", "item": "HDUniversalReloader", "icon": "URLDA0", "displayName": "$MERCH_TAG_URL", "basePrice": "500", "flavorText": "$MERCH_FLAVOR_URL" }
+
+newMerchantStoreItem => { "enabled": "#hdm_enable_rawbrass", "type": "ammo", "category": "$MERCH_CAT_RAWBRASS", "item": "HDRel_RawBrass", "amount": "100", "icon": "BRMTA0", "displayName": "$MERCH_TAG_RAWBRASS", "basePrice": "40", "flavorText": "$MERCH_FLAVOR_RAWBRASS" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_rawfuel", "type": "ammo", "category": "$MERCH_CAT_RAWFUEL", "item": "HDRel_RawFuel", "amount": "5", "icon": "FUELA0", "displayName": "$MERCH_TAG_RAWFUEL", "basePrice": "5", "flavorText": "$MERCH_FLAVOR_RAWFUEL" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_rawlead", "type": "ammo", "category": "$MERCH_CAT_RAWLEAD", "item": "HDRel_RawLead", "amount": "50", "icon": "LEADA0", "displayName": "$MERCH_TAG_RAWLEAD", "basePrice": "40", "flavorText": "$MERCH_FLAVOR_RAWLEAD" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_rawplastic", "type": "ammo", "category": "$MERCH_CAT_RAWPLASTIC", "item": "HDRel_RawPlastic", "amount": "100", "icon": "PLTCA0", "displayName": "$MERCH_TAG_RAWPLASTIC", "basePrice": "40", "flavorText": "$MERCH_FLAVOR_RAWPLASTIC" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_rawpowder", "type": "ammo", "category": "$MERCH_CAT_RAWPOWDER", "item": "HDRel_RawPowder", "amount": "50", "icon": "PWDRA0", "displayName": "$MERCH_TAG_RAWPOWDER", "basePrice": "50", "flavorText": "$MERCH_FLAVOR_RAWPOWDER" }
+newMerchantStoreItem => { "enabled": "#hdm_enable_rawsteel", "type": "ammo", "category": "$MERCH_CAT_RAWSTEEL", "item": "HDRel_RawSteel", "amount": "10", "icon": "STMTA0", "displayName": "$MERCH_TAG_RAWSTEEL", "basePrice": "10", "flavorText": "$MERCH_FLAVOR_RAWSTEEL" }

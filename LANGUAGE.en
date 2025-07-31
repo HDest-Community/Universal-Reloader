@@ -49,3 +49,40 @@ PICKUP_PILE_RAWPOWDER     = "Picked up a pile of gunpowder.";
 PICKUP_PILE_RAWSTEEL      = "Picked up a ball of steel.";
 PICKUP_UNIVERSAL_RELOADER = "Picked up a universal reloading device.";
 PICKUP_GUNSMITH_POUCH     = "Picked up a gunsmith's pouch, for all your gunpowder!";
+
+// Merchant Store Entries
+
+// Universal Reloader
+MERCH_CAT_URL                     = "AceCorp";
+MERCH_TAG_URL                     = "Universal Reloader";
+MERCH_FLAVOR_URL                  = "I have no idea why you'd spend this much cash on this.";
+
+// Raw Brass
+MERCH_CAT_RAWBRASS                = "AceCorp";
+MERCH_TAG_RAWBRASS                = "Raw Brass";
+MERCH_FLAVOR_RAWBRASS             = "Turn yer casings into other casings!";
+
+// Raw Fuel
+MERCH_CAT_RAWFUEL                 = "AceCorp";
+MERCH_TAG_RAWFUEL                 = "Raw Fuel";
+MERCH_FLAVOR_RAWFUEL              = "Need a light?";
+
+// Raw Lead
+MERCH_CAT_RAWLEAD                 = "AceCorp";
+MERCH_TAG_RAWLEAD                 = "Raw Lead";
+MERCH_FLAVOR_RAWLEAD              = "Such heavy, very toxic, wow!";
+
+// Raw Plastic
+MERCH_CAT_RAWPLASTIC              = "AceCorp";
+MERCH_TAG_RAWPLASTIC              = "Raw Plastic";
+MERCH_FLAVOR_RAWPLASTIC           = "Choking hazard.";
+
+// Raw Powder
+MERCH_CAT_RAWPOWDER               = "AceCorp";
+MERCH_TAG_RAWPOWDER               = "Raw Powder";
+MERCH_FLAVOR_RAWPOWDER            = "Store away from heat sources.";
+
+// Raw Steel
+MERCH_CAT_RAWSTEEL                = "AceCorp";
+MERCH_TAG_RAWSTEEL                = "Raw Steel";
+MERCH_FLAVOR_RAWSTEEL             = "Tore this one off a Spider demon!";
