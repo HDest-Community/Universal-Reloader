@@ -179,15 +179,15 @@ class URLSpawnHandler : EventHandler {
 		// Backpack Spawns
 		//-----------------
 
-        if (!url_allowBackpacks)        backpackBlacklist.push((Class<Inventory>)('HDUniversalReloader'));
-        if (!gsp_allowBackpacks)        backpackBlacklist.push((Class<Inventory>)('GunsmithPouch'));
+        // if (!url_allowBackpacks)        backpackBlacklist.push((Class<Inventory>)('HDUniversalReloader'));
+        // if (!gsp_allowBackpacks)        backpackBlacklist.push((Class<Inventory>)('GunsmithPouch'));
 		
-        if (!rawBrass_allowBackpacks)   backpackBlacklist.push((Class<Inventory>)('HDRel_RawBrass'));
-        if (!rawFuel_allowBackpacks)    backpackBlacklist.push((Class<Inventory>)('HDRel_RawFuel'));
-        if (!rawLead_allowBackpacks)    backpackBlacklist.push((Class<Inventory>)('HDRel_RawLead'));
-        if (!rawPlastic_allowBackpacks) backpackBlacklist.push((Class<Inventory>)('HDRel_RawPlastic'));
-        if (!rawPowder_allowBackpacks)  backpackBlacklist.push((Class<Inventory>)('HDRel_RawPowder'));
-        if (!rawSteel_allowBackpacks)   backpackBlacklist.push((Class<Inventory>)('HDRel_RawSteel'));
+        // if (!rawBrass_allowBackpacks)   backpackBlacklist.push((Class<Inventory>)('HDRel_RawBrass'));
+        // if (!rawFuel_allowBackpacks)    backpackBlacklist.push((Class<Inventory>)('HDRel_RawFuel'));
+        // if (!rawLead_allowBackpacks)    backpackBlacklist.push((Class<Inventory>)('HDRel_RawLead'));
+        // if (!rawPlastic_allowBackpacks) backpackBlacklist.push((Class<Inventory>)('HDRel_RawPlastic'));
+        // if (!rawPowder_allowBackpacks)  backpackBlacklist.push((Class<Inventory>)('HDRel_RawPowder'));
+        // if (!rawSteel_allowBackpacks)   backpackBlacklist.push((Class<Inventory>)('HDRel_RawSteel'));
 
         //---------------------
         // Crafting Materials
@@ -786,11 +786,11 @@ class URLSpawnHandler : EventHandler {
         // Populates the main arrays if they haven't been already. 
         if (!cvarsAvailable) init();
 
-        foreach (bl : backpackBlacklist) {
-			if (hd_debug) console.printf("Removing "..bl.getClassName().." from Backpack Spawn Pool");
+        // foreach (bl : backpackBlacklist) {
+		// 	if (hd_debug) console.printf("Removing "..bl.getClassName().." from Backpack Spawn Pool");
                 
-			BPSpawnPool.removeItem(bl);
-        }
+		// 	BPSpawnPool.removeItem(bl);
+        // }
 	}
 
     override void checkReplacement(ReplaceEvent e) {
