@@ -29,16 +29,30 @@ class HDUniversalReloader : HDWeapon
 	{
 		Super.Tick();
 
-		if (!owner && !IsFrozen() && FactoryAction != FAction_None && !IsBeingPickedUp)
-		{
-			if (ChargeUp < 360 && vel.length() <= 0.4)
-			{
-				ChargeUp += 10;
-			}
-			for (int i = 0; i < ChargeUp; ++i)
-			{
-				A_SpawnParticle(FactoryAction == FAction_Assemble ? 0x00DDFF : 0x4444FF, SPF_RELATIVE | SPF_FULLBRIGHT, 1, 10, -i, SearchRange, 0, floorz - pos.z, startalphaf: 0.10);
-			}			
+		// If currently being picked up, quit.
+		if (IsBeingPickedUp) return;
+
+		// If already owned, quit.
+		if (owner) return;
+
+		// If frozen, quit.
+		if (IsFrozen()) return;
+
+		// If the current action is to do nothing, quit.
+		if (FactoryAction == FAction_None) return;
+
+		// Once we've stopped moving, begin charging
+		if (ChargeUp < 360 && vel.length() <= 0.4) ChargeUp += 10;
+
+		// Spawn Charge-Up VFX Particles
+		for (int i = 0; i < ChargeUp; ++i) {
+			A_SpawnParticle(
+				FactoryAction == FAction_Assemble ? 0x00DDFF : 0x4444FF,
+				SPF_RELATIVE|SPF_FULLBRIGHT,
+				1, 10,
+				-i, SearchRange, 0, floorz - pos.z,
+				startalphaf: 0.10
+			);
 		}
 	}
 
