@@ -34,15 +34,18 @@ class GunsmithPouch : HDStorageItem {
 		Tag "$TAG_GUNSMITH_POUCH";
 		Inventory.Icon "GSPPA0";
 		Inventory.PickupMessage "$PICKUP_GUNSMITH_POUCH";
+		Inventory.PickupSound "weapons/pocket";
 		scale 0.6;
 
 		hdweapon.wornlayer 0;
 		hdweapon.refid HDLD_GSPOUCH;
 
 		HDStorageItem.minBulk 35;
-		HDStorageItem.MaxCapacity 50;
+		HDStorageItem.maxCapacity 50;
 		HDStorageItem.maxBunch 200;
 	}
+
+	override bool IsBeingWorn() { return false; }
 
 	override double WeaponBulk() {
 		return ContainerBulk(itemBulk);
@@ -50,7 +53,10 @@ class GunsmithPouch : HDStorageItem {
 
 	override double ContainerBulk(double it) const {
 		let numPouches = max(weaponStatus[GSP_AMOUNT], 1);
-		return max(it * (0.15 + min(0.05 * numPouches, 0.5)), minBulk * numPouches);
+		let calcAmount = min(numPouches, 5);
+		let reductionFactor = 0.45 + min(0.05 * calcAmount, 0.5);
+
+		return max(it * reductionFactor, minBulk * numPouches);
 	}
 
 	override void BeginPlay() {
@@ -113,7 +119,7 @@ class GunsmithPouch : HDStorageItem {
 				[itemCls, prefix] = itemClassAndPrefix(0);
 	
 				if (itemCls) {
-	
+
 					double unitBulk = max(getDefaultByType((Class<HDPickup>)(itemCls)).bulk * HDMath.getEncumbranceMult(), Double.EPSILON);
 		
 					int amt = min((gsp.maxCapacity - gsp.itemBulk) / unitBulk, count(itemCls));
@@ -201,9 +207,6 @@ class GunsmithPouch : HDStorageItem {
 				invoker.bNO_AUTO_SWITCH = false;
 			}
 			Stop;
-		User3:
-			#### # 0 A_MagManager("");
-			goto Ready;
 	}
 }
 
@@ -217,7 +220,7 @@ class WildGSP : IdleDummy {
 	override void postBeginPlay() {
 		super.postBeginPlay();
 
-		let gsp = GunsmithPouch(spawn("GunsmithPouch",pos,ALLOW_REPLACE));
+		let gsp = GunsmithPouch(spawn("GunsmithPouch", pos, ALLOW_REPLACE));
 		gsp.RandomContents("GSPStorageItemList", frandom(0.1, 0.5), false);
 
 		HDF.TransferSpecials(self, gsp);
