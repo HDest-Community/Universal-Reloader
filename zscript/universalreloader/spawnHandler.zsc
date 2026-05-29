@@ -794,7 +794,7 @@ class URLSpawnHandler : EventHandler {
         forEach(bl : backpackBlacklist) {
             HDCore.log('URL.SpawnHandler', LOGGING_DEBUG, "Removing "..bl.getClassName().." from HDStorageItemList");
 
-            storageItemListHandler.blacklist.push(RemovedClasses[i].getClassName());
+            storageItemListHandler.blacklist.push(bl.getClassName());
         }
     }
 
