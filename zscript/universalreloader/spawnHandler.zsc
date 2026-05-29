@@ -93,6 +93,8 @@ class URLSpawnHandler : EventHandler {
 
     Array<HDRel_Recipe> recipes;
 
+    private HDCoreStorageItemListHandler storageItemListHandler;
+
     bool cvarsAvailable;
 
     // appends an entry to itemSpawnList;
