@@ -10,7 +10,7 @@ class URLSpawnItem play {
     // Whether or not to persistently spawn.
     bool isPersistent;
 
-	// Whether or not to replace the original item.
+    // Whether or not to replace the original item.
     bool replaceItem;
 
     string toString() {
@@ -80,8 +80,8 @@ class URLSpawnHandler : EventHandler {
         'HDLadderSection'
     };
 
-	// List of CVARs for Backpack Spawns
-	array<Class <Inventory> > backpackBlacklist;
+    // List of CVARs for Backpack Spawns
+    array<Class <Inventory> > backpackBlacklist;
 
     // List of weapon-ammo associations.
     // Used for ammo-use association on ammo spawn (happens very often).
@@ -102,7 +102,7 @@ class URLSpawnHandler : EventHandler {
 
             let msg = "Adding "..(persists ? "Persistent" : "Non-Persistent").." Replacement Entry for "..name..": [";
 
-			foreach (replacee : replacees) msg = msg..", "..replacee.toString();
+            foreach (replacee : replacees) msg = msg..", "..replacee.toString();
 
             console.printf(msg.."]");
         }
@@ -163,7 +163,7 @@ class URLSpawnHandler : EventHandler {
             powderMat, pwdCost, pwdProd,
             speed)
         ) {
-            if (hd_debug) console.printf("Adding Universal Reloader Crafting Recipe for "..amcls);
+            HDCore.log('URL.SpawnHandler', LOGGING_DEBUG, "Adding Universal Reloader Crafting Recipe for "..amcls);
 
             recipes.push(r);
         }
@@ -174,20 +174,20 @@ class URLSpawnHandler : EventHandler {
     void init() {
         
         cvarsAvailable = true;
-		
-		//-----------------
-		// Backpack Spawns
-		//-----------------
+        
+        //-----------------
+        // Backpack Spawns
+        //-----------------
 
-        // if (!url_allowBackpacks)        backpackBlacklist.push((Class<Inventory>)('HDUniversalReloader'));
-        // if (!gsp_allowBackpacks)        backpackBlacklist.push((Class<Inventory>)('GunsmithPouch'));
-		
-        // if (!rawBrass_allowBackpacks)   backpackBlacklist.push((Class<Inventory>)('HDRel_RawBrass'));
-        // if (!rawFuel_allowBackpacks)    backpackBlacklist.push((Class<Inventory>)('HDRel_RawFuel'));
-        // if (!rawLead_allowBackpacks)    backpackBlacklist.push((Class<Inventory>)('HDRel_RawLead'));
-        // if (!rawPlastic_allowBackpacks) backpackBlacklist.push((Class<Inventory>)('HDRel_RawPlastic'));
-        // if (!rawPowder_allowBackpacks)  backpackBlacklist.push((Class<Inventory>)('HDRel_RawPowder'));
-        // if (!rawSteel_allowBackpacks)   backpackBlacklist.push((Class<Inventory>)('HDRel_RawSteel'));
+        if (!url_allowBackpacks)        backpackBlacklist.push((Class<Inventory>)('HDUniversalReloader'));
+        if (!gsp_allowBackpacks)        backpackBlacklist.push((Class<Inventory>)('GunsmithPouch'));
+
+        if (!rawBrass_allowBackpacks)   backpackBlacklist.push((Class<Inventory>)('HDRel_RawBrass'));
+        if (!rawFuel_allowBackpacks)    backpackBlacklist.push((Class<Inventory>)('HDRel_RawFuel'));
+        if (!rawLead_allowBackpacks)    backpackBlacklist.push((Class<Inventory>)('HDRel_RawLead'));
+        if (!rawPlastic_allowBackpacks) backpackBlacklist.push((Class<Inventory>)('HDRel_RawPlastic'));
+        if (!rawPowder_allowBackpacks)  backpackBlacklist.push((Class<Inventory>)('HDRel_RawPowder'));
+        if (!rawSteel_allowBackpacks)   backpackBlacklist.push((Class<Inventory>)('HDRel_RawSteel'));
 
         //---------------------
         // Crafting Materials
@@ -722,7 +722,7 @@ class URLSpawnHandler : EventHandler {
 
                     foreach(material : recipe.materials) {
                         if (material && material.getClassName() == matClass.getClassName()) {
-                            if (hd_debug) console.printf("Found  '"..matClass.getClassName().."' Material.");
+                            HDCore.log('URL.SpawnHandler', LOGGING_DEBUG, "Found  '"..matClass.getClassName().."' Material.");
                             
                             found = true;
                             
@@ -734,7 +734,7 @@ class URLSpawnHandler : EventHandler {
                 }
 
                 if (!found) {
-                    if (hd_debug) console.printf("'"..matClass.getClassName().."' Not found in any recipe");
+                    HDCore.log('URL.SpawnHandler', LOGGING_DEBUG, "'"..matClass.getClassName().."' Not found in any recipe");
 
                     backpackBlacklist.push(matClass);
                 }
@@ -747,7 +747,7 @@ class URLSpawnHandler : EventHandler {
         if (chance > -1) {
             let result = random(0, chance);
 
-			if (hd_debug) console.printf("Rolled a "..(result + 1).." out of "..(chance + 1));
+            HDCore.log('URL.SpawnHandler', LOGGING_DEBUG, "Rolled a "..(result + 1).." out of "..(chance + 1));
 
             return result == 0;
         }
@@ -758,7 +758,7 @@ class URLSpawnHandler : EventHandler {
     // Tries to replace the item during spawning.
     bool tryReplaceItem(ReplaceEvent e, string spawnName, int chance) {
         if (giveRandom(chance)) {
-            if (hd_debug) console.printf(e.replacement.getClassName().." -> "..spawnName);
+            HDCore.log('URL.SpawnHandler', LOGGING_DEBUG, e.replacement.getClassName().." -> "..spawnName);
 
             e.replacement = spawnName;
 
@@ -770,8 +770,8 @@ class URLSpawnHandler : EventHandler {
 
     // Tries to create the item via random spawning.
     bool tryCreateItem(Actor thing, string spawnName, int chance) {
-		if (giveRandom(chance)) {
-            if (hd_debug) console.printf(thing.getClassName().." + "..spawnName);
+        if (giveRandom(chance)) {
+            HDCore.log('URL.SpawnHandler', LOGGING_DEBUG, thing.getClassName().." + "..spawnName);
 
             Actor.Spawn(spawnName, thing.pos);
 
@@ -781,17 +781,20 @@ class URLSpawnHandler : EventHandler {
         return false;
     }
 
-	override void worldLoaded(WorldEvent e) {
+    override void worldLoaded(WorldEvent e) {
 
         // Populates the main arrays if they haven't been already. 
         if (!cvarsAvailable) init();
 
-        // foreach (bl : backpackBlacklist) {
-		// 	if (hd_debug) console.printf("Removing "..bl.getClassName().." from Backpack Spawn Pool");
-                
-		// 	BPSpawnPool.removeItem(bl);
-        // }
-	}
+        if (!storageItemListHandler) storageItemListHandler = HDCoreStorageItemListHandler(EventHandler.find('HDCoreStorageItemListHandler'));
+
+        // TODO: Reimplement new Wild Backpack Spawn Pool
+        forEach(bl : backpackBlacklist) {
+            HDCore.log('URL.SpawnHandler', LOGGING_DEBUG, "Removing "..bl.getClassName().." from HDStorageItemList");
+
+            storageItemListHandler.blacklist.push(RemovedClasses[i].getClassName());
+        }
+    }
 
     override void checkReplacement(ReplaceEvent e) {
 
@@ -809,15 +812,15 @@ class URLSpawnHandler : EventHandler {
         handleItemReplacements(e, candidateName);
     }
 
-	override void worldThingSpawned(WorldEvent e) {
+    override void worldThingSpawned(WorldEvent e) {
 
         // If thing spawned doesn't exist, quit.
-		if (!e.thing) return;
+        if (!e.thing) return;
 
         // If thing spawned is blacklisted, quit.
-		foreach (bl : blacklist) if (e.thing is bl) return;
+        foreach (bl : blacklist) if (e.thing is bl) return;
 
-		string candidateName = e.thing.getClassName();
+        string candidateName = e.thing.getClassName();
 
         // Pointers for specific classes.
         let material = HDRel_CraftingMaterial(e.thing);
@@ -840,7 +843,7 @@ class URLSpawnHandler : EventHandler {
             if (hd_debug) {
                 console.printf("Adding the following to the list of items that use "..material.getClassName().."");
                 foreach (weapon : ammoSpawn.weaponNames) console.printf("* "..weapon);
-			}
+            }
 
             material.itemsThatUseThis.append(ammoSpawn.weaponNames);
         }
@@ -857,7 +860,7 @@ class URLSpawnHandler : EventHandler {
             if ((prespawn || itemSpawn.isPersistent) && itemSpawn.replaceItem) {
                 foreach (spawnReplace : itemSpawn.spawnReplaces) {
                     if (spawnReplace.name ~== candidateName) {
-                        if (hd_debug) console.printf("Attempting to replace "..candidateName.." with "..itemSpawn.spawnName.."...");
+                        HDCore.log('URL.SpawnHandler', LOGGING_DEBUG, "Attempting to replace "..candidateName.." with "..itemSpawn.spawnName.."...");
 
                         if (tryReplaceItem(e, itemSpawn.spawnName, spawnReplace.chance)) return;
                     }
@@ -884,7 +887,7 @@ class URLSpawnHandler : EventHandler {
             ) {
                 foreach (spawnReplace : itemSpawn.spawnReplaces) {
                     if (spawnReplace.name ~== candidateName) {
-                        if (hd_debug) console.printf("Attempting to spawn "..itemSpawn.spawnName.." with "..candidateName.."...");
+                        HDCore.log('URL.SpawnHandler', LOGGING_DEBUG, "Attempting to spawn "..itemSpawn.spawnName.." with "..candidateName.."...");
 
                         if (tryCreateItem(thing, itemSpawn.spawnName, spawnReplace.chance)) return;
                     }
