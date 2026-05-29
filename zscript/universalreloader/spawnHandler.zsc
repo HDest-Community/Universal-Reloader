@@ -849,7 +849,7 @@ class URLSpawnHandler : EventHandler {
     private void handleItemReplacements(ReplaceEvent e, string candidateName) {
 
         // Checks if the level has been loaded more than 1 tic.
-        bool prespawn = !(level.maptime > 1);
+        bool prespawn = HDCore.isPreSpawn();
 
         // Iterates through the list of item candidates for e.thing.
         foreach (itemSpawn : itemSpawnList) {
@@ -869,7 +869,7 @@ class URLSpawnHandler : EventHandler {
     private void handleItemSpawns(Actor thing, HDRel_CraftingMaterial material, string candidateName) {
         
         // Checks if the level has been loaded more than 1 tic.
-        bool prespawn = !(level.maptime > 1);
+        bool prespawn = HDCore.isPreSpawn();
 
         // Iterates through the list of item candidates for e.thing.
         foreach (itemSpawn : itemSpawnList) {
