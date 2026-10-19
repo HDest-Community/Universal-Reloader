@@ -1,0 +1,48 @@
+{
+  "tableName": "URL.ReallyDeadRiflemanGunsmithPouchSpawns",
+  "name": "WildGSP",
+  "chance": {
+    "name": "Clamp",
+    "params": {
+      "value": {
+        "name": "Subtract",
+        "params": {
+          "valueA": {
+            "name": "Add",
+            "params": {
+              "valueA": {
+                "name": "Multiply",
+                "params": {
+                  "valueA": {
+                    "name": "MapStat",
+                    "params": {
+                      "key": "WildGSP.spawn.fail"
+                    }
+                  },
+                  "valueB": 13
+                }
+              },
+              "valueB": 13
+            }
+          },
+          "valueB": {
+            "name": "Multiply",
+            "params": {
+              "valueA": {
+                "name": "MapStat",
+                "params": {
+                  "key": "WildGSP.spawn.success"
+                }
+              },
+              "valueB": 128
+            }
+          }
+        }
+      },
+      "min": 0,
+      "max": 255
+    }
+  },
+  "persists": true,
+  "replaces": false
+}
